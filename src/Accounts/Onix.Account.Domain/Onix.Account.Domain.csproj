@@ -7,11 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CSharpFunctionalExtensions" Version="3.0.0" />
+        <PackageReference Include="CSharpFunctionalExtensions" Version="3.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.8" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Shared\Onix.SharedKernel\Onix.SharedKernel.csproj" />
+        <ProjectReference Include="..\..\Shared\Onix.SharedKernel\Onix.SharedKernel.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -44,6 +44,18 @@ public class Location : SharedKernel.Entity<LocationId>
             locationAddress);
     }
 
+    public UnitResult<Error> Update(
+        Name name,
+        Phone phone,
+        Address locationAddress)
+    {
+        this.Name = name;
+        this.LocationPhone = phone;
+        this.LocationAddress = locationAddress;
+        
+        return UnitResult.Success<Error>();
+    }
+    
     //исправить это
     public UnitResult<Error> AddSchedule(
         Schedule schedule)

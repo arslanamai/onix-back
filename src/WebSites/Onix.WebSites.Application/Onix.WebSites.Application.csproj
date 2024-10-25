@@ -7,24 +7,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Shared\Onix.Core\Onix.Core.csproj" />
-      <ProjectReference Include="..\Onix.WebSites.Domain\Onix.WebSites.Domain.csproj" />
+        <ProjectReference Include="..\..\Shared\Onix.Core\Onix.Core.csproj"/>
+        <ProjectReference Include="..\Onix.WebSites.Domain\Onix.WebSites.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\Locations\Delete\" />
-      <Folder Include="Commands\Locations\Update\" />
-      <Folder Include="Commands\Products\Delete\" />
-      <Folder Include="Commands\Products\Update\" />
-      <Folder Include="Commands\Services\Add\" />
-      <Folder Include="Commands\Services\Delete\" />
-      <Folder Include="Commands\Services\Update\" />
-      <Folder Include="Commands\Socials\Delete\" />
-      <Folder Include="Commands\Socials\Update\" />
-      <Folder Include="Commands\WebSites\AddFavicon\" />
-      <Folder Include="Queries\Categories\Products\" />
-      <Folder Include="Queries\Categories\Services\" />
-      <Folder Include="Queries\Categories\SubCategories\" />
+        <Folder Include="Commands\Photos\"/>
+        <Folder Include="Commands\Products\Delete\"/>
+        <Folder Include="Commands\Products\Update\"/>
+        <Folder Include="Commands\Schedules\"/>
+        <Folder Include="Commands\Services\Add\"/>
+        <Folder Include="Commands\Services\Delete\"/>
+        <Folder Include="Commands\Services\Update\"/>
+        <Folder Include="Commands\Socials\Delete\"/>
+        <Folder Include="Commands\Socials\Update\"/>
+        <Folder Include="Commands\WebSites\AddFavicon\"/>
+        <Folder Include="Queries\Categories\Products\"/>
+        <Folder Include="Queries\Categories\Services\"/>
+        <Folder Include="Queries\Categories\SubCategories\"/>
     </ItemGroup>
 
 </Project>

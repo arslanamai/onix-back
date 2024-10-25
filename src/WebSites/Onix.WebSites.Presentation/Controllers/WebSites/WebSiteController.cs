@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Onix.Framework;
 using Onix.WebSites.Application.Commands.Blocks.Add;
+using Onix.WebSites.Application.Commands.Categories.Add;
 using Onix.WebSites.Application.Commands.WebSites.Create;
 using Onix.WebSites.Presentation.Controllers.WebSites.Requests;
 
@@ -8,6 +9,12 @@ namespace Onix.WebSites.Presentation.Controllers.WebSites;
 
 public class WebSiteController : ApplicationController
 {
+    /*[HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetWebSite(
+        [FromRoute] Guid id,
+        [FromServices] GetWebSiteByIdHandle handle,
+        )*/
+    
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromServices] CreateWebSiteHandler handler,
@@ -37,20 +44,20 @@ public class WebSiteController : ApplicationController
         return Ok(result.Value);
     }
     
-    /*[HttpPost("{id:guid}/Category/")]
-    public async Task<IActionResult> Add(
-        [FromForm] AddCategoryRequest request,
+    [HttpPost("{id:guid}/category")]
+    public async Task<IActionResult> AddCategory(
+        [FromBody] AddCategoryRequest request,
         [FromServices] AddCategoryHandle handle,
         [FromRoute] Guid id,
-        [FromRoute] Guid blockId,
+        [FromQuery] Guid categoryId,
         CancellationToken cancellationToken)
     {
         var result = await handle.Handle(
-            request.ToCommand(id,blockId), cancellationToken);
+            request.ToCommand(id, categoryId), cancellationToken);
 
         if (result.IsFailure)
             return result.Error.ToResponse();
 
         return Ok(result.Value);
-    }*/
+    }
 }

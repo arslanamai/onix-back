@@ -1,5 +1,8 @@
+using Onix.Core.Abstraction;
+
 namespace Onix.WebSites.Application.Commands.Categories.Add;
 
 public record AddCategoryCommand(
     Guid WebSiteId,
-    string Name);
+    Guid ParentCategoryId,
+    string Name) : ICommand;

@@ -51,7 +51,9 @@ public class DeleteCategoryHandle
         if (categoryResult is null)
             return Errors.General.NotFound(categoryId.Value).ToErrorList();
 
-        webSiteResult.Value.RemoveCategory(categoryResult);
+        var result = webSiteResult.Value.RemoveCategory(categoryResult);
+        if (result.IsFailure)
+            return result.Error.ToErrorList();
         
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return categoryResult.Id.Value;

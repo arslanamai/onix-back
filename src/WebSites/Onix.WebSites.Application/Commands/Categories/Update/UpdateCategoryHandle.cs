@@ -51,7 +51,9 @@ public class UpdateCategoryHandle
             return Errors.General.NotFound(categoryId.Value).ToErrorList();
 
         var name = Name.Create(command.Name).Value;    
-        categoryResult.Update(name);
+        var result = categoryResult.Update(name);
+        if (result.IsFailure)
+            return result.Error.ToErrorList();
         
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return categoryResult.Id.Value;

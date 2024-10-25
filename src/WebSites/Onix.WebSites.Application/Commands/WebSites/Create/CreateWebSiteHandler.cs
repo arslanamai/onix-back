@@ -17,7 +17,7 @@ namespace Onix.WebSites.Application.Commands.WebSites.Create;
 public class CreateWebSiteHandler
 {
     private readonly ILogger<CreateWebSiteHandler> _logger;
-    private readonly GetByUrlHandle _getByUrlHandle;
+    private readonly GetWebSiteByUrlHandle _getWebSiteByUrlHandle;
     private readonly IValidator<CreateWebSiteCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -27,10 +27,10 @@ public class CreateWebSiteHandler
         IWebSiteRepository webSiteWebSiteRepository,
         IUnitOfWork unitOfWork,
         ILogger<CreateWebSiteHandler> logger,
-        GetByUrlHandle getByUrlHandle)
+        GetWebSiteByUrlHandle getWebSiteByUrlHandle)
     {
         _logger = logger;
-        _getByUrlHandle = getByUrlHandle;
+        _getWebSiteByUrlHandle = getWebSiteByUrlHandle;
         _validator = validator;
         _webSiteRepository = webSiteWebSiteRepository;
         _unitOfWork = unitOfWork;
@@ -44,9 +44,9 @@ public class CreateWebSiteHandler
             return validationResult.ToList();
 
         var url = Url.Create(command.Url).Value;
-        var query = new GetByUrlQuery(url.Value);
+        var query = new GetWebSiteByUrlQuery(url.Value);
         
-        var website = await _getByUrlHandle.Handle(query,cancellationToken);
+        var website = await _getWebSiteByUrlHandle.Handle(query,cancellationToken);
         if (website.IsSuccess)
             return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
 

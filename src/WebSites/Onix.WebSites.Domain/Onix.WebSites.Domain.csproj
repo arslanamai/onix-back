@@ -7,6 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Shared\Onix.SharedKernel\Onix.SharedKernel.csproj" />
+        <ProjectReference Include="..\..\Shared\Onix.SharedKernel\Onix.SharedKernel.csproj"/>
     </ItemGroup>
 </Project>

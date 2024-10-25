@@ -12,10 +12,10 @@ namespace Onix.WebSites.Application.Commands.Blocks.Update;
 
 public class UpdateBlockHandler
 {
+    private readonly ILogger<UpdateBlockHandler> _logger;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<UpdateBlockCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<UpdateBlockHandler> _logger;
 
     public UpdateBlockHandler(
         IValidator<UpdateBlockCommand> validator,
@@ -30,14 +30,14 @@ public class UpdateBlockHandler
     }
 
     public async Task<Result<Guid, ErrorList>> Handle(
-        UpdateBlockCommand command ,CancellationToken cancellationToken)
+        UpdateBlockCommand command, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(command,cancellationToken);
+        var validationResult = await _validator.ValidateAsync(command, cancellationToken);
         if (validationResult.IsValid == false)
             return validationResult.ToList();
 
         var webSiteId = WebSiteId.Create(command.WebSiteId);
-        
+
         var webSiteResult = await _webSiteRepository
             .GetByIdWithBlocks(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
@@ -45,14 +45,16 @@ public class UpdateBlockHandler
 
         var blockId = BlockId.Create(command.BlockId);
         var code = Code.Create(command.Code).Value;
-        
+
         var blockResult = webSiteResult.Value.Blocks
             .FirstOrDefault(b => b.Id == blockId);
         if (blockResult is null)
             return Errors.General.NotFound(blockId.Value).ToErrorList();
 
-        blockResult.Update(code);
-        
+        var result = blockResult.Update(code);
+        if (result.IsFailure)
+            return result.Error.ToErrorList();
+
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return blockResult.Id.Value;
     }

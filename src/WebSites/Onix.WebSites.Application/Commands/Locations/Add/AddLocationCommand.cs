@@ -1,3 +1,5 @@
+using Onix.Core.Abstraction;
+
 namespace Onix.WebSites.Application.Commands.Locations.Add;
 
 public record AddLocationCommand(
@@ -7,4 +9,4 @@ public record AddLocationCommand(
     string City,
     string Street,
     string Build,
-    string Index);
+    string Index) : ICommand;

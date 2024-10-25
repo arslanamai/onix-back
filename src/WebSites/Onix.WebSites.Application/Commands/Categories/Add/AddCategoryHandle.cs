@@ -37,7 +37,7 @@ public class AddCategoryHandle
         if (!validator.IsValid)
             return validator.ToList();
         
-        var webSiteId = WebSiteId.Create(command.WebSiteId);
+        var webSiteId = WebSiteId.Create(command. WebSiteId);
         
         var webSiteResult = await _webSiteRepository
             .GetByIdWithCategories(webSiteId, cancellationToken);
@@ -46,11 +46,18 @@ public class AddCategoryHandle
 
         var categoryId = CategoryId.NewId();
         var name = Name.Create(command.Name).Value;
+
+        var parentId = CategoryId.Create(command.ParentCategoryId);
         
+        var parentCategoryResult = parentId.Value != Guid.Empty
+            ? webSiteResult.Value.Categories.FirstOrDefault(w => w.Id == parentId)
+            : null;
+
         var category = Category.Create(
             categoryId,
             name,
-            null).Value;
+            parentCategoryResult
+        ).Value;
 
         var result = webSiteResult.Value.AddCategory(category);
         if (result.IsFailure)

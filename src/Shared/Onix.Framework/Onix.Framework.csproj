@@ -5,12 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\Onix.Core\Onix.Core.csproj" />
+        <ProjectReference Include="..\Onix.Core\Onix.Core.csproj"/>
     </ItemGroup>
 </Project>

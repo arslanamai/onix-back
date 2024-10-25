@@ -3,7 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Onix.Core.Abstraction;
 using Onix.WebSites.Application.Commands.Blocks.Add;
 using Onix.WebSites.Application.Commands.Categories.Add;
-using Onix.WebSites.Application.Commands.FAQ.Add;
+using Onix.WebSites.Application.Commands.Categories.Delete;
+using Onix.WebSites.Application.Commands.Categories.Update;
+using Onix.WebSites.Application.Commands.FAQs.Add;
 using Onix.WebSites.Application.Commands.Locations.Add;
 using Onix.WebSites.Application.Commands.Socials.Add;
 using Onix.WebSites.Application.Commands.WebSites.AddContact;
@@ -42,6 +44,7 @@ public static class Inject
         services
             .AddValidatorsFromAssembly(assembly)
             .AddWebSiteCommand()
+            .AddCategoryCommand()
             .AddWebSiteQuery();
 
         return services;
@@ -56,11 +59,20 @@ public static class Inject
         service.AddScoped<UpdateAppearanceHandle>();
 
         service.AddScoped<AddBlockHandler>();
-        service.AddScoped<AddCategoryHandle>();
         service.AddScoped<AddContactHandle>();
-        service.AddScoped<AddFAQHandle>();
+        service.AddScoped<AddFaqHandle>();
         service.AddScoped<AddLocationHandle>();
         service.AddScoped<AddSocialHandle>();
+        
+        return service;
+    }
+
+    private static IServiceCollection AddCategoryCommand(
+        this IServiceCollection service)
+    {
+        service.AddScoped<AddCategoryHandle>();
+        service.AddScoped<UpdateCategoryHandle>();
+        service.AddScoped<DeleteCategoryHandle>();
         
         return service;
     }
@@ -68,12 +80,12 @@ public static class Inject
     private static IServiceCollection AddWebSiteQuery(
         this IServiceCollection service)
     {
-        service.AddScoped<GetByIdHandle>();
-        service.AddScoped<GetByUrlHandle>();
-        service.AddScoped<GetByIdHandleWithBLocks>();
-        service.AddScoped<GetByIdHandleWithCategories>();
-        service.AddScoped<GetByIdHandleWithFavicon>();
-        service.AddScoped<GetByIdHandleWithLocations>();
+        service.AddScoped<GetWebSiteByIdHandle>();
+        service.AddScoped<GetWebSiteByUrlHandle>();
+        service.AddScoped<GetWebSiteByIdWithBLocksHandle>();
+        service.AddScoped<GetWebSiteByIdWithCategoryHandle>();
+        service.AddScoped<GetWebSiteByIdWithFaviconHandle>();
+        service.AddScoped<GetWebSiteByIdWithLocationsHandle>();
 
         return service;
     }

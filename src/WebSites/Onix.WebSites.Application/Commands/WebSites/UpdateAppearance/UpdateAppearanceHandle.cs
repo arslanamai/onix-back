@@ -18,20 +18,20 @@ public class UpdateAppearanceHandle
     private readonly IValidator<UpdateAppearanceCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly GetByUrlHandle _getByUrlHandle;
+    private readonly GetWebSiteByUrlHandle _getWebSiteByUrlHandle;
     private readonly ILogger<UpdateAppearanceHandle> _logger;
 
     public UpdateAppearanceHandle(
         IValidator<UpdateAppearanceCommand> validator,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        GetByUrlHandle getByUrlHandle,
+        GetWebSiteByUrlHandle getWebSiteByUrlHandle,
         ILogger<UpdateAppearanceHandle> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
         _unitOfWork = unitOfWork;
-        _getByUrlHandle = getByUrlHandle;
+        _getWebSiteByUrlHandle = getWebSiteByUrlHandle;
         _logger = logger;
     }
     

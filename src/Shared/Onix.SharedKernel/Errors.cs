@@ -7,12 +7,12 @@ public static class Errors
         public static Error NotFound(Guid? id = null)
         {
             var forId = id == null ? "" : $" for Id '{id}'";
-            return Error.NotFound("record.not.found", $"record not found{forId}");
+            return Error.NotFound("value.not.found", $"value not found {forId}");
         }
         
         public static Error NotFound(string? value = "value")
         {
-            return Error.NotFound("value.is.required", $"{value} is required");
+            return Error.NotFound("value.not.found", $"{value} not vound");
         }
 
         public static Error WrongType(string? value = "value")
