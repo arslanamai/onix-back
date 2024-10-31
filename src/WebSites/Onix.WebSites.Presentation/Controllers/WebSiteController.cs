@@ -42,7 +42,7 @@ public class WebSiteController : ApplicationController
     public async Task<IActionResult> Update(
         [FromServices] UpdateWebSiteHandle handle,
         [FromBody] UpdateWebSiteRequest request,
-        
+        [FromRoute] Guid id,
         CancellationToken cancellationToken = default)
     {
         var result = await handle.Handle(request.ToCommand(id), cancellationToken);
