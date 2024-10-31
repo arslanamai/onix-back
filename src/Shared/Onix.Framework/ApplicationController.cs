@@ -4,7 +4,6 @@ using Onix.Core.Response;
 namespace Onix.Framework;
 
 [ApiController]
-[Route("[controller]")]
 public class ApplicationController : ControllerBase
 {
     public override OkObjectResult Ok(object? value)

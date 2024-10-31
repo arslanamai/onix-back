@@ -18,4 +18,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Onix.Account.Domain\Onix.Account.Domain.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Providers\" />
+    </ItemGroup>
 </Project>

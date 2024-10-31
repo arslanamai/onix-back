@@ -1,6 +1,6 @@
 using Onix.WebSites.Application.Commands.Blocks.Add;
 
-namespace Onix.WebSites.Presentation.Controllers.WebSites.Requests;
+namespace Onix.WebSites.Presentation.Controllers.Requests;
 
 public record AddBLockRequest(
     string Code)

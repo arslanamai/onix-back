@@ -1,6 +1,6 @@
 using Onix.WebSites.Application.Commands.Products.Add;
 
-namespace Onix.WebSites.Presentation.Controllers.WebSites.Requests;
+namespace Onix.WebSites.Presentation.Controllers.Requests;
 
 public record AddProductRequest(
     string Name,

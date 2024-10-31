@@ -12,7 +12,7 @@ public class AccountDbContext(IConfiguration configuration)
 {
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
     public DbSet<Permission> Permissions => Set<Permission>();
-    public DbSet<User> Users => Set<User>();
+    public DbSet<User> Accounts => Set<User>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -12,7 +12,6 @@ public class User : IdentityUser<Guid>
     //ef core
     private User()
     {
-        
     }
     
     public IReadOnlyList<Role> Roles => _roles;
