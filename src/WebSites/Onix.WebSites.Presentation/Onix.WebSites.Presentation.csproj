@@ -11,8 +11,4 @@
         <ProjectReference Include="..\Onix.WebSites.Application\Onix.WebSites.Application.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\Requests\Services\" />
-    </ItemGroup>
-
 </Project>

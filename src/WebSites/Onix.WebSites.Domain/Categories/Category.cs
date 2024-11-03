@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Categories.Entities;
+using Onix.WebSites.Domain.Products;
 
 namespace Onix.WebSites.Domain.Categories;
 
@@ -28,9 +28,6 @@ public class Category : SharedKernel.Entity<CategoryId>
     public IReadOnlyList<Category> SubCategory => _subCategories;
     private readonly List<Category> _subCategories = [];
     
-    public IReadOnlyList<Service> Services => _services;
-    private readonly List<Service> _services = [];
-    
     public IReadOnlyList<Product> Products => _products;
     private readonly List<Product> _products = [];
 
@@ -54,27 +51,28 @@ public class Category : SharedKernel.Entity<CategoryId>
 
     //subcategory
     public UnitResult<Error> AddSubCategory(
-        Category category)
+        Category subcategory)
     {
-        if (_services.Count is not Constants.MIN_COUNT
-            && _products.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
+        if (_products.Count is not Constants.MIN_COUNT)
+            return UnitResult.Failure<Error>(
+                Errors.Domain.Invalid(ConstType.SubCategory));
 
         if (_subCategories.Count >= Constants.MAX_CATEGORY_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.MaxCount());
+            return UnitResult.Failure<Error>(
+                Errors.Domain.MaxCount(ConstType.SubCategory));
         
-        _subCategories.Add(category);
+        _subCategories.Add(subcategory);
         return UnitResult.Success<Error>();
     }
     
     public UnitResult<Error> DeleteSubCategory(
-        Category category)
+        Category subcategory)
     {
         if (_subCategories.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(category)));
+                Errors.Domain.Empty(ConstType.SubCategory));
 
-        _subCategories.Remove(category);
+        _subCategories.Remove(subcategory);
         return UnitResult.Success<Error>();
     }
 
@@ -83,11 +81,9 @@ public class Category : SharedKernel.Entity<CategoryId>
     public UnitResult<Error> AddProduct(
         Product product)
     {
-        if (_services.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
-
         if (_products.Count >= Constants.MAX_PRODUCT_COUNT)
-            return UnitResult.Failure(Errors.Domain.MaxCount(nameof(product)));
+            return UnitResult.Failure(
+                Errors.Domain.MaxCount(ConstType.Product));
         
         _products.Add(product);
         return UnitResult.Success<Error>();
@@ -98,34 +94,9 @@ public class Category : SharedKernel.Entity<CategoryId>
     {
         if (_products.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(product)));
+                Errors.Domain.Empty(ConstType.Product));
 
         _products.Remove(product);
-        return UnitResult.Success<Error>();
-    }
-    
-    //service
-    public UnitResult<Error> AddService(
-        Service service)
-    {
-        if (_products.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
-        
-        if (_services.Count >= Constants.MAX_SERVICE_COUNT)
-            return UnitResult.Failure(Errors.Domain.MaxCount(nameof(service)));
-        
-        _services.Add(service);
-        return UnitResult.Success<Error>();
-    }
-    
-    public UnitResult<Error> RemoveService(
-        Service service)
-    {
-        if (_services.Count is Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(service)));
-
-        _services.Remove(service);
         return UnitResult.Success<Error>();
     }
 }

@@ -7,63 +7,65 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
+using Onix.WebSites.Domain.Locations;
 using Onix.WebSites.Domain.Locations.ValueObjects;
 
-namespace Onix.WebSites.Application.Commands.Locations.Update;
+namespace Onix.WebSites.Application.Commands.Locations.Add;
 
-public class UpdateLocationHandler
+public class AddLocationHandler
 {
-    private readonly IValidator<UpdateLocationCommand> _validator;
+    private readonly ILogger<AddLocationHandler> _logger;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<UpdateLocationHandler> _logger;
+    private readonly IValidator<AddLocationCommand> _validator;
 
-    public UpdateLocationHandler(
-        IValidator<UpdateLocationCommand> validator,
+    public AddLocationHandler(
+        ILogger<AddLocationHandler> logger,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        ILogger<UpdateLocationHandler> logger)
+        IValidator<AddLocationCommand> validator)
     {
-        _validator = validator;
+        _logger = logger;
         _webSiteRepository = webSiteRepository;
         _unitOfWork = unitOfWork;
-        _logger = logger;
+        _validator = validator;
     }
 
-    public async Task<UnitResult<ErrorList>> Handle(
-        UpdateLocationCommand command ,CancellationToken cancellationToken)
+    public async Task<Result<Guid, ErrorList>> Handle(
+        AddLocationCommand command, CancellationToken cancellationToken = default)
     {
-        var validationResult = await _validator.ValidateAsync(command,cancellationToken);
-        if (validationResult.IsValid == false)
-            return validationResult.ToList();
+        var validator = await _validator.ValidateAsync(command, cancellationToken);
+        if (!validator.IsValid)
+            return validator.ToList();
 
         var webSiteId = WebSiteId.Create(command.WebSiteId);
-        
+
         var webSiteResult = await _webSiteRepository
-            .GetByIdWithCategories(webSiteId, cancellationToken);
+            .GetByIdWithLocation(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var locationId = LocationId.Create(command.LocationId);
-        
-        var locationResult = webSiteResult.Value.Locations
-            .FirstOrDefault(b => b.Id == locationId);
-        if (locationResult is null)
-            return Errors.General.NotFound(locationId.Value).ToErrorList();
-
+        var locationId = LocationId.NewId();
         var name = Name.Create(command.Name).Value;
         var phone = Phone.Create(command.Phone).Value;
+        
         var address = Address.Create(
             command.City,
             command.Street,
             command.Build,
             command.Index).Value;
-        
-        var result = locationResult.Update(name, phone, address);
+
+        var location = Location.Create(
+            locationId,
+            name,
+            phone,
+            address).Value;
+
+        var result = webSiteResult.Value.AddLocation(location);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return UnitResult.Success<ErrorList>();
+        return location.Id.Value;
     }
 }

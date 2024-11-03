@@ -7,15 +7,20 @@ using Onix.WebSites.Application.Commands.Blocks.Update;
 using Onix.WebSites.Application.Commands.Categories.Add;
 using Onix.WebSites.Application.Commands.Categories.Delete;
 using Onix.WebSites.Application.Commands.Categories.Update;
-using Onix.WebSites.Application.Commands.FAQs.Add;
 using Onix.WebSites.Application.Commands.Locations.Add;
+using Onix.WebSites.Application.Commands.Locations.AddSchedules;
+using Onix.WebSites.Application.Commands.Locations.Delete;
 using Onix.WebSites.Application.Commands.Locations.Update;
-using Onix.WebSites.Application.Commands.Socials.Add;
-using Onix.WebSites.Application.Commands.WebSites.AddContact;
+using Onix.WebSites.Application.Commands.Products.Add;
+using Onix.WebSites.Application.Commands.Products.Delete;
+using Onix.WebSites.Application.Commands.Products.Update;
+using Onix.WebSites.Application.Commands.WebSites.AddFaq;
+using Onix.WebSites.Application.Commands.WebSites.AddSocial;
 using Onix.WebSites.Application.Commands.WebSites.Create;
 using Onix.WebSites.Application.Commands.WebSites.Delete;
 using Onix.WebSites.Application.Commands.WebSites.Update;
 using Onix.WebSites.Application.Commands.WebSites.UpdateAppearance;
+using Onix.WebSites.Application.Commands.WebSites.UpdateContact;
 using Onix.WebSites.Application.Queries.WebSites.GetById;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithCategories;
@@ -46,41 +51,42 @@ public static class Inject
 
         services
             .AddValidatorsFromAssembly(assembly)
-            .AddWebSiteCommand()
-            .AddCategoryCommand()
-            .AddBlockCommand() 
-            .AddWebSiteQuery();
+            .WebSiteCommand()
+            .CategoryCommand()
+            .BlockCommand()
+            .LocationCommand()
+            .ProductCommand()
+            .AddQuery();
 
         return services;
     }
 
-    private static IServiceCollection AddWebSiteCommand(
+    private static IServiceCollection WebSiteCommand(
         this IServiceCollection service)
     {
         service.AddScoped<CreateWebSiteHandler>();
-        service.AddScoped<UpdateWebSiteHandle>();
-        service.AddScoped<DeleteWebSiteHandle>();
+        service.AddScoped<UpdateWebSiteHandler>();
+        service.AddScoped<DeleteWebSiteHandler>();
         
-        service.AddScoped<UpdateAppearanceHandle>();
-
-        service.AddScoped<AddContactHandle>();
-        service.AddScoped<AddFaqHandle>();
-        service.AddScoped<AddSocialHandle>();
+        service.AddScoped<UpdateAppearanceHandler>();
+        service.AddScoped<UpdateContactHandler>();
+        service.AddScoped<AddFaqHandler>();
+        service.AddScoped<AddSocialHandler>();
         
         return service;
     }
 
-    private static IServiceCollection AddCategoryCommand(
+    private static IServiceCollection CategoryCommand(
         this IServiceCollection service)
     {
-        service.AddScoped<AddCategoryHandle>();
-        service.AddScoped<UpdateCategoryHandle>();
-        service.AddScoped<DeleteCategoryHandle>();
+        service.AddScoped<AddCategoryHandler>();
+        service.AddScoped<UpdateCategoryHandler>();
+        service.AddScoped<DeleteCategoryHandler>();
         
         return service;
     }
     
-    private static IServiceCollection AddBlockCommand(
+    private static IServiceCollection BlockCommand(
         this IServiceCollection service)
     {
         service.AddScoped<AddBlockHandler>();
@@ -90,17 +96,28 @@ public static class Inject
         return service;
     }
 
-    private static IServiceCollection AddLocation(
+    private static IServiceCollection LocationCommand(
         this IServiceCollection service)
     {
-        service.AddScoped<AddLocationHandle>();
+        service.AddScoped<AddLocationHandler>();
         service.AddScoped<UpdateLocationHandler>();
-        service.AddScoped<DeleteWebSiteHandle>();
+        service.AddScoped<DeleteLocationHandler>();
+        service.AddScoped<AddScheduleHandler >();
 
         return service;
     }
 
-    private static IServiceCollection AddWebSiteQuery(
+    private static IServiceCollection ProductCommand(
+        this IServiceCollection service)
+    {
+        service.AddScoped<AddProductHandler>();
+        service.AddScoped<UpdateProductHandler>();
+        service.AddScoped<DeleteProductHandler>();
+        
+        return service;
+    }
+
+    private static IServiceCollection AddQuery(
         this IServiceCollection service)
     {
         service.AddScoped<GetWebSiteByIdHandle>();

@@ -11,9 +11,9 @@ public class ReadDbContext(IConfiguration configuration) : DbContext, IReadDbCon
     private const string DATABASE = "Database";
     
     public IQueryable<WebSiteDto> WebSites => Set<WebSiteDto>();
+    public IQueryable<LocationDto> Location => Set<LocationDto>();
     public IQueryable<BlockDto> Blocks => Set<BlockDto>();
     public IQueryable<ProductDto> Product => Set<ProductDto>();
-    public IQueryable<ServiceDto> Service => Set<ServiceDto>();
     public IQueryable<PhotoDto> Photo => Set<PhotoDto>();
     public IQueryable<CategoryDto> Category => Set<CategoryDto>();
 

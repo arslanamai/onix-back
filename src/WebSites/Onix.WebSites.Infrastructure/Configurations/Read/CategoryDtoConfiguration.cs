@@ -23,11 +23,6 @@ public class CategoryDtoConfiguration : IEntityTypeConfiguration<CategoryDto>
         builder.HasMany(c => c.Products)
             .WithOne()
             .IsRequired(false)
-            .HasForeignKey(p => p.CategoryId);
-        
-        builder.HasMany(c => c.Services)
-            .WithOne()
-            .IsRequired(false)
-            .HasForeignKey(p => p.CategoryId);
+            .HasForeignKey(p => p.CategoryId); 
     }
 }

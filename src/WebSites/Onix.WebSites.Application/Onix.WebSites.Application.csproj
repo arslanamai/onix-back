@@ -12,9 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Commands\Photos\"/>
-        <Folder Include="Commands\Socials\Delete\"/>
-        <Folder Include="Commands\Socials\Update\"/>
         <Folder Include="Commands\WebSites\AddFavicon\"/>
         <Folder Include="Queries\Categories\GetById\" />
         <Folder Include="Queries\Products\GetById\" />

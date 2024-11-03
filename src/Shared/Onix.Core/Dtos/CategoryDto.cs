@@ -9,7 +9,5 @@ public class CategoryDto
     public string Name { get; init; } = string.Empty;
 
     public List<CategoryDto> SubCategories { get; init; } = [];
-    
-    public List<ServiceDto> Services { get; init; } = [];
     public List<ProductDto> Products { get; init; } = [];
 }

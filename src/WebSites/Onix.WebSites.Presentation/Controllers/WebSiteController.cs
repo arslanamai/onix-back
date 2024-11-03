@@ -41,7 +41,7 @@ public class WebSiteController : ApplicationController
 
     [HttpPut("/website/{id:guid}")]
     public async Task<IActionResult> Update(
-        [FromServices] UpdateWebSiteHandle handler,
+        [FromServices] UpdateWebSiteHandler handler,
         [FromBody] UpdateWebSiteRequest request,
         [FromRoute] Guid id,
         CancellationToken cancellationToken = default)
@@ -51,13 +51,13 @@ public class WebSiteController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
     
     [HttpDelete("/website/{id:guid}")]
     public async Task<IActionResult> Delete (
         [FromRoute] Guid id,
-        [FromServices] DeleteWebSiteHandle handler,
+        [FromServices] DeleteWebSiteHandler handler,
         CancellationToken cancellationToken = default)
     {
         var request = new DeleteWebSiteRequest();
@@ -66,6 +66,6 @@ public class WebSiteController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
 }

@@ -18,14 +18,9 @@ public record Schedule
     public string StartTime { get; }
     public string EndTime { get; }
 
-    public static Result<Schedule> Create(
-        string weekDay,
-        string startTime,
-        string endTime)
+    public static Result<List<Schedule>> Create(
+        List<Schedule> schedules)
     {
-        return new Schedule(
-            weekDay,
-            startTime,
-            endTime);
+        return new List<Schedule>(schedules);
     }
 }

@@ -7,7 +7,7 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Domain.Categories.ValueObjects;
+using Onix.WebSites.Domain.Products.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Products.Update;
 
@@ -30,7 +30,7 @@ public class UpdateProductHandler
         _validator = validator;
     }
 
-    public async Task<Result<Guid, ErrorList>> Handle(
+    public async Task<UnitResult<ErrorList>> Handle(
         UpdateProductCommand command, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(command, cancellationToken);
@@ -74,6 +74,6 @@ public class UpdateProductHandler
             return result.Error.ToErrorList();
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return productResult.Id.Value;
+        return UnitResult.Success<ErrorList>();
     }
 }

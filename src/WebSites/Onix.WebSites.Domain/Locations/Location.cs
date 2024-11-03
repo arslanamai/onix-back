@@ -3,6 +3,7 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Domain.Locations.ValueObjects;
+using DayOfWeek = Onix.WebSites.Domain.Locations.ValueObjects.DayOfWeek;
 
 namespace Onix.WebSites.Domain.Locations;
 
@@ -58,12 +59,14 @@ public class Location : SharedKernel.Entity<LocationId>
     
     //исправить это
     public UnitResult<Error> AddSchedule(
-        Schedule schedule)
+        List<Schedule> schedule)
     {
         if (_schedules.Count >= Constants.SHARE_MAX_LENGTH)
-            return UnitResult.Failure<Error>(Errors.Domain.MaxCount());
+            return UnitResult.Failure<Error>(
+                Errors.Domain.MaxCount(ConstType.Schedule));
         
-        _schedules.Add(schedule);
+        _schedules.Clear();
+        _schedules.AddRange(schedule);
         return UnitResult.Success<Error>();
     }
 }

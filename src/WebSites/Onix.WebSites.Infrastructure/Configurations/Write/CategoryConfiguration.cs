@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Domain.Categories;
@@ -34,11 +33,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .HasForeignKey("parentCategory_id");
 
         builder.HasMany(c => c.Products)
-            .WithOne()
-            .IsRequired(false)
-            .HasForeignKey("category_id");
-
-        builder.HasMany(c => c.Services)
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("category_id");

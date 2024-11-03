@@ -29,7 +29,7 @@ public class DeleteProductHandler
         _validator = validator;
     }
     
-    public async Task<Result<Guid, ErrorList>> Handle(
+    public async Task<UnitResult<ErrorList>> Handle(
         DeleteProductCommand command, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(command, cancellationToken);
@@ -63,6 +63,6 @@ public class DeleteProductHandler
             return result.Error.ToErrorList();
         
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return productResult.Id.Value;
+        return UnitResult.Success<ErrorList>();
     }
 }

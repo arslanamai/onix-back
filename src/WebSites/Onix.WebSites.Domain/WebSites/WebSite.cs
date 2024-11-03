@@ -67,12 +67,6 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
         Appearance appearance,
         bool showStatus = true)
     {
-        if (string.IsNullOrWhiteSpace(url.Value))
-            return Errors.Domain.Required(nameof(url)).ToErrorList();
-
-        if (string.IsNullOrWhiteSpace(name.Value))
-            return Errors.Domain.Required(nameof(name)).ToErrorList();
-
         return new WebSite(
             id,
             url,
@@ -93,24 +87,14 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
 
     //contact
     public UnitResult<Error> AddSocial(
-        SocialMedia socialMedia)
+        List<SocialMedia> socialMedias)
     {
         if (_socialMedias.Count >= Constants.MAX_SOCIAL_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(nameof(socialMedia)));
+                Errors.Domain.MaxCount(ConstType.SocialMedia));
 
-        _socialMedias.Add(socialMedia);
-        return UnitResult.Success<Error>();
-    }
-    
-    public UnitResult<Error> DeleteSocial(
-        SocialMedia socialMedia)
-    {
-        if (_socialMedias.Count is Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(socialMedia)));
-
-        _socialMedias.Remove(socialMedia);
+        _socialMedias.Clear();
+        _socialMedias.AddRange(socialMedias);
         return UnitResult.Success<Error>();
     }
     
@@ -123,25 +107,15 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     }
     
     //faq
-    public UnitResult<Error> AddFAQ(
-        Faq faq)
+    public UnitResult<Error> UpdateFAQs(List<Faq> faqs)
     {
-        if (_faqs.Count >= Constants.MAX_FAQ_COUNT)
+        if (faqs.Count > Constants.MAX_FAQ_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(nameof(faq)));
+                Errors.Domain.MaxCount(ConstType.FAQs));
 
-        _faqs.Add(faq);
-        return UnitResult.Success<Error>();
-    }
-    
-    public UnitResult<Error> RemoveFAQ(
-        Faq faq)
-    {
-        if (_faqs.Count is Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(faq)));
+        _faqs.Clear();
+        _faqs.AddRange(faqs);
 
-        _faqs.Remove(faq);
         return UnitResult.Success<Error>();
     }
 
@@ -151,7 +125,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_categories.Count >= Constants.MAX_CATEGORY_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(nameof(category)));
+                Errors.Domain.MaxCount(ConstType.Category));
         
         _categories.Add(category);
         return UnitResult.Success<Error>();
@@ -162,19 +136,19 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_categories.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(category)));
+                Errors.Domain.Empty(ConstType.Category));
 
         _categories.Remove(category);
         return UnitResult.Success<Error>();
     }
     
-    //реализовать позиции 
+    //реализовать позиции
     //block
     public UnitResult<Error> AddBlock(Block block)
     {
         if (_blocks.Count >= Constants.MAX_BLOCK_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(nameof(block)));
+                Errors.Domain.MaxCount(ConstType.Block));
 
         _blocks.Add(block);
         return UnitResult.Success<Error>();
@@ -185,7 +159,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_blocks.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(block)));
+                Errors.Domain.Empty(ConstType.Block));
 
         _blocks.Remove(block);
         return UnitResult.Success<Error>();
@@ -197,7 +171,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_favicon.Count is not Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.AlreadyExist(nameof(favicon)));
+                Errors.Domain.AlreadyExist(ConstType.Favicon));
 
         _favicon.Add(favicon);
         return UnitResult.Success<Error>();
@@ -208,7 +182,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_favicon.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(favicon)));
+                Errors.Domain.Empty(ConstType.Favicon));
 
         _favicon.Remove(favicon);
         return UnitResult.Success<Error>();
@@ -226,7 +200,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_locations.Count >= Constants.MAX_LOCATION_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(nameof(location)));
+                Errors.Domain.MaxCount(ConstType.Location));
 
         _locations.Add(location);
         return UnitResult.Success<Error>();
@@ -237,7 +211,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_locations.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(nameof(location)));
+                Errors.Domain.Empty(ConstType.Location));
 
         _locations.Remove(location);
         return UnitResult.Success<Error>();

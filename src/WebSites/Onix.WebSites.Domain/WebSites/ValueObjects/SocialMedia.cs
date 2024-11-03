@@ -1,4 +1,5 @@
 using CSharpFunctionalExtensions;
+using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 
 namespace Onix.WebSites.Domain.WebSites.ValueObjects;
@@ -16,10 +17,9 @@ public class SocialMedia
     public string Social { get; }
     public string Link { get;}
 
-    public static Result<SocialMedia> Create(
-        string social,
-        string link)
+    public static Result<List<SocialMedia>> Create(
+        List<SocialMedia> socialMedias)
     {
-        return new SocialMedia(social,link);
+        return new List<SocialMedia>(socialMedias);
     }
 }

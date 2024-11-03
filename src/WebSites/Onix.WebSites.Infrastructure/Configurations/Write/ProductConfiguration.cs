@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Categories.Entities;
+using Onix.WebSites.Domain.Products;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Write;
 
@@ -39,6 +39,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             tb.Property(n => n.Value)
                 .IsRequired(false)
+                .HasMaxLength(Constants.PRICE_MAX_LENGTH)
                 .HasColumnName("price");
         });
         

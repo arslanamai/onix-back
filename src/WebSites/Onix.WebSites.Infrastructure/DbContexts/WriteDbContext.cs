@@ -12,8 +12,6 @@ public class WriteDbContext(IConfiguration configuration) : DbContext
     private const string DATABASE = "Database";
 
     public DbSet<WebSite> WebSites => Set<WebSite>();
-    public DbSet<Category> Categories => Set<Category>();
-    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));

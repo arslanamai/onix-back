@@ -41,7 +41,7 @@ public class ProductController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
     
     [HttpDelete("website/{id:guid}/category/{categoryId:guid}/product/{productId:guid}")]
@@ -59,6 +59,6 @@ public class ProductController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
 }

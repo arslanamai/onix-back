@@ -12,7 +12,7 @@ public class LocationController : ApplicationController
     [HttpPost("/website/{id:guid}/location")]
     public async Task<IActionResult> Add(
         [FromRoute] Guid id,
-        [FromServices] AddLocationHandle handler,
+        [FromServices] AddLocationHandler handler,
         [FromBody] AddLocationRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -39,7 +39,7 @@ public class LocationController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
     
     [HttpDelete("/website/{id:guid}/location/{locationId:guid}")]
@@ -56,6 +56,6 @@ public class LocationController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result.Value);
+        return Ok(result);
     }
 }

@@ -23,6 +23,7 @@ public class ConstType
     //faq
     public const string Question = "question";
     public const string Answer = "answer";
+    public const string FAQs = "faqs";
 
     //contact
     public const string Phone = "phone";
@@ -36,6 +37,16 @@ public class ConstType
     public const string ButtonStyle = "button style";
     public const string Font = "font";
 
+    //naming
+    public const string Category = "category";
+    public const string SubCategory = "subcategory";
+    public const string Block = "block";
+    public const string Favicon = "favicon";
+    public const string Location = "location";
+    public const string Photo = "photo";
+    public const string Schedule = "schedule";
+    public const string Product = "product";
+    
     //shared
     public const string Url = "url";
     public const string Name = "name";

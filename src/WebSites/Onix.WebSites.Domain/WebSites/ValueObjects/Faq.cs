@@ -14,13 +14,8 @@ public class Faq
     public string Question { get; }
     public string Answer { get; }
 
-    public static Result<Faq> Create(string question, string answer)
+    public static Result<List<Faq>> Create(List<Faq> faqs)
     {
-        return new Faq(question, answer);
-    }
-
-    public Result<Faq, Error> Update(string question, string answer)
-    {
-        return new Faq(question, answer);
+        return new List<Faq>(faqs);
     }
 }

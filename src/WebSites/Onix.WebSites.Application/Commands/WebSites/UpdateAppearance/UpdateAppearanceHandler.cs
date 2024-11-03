@@ -4,57 +4,52 @@ using Microsoft.Extensions.Logging;
 using Onix.Core.Abstraction;
 using Onix.Core.Extensions;
 using Onix.SharedKernel;
+using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
+using Onix.WebSites.Application.Commands.WebSites.Update;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Domain.Blocks.ValueObjects;
+using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
+using Onix.WebSites.Domain.WebSites.ValueObjects;
 
-namespace Onix.WebSites.Application.Commands.Blocks.Update;
+namespace Onix.WebSites.Application.Commands.WebSites.UpdateAppearance;
 
-public class UpdateBlockHandler
+public class UpdateAppearanceHandler
 {
-    private readonly ILogger<UpdateBlockHandler> _logger;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IValidator<UpdateBlockCommand> _validator;
+    private readonly IValidator<UpdateAppearanceCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<UpdateAppearanceHandler> _logger;
 
-    public UpdateBlockHandler(
-        IValidator<UpdateBlockCommand> validator,
+    public UpdateAppearanceHandler(
+        IValidator<UpdateAppearanceCommand> validator,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        ILogger<UpdateBlockHandler> logger)
+        ILogger<UpdateAppearanceHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
         _unitOfWork = unitOfWork;
         _logger = logger;
     }
-
+    
     public async Task<UnitResult<ErrorList>> Handle(
-        UpdateBlockCommand command, CancellationToken cancellationToken)
+        UpdateAppearanceCommand command, CancellationToken cancellationToken = default)
     {
         var validationResult = await _validator.ValidateAsync(command, cancellationToken);
-        if (validationResult.IsValid == false)
+        if (!validationResult.IsValid)
             return validationResult.ToList();
-
+        
         var webSiteId = WebSiteId.Create(command.WebSiteId);
-
-        var webSiteResult = await _webSiteRepository
-            .GetByIdWithBlocks(webSiteId, cancellationToken);
+        
+        var webSiteResult = await _webSiteRepository.GetById(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var blockId = BlockId.Create(command.BlockId);
-        var code = Code.Create(command.Code).Value;
-
-        var blockResult = webSiteResult.Value.Blocks
-            .FirstOrDefault(b => b.Id == blockId);
-        if (blockResult is null)
-            return Errors.General.NotFound(blockId.Value).ToErrorList();
-
-        var result = blockResult.Update(code);
+        var result = webSiteResult.Value.Appearance.Update(
+            command.ColorScheme, command.ButtonStyle, command.Font);
         if (result.IsFailure)
             return result.Error.ToErrorList();
-
+        
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }

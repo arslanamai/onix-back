@@ -28,7 +28,7 @@ public class DeleteBlockHandle
         _validator = validator;
     }
     
-    public async Task<Result<Guid, ErrorList>> Handle(
+    public async Task<UnitResult<ErrorList>> Handle(
         DeleteBlockCommand command ,CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(command,cancellationToken);
@@ -54,6 +54,6 @@ public class DeleteBlockHandle
             return result.Error.ToErrorList();
         
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return blockResult.Id.Value;
+        return UnitResult.Success<ErrorList>();
     }
 }
