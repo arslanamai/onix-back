@@ -23,7 +23,7 @@ public class PhotoConfiguration : IEntityTypeConfiguration<Photo>
         {
             tb.Property(p => p.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.PATH_MAX_LENGHT)
+                .HasMaxLength(Constants.PATH_MAX_LENGTH)
                 .HasColumnName("path");
         });
     }

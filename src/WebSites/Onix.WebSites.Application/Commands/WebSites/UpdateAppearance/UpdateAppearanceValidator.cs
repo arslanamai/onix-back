@@ -10,11 +10,11 @@ public class UpdateAppearanceValidator : AbstractValidator<UpdateAppearanceComma
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.ColorScheme)
             .NotEmpty()

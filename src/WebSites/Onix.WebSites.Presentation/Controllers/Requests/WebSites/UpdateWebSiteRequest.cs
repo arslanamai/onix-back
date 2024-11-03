@@ -1,6 +1,6 @@
 using Onix.WebSites.Application.Commands.WebSites.Update;
 
-namespace Onix.WebSites.Presentation.Controllers.Requests;
+namespace Onix.WebSites.Presentation.Controllers.Requests.WebSites;
 
 public record UpdateWebSiteRequest(
     string Url,

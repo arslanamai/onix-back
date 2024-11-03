@@ -10,18 +10,18 @@ public class UpdateWebSiteValidator : AbstractValidator<UpdateWebSiteCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(c => c.Url)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.Url));
+            .WithError(Errors.Domain.Required(ConstType.Url));
         
         RuleFor(c => c.Url)
-            .MaximumLength(Constants.URL_MAX_LENGHT)
+            .MaximumLength(Constants.URL_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Url));
         
         RuleFor(c => c.Url)
@@ -30,18 +30,18 @@ public class UpdateWebSiteValidator : AbstractValidator<UpdateWebSiteCommand>
 
         RuleFor(c => c.Url)
             .Matches(Constants.URL_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.Url));
+            .WithError(Errors.Domain.Invalid(ConstType.Url));
 
         RuleFor(c => c.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.Name));
+            .WithError(Errors.Domain.Required(ConstType.Name));
 
         RuleFor(c => c.Name)
-            .MaximumLength(Constants.NAME_MAX_LENGHT)
+            .MaximumLength(Constants.NAME_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Name));
         
         RuleFor(c => c.Name)
-            .MinimumLength(Constants.NAME_MIN_LENGHT)
+            .MinimumLength(Constants.NAME_MIN_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Name));
     }
 }

@@ -14,7 +14,7 @@ public class AddContactValidator : AbstractValidator<AddContactCommand>
 
         RuleFor(c => c.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
 
         RuleFor(c => c.Phone)
             .Empty()
@@ -25,11 +25,11 @@ public class AddContactValidator : AbstractValidator<AddContactCommand>
             .WithError(Errors.Domain.Empty(ConstType.Email));
         
         RuleFor(c => c.Phone)
-            .MaximumLength(Constants.PHONE_MAX_LENGHT)
+            .MaximumLength(Constants.PHONE_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Phone));
         
         RuleFor(c => c.Email)
-            .MaximumLength(Constants.EMAIL_MAX_LENGHT)
+            .MaximumLength(Constants.EMAIL_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Email));
     }
 }

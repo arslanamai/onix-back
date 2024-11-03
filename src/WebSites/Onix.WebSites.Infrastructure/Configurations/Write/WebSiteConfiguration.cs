@@ -25,7 +25,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.NAME_MAX_LENGHT)
+                .HasMaxLength(Constants.NAME_MAX_LENGTH)
                 .HasColumnName("name");
         });
         
@@ -33,7 +33,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
         {
             tb.Property(u => u.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.URL_MAX_LENGHT)
+                .HasMaxLength(Constants.URL_MAX_LENGTH)
                 .HasColumnName("url");
         });
 
@@ -63,7 +63,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
         {
             tb.Property(p => p.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.PHONE_MAX_LENGHT)
+                .HasMaxLength(Constants.PHONE_MAX_LENGTH)
                 .HasColumnName("phone");
         });
         
@@ -71,7 +71,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
         {
             tb.Property(e => e.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.EMAIL_MAX_LENGHT)
+                .HasMaxLength(Constants.EMAIL_MAX_LENGTH)
                 .HasColumnName("email");
         });
 

@@ -44,7 +44,7 @@ public class AddBlockHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var blockId = BlockId.NewUserId();
+        var blockId = BlockId.NewId();
         var code = Code.Create(command.Code).Value;
         var block = Block.Create(blockId, code).Value;
 

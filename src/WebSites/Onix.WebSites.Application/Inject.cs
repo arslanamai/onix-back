@@ -2,11 +2,14 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Onix.Core.Abstraction;
 using Onix.WebSites.Application.Commands.Blocks.Add;
+using Onix.WebSites.Application.Commands.Blocks.Delete;
+using Onix.WebSites.Application.Commands.Blocks.Update;
 using Onix.WebSites.Application.Commands.Categories.Add;
 using Onix.WebSites.Application.Commands.Categories.Delete;
 using Onix.WebSites.Application.Commands.Categories.Update;
 using Onix.WebSites.Application.Commands.FAQs.Add;
 using Onix.WebSites.Application.Commands.Locations.Add;
+using Onix.WebSites.Application.Commands.Locations.Update;
 using Onix.WebSites.Application.Commands.Socials.Add;
 using Onix.WebSites.Application.Commands.WebSites.AddContact;
 using Onix.WebSites.Application.Commands.WebSites.Create;
@@ -45,6 +48,7 @@ public static class Inject
             .AddValidatorsFromAssembly(assembly)
             .AddWebSiteCommand()
             .AddCategoryCommand()
+            .AddBlockCommand() 
             .AddWebSiteQuery();
 
         return services;
@@ -56,12 +60,11 @@ public static class Inject
         service.AddScoped<CreateWebSiteHandler>();
         service.AddScoped<UpdateWebSiteHandle>();
         service.AddScoped<DeleteWebSiteHandle>();
+        
         service.AddScoped<UpdateAppearanceHandle>();
 
-        service.AddScoped<AddBlockHandler>();
         service.AddScoped<AddContactHandle>();
         service.AddScoped<AddFaqHandle>();
-        service.AddScoped<AddLocationHandle>();
         service.AddScoped<AddSocialHandle>();
         
         return service;
@@ -74,6 +77,26 @@ public static class Inject
         service.AddScoped<UpdateCategoryHandle>();
         service.AddScoped<DeleteCategoryHandle>();
         
+        return service;
+    }
+    
+    private static IServiceCollection AddBlockCommand(
+        this IServiceCollection service)
+    {
+        service.AddScoped<AddBlockHandler>();
+        service.AddScoped<UpdateBlockHandler>();
+        service.AddScoped<DeleteBlockHandle>();
+        
+        return service;
+    }
+
+    private static IServiceCollection AddLocation(
+        this IServiceCollection service)
+    {
+        service.AddScoped<AddLocationHandle>();
+        service.AddScoped<UpdateLocationHandler>();
+        service.AddScoped<DeleteWebSiteHandle>();
+
         return service;
     }
 

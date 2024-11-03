@@ -10,26 +10,26 @@ public class UpdateFaqValidation : AbstractValidator<UpdateFaqCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.Question)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.Question));
+            .WithError(Errors.Domain.Required(ConstType.Question));
         
         RuleFor(a => a.Question)
-            .MaximumLength(Constants.NAME_MAX_LENGHT)
+            .MaximumLength(Constants.NAME_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Question));
         
         RuleFor(a => a.Answer)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.Answer));
+            .WithError(Errors.Domain.Required(ConstType.Answer));
         
         RuleFor(a => a.Answer)
-            .MaximumLength(Constants.NAME_MAX_LENGHT)
+            .MaximumLength(Constants.NAME_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Answer));
     }
 }

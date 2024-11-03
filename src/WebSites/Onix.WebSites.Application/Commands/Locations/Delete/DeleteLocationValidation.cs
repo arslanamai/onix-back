@@ -10,18 +10,18 @@ public class DeleteLocationValidation : AbstractValidator<DeleteLocationCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.LocationId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.LocationId));
+            .WithError(Errors.Domain.Required(ConstType.LocationId));
 
         RuleFor(a => a.LocationId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.LocationId));
+            .WithError(Errors.Domain.Invalid(ConstType.LocationId));
     }
 }

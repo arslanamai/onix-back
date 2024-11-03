@@ -14,6 +14,6 @@ public class DeleteWebSiteValidator : AbstractValidator<DeleteWebSiteCommand>
 
         RuleFor(w => w.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
     }
 }

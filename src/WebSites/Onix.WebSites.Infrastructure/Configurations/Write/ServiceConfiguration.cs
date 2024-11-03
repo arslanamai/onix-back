@@ -23,7 +23,7 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.NAME_MAX_LENGHT)
+                .HasMaxLength(Constants.NAME_MAX_LENGTH)
                 .HasColumnName("name");
         });
 
@@ -31,7 +31,7 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
         {
             tb.Property(d => d.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.DESCRIPTION_MAX_LENGHT)
+                .HasMaxLength(Constants.DESCRIPTION_MAX_LENGTH)
                 .HasColumnName("description");
         });
 
@@ -50,7 +50,7 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
         {
             tb.Property(d => d.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.LINK_MAX_LENGHT)
+                .HasMaxLength(Constants.LINK_MAX_LENGTH)
                 .HasColumnName("link");
         });
 

@@ -4,23 +4,25 @@ using Microsoft.Extensions.Logging;
 using Onix.Core.Abstraction;
 using Onix.Core.Extensions;
 using Onix.SharedKernel;
+using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
+using Onix.WebSites.Domain.Locations.ValueObjects;
 
-namespace Onix.WebSites.Application.Commands.Locations.Delete;
+namespace Onix.WebSites.Application.Commands.Locations.Update;
 
-public class DeleteLocationHandle
+public class UpdateLocationHandler
 {
-    private readonly IValidator<DeleteLocationCommand> _validator;
+    private readonly IValidator<UpdateLocationCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<DeleteLocationHandle> _logger;
+    private readonly ILogger<UpdateLocationHandler> _logger;
 
-    public DeleteLocationHandle(
-        IValidator<DeleteLocationCommand> validator,
+    public UpdateLocationHandler(
+        IValidator<UpdateLocationCommand> validator,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        ILogger<DeleteLocationHandle> logger)
+        ILogger<UpdateLocationHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
@@ -29,7 +31,7 @@ public class DeleteLocationHandle
     }
 
     public async Task<Result<Guid, ErrorList>> Handle(
-        DeleteLocationCommand command ,CancellationToken cancellationToken)
+        UpdateLocationCommand command ,CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(command,cancellationToken);
         if (validationResult.IsValid == false)
@@ -49,7 +51,15 @@ public class DeleteLocationHandle
         if (locationResult is null)
             return Errors.General.NotFound(locationId.Value).ToErrorList();
 
-        var result = webSiteResult.Value.RemoveLocation(locationResult);
+        var name = Name.Create(command.Name).Value;
+        var phone = Phone.Create(command.Phone).Value;
+        var address = Address.Create(
+            command.City,
+            command.Street,
+            command.Build,
+            command.Index).Value;
+        
+        var result = locationResult.Update(name, phone, address);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         

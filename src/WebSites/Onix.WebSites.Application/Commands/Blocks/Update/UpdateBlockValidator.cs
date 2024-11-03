@@ -10,22 +10,22 @@ public class UpdateBlockValidator : AbstractValidator<UpdateBlockCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
 
         RuleFor(a => a.BlockId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.BlockId));
+            .WithError(Errors.Domain.Required(ConstType.BlockId));
 
         RuleFor(a => a.BlockId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.BlockId));
+            .WithError(Errors.Domain.Invalid(ConstType.BlockId));
 
         RuleFor(a => a.Code)
-            .MaximumLength(Constants.CODE_MAX_LENGHT)
+            .MaximumLength(Constants.CODE_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Code));
     }
 }

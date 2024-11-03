@@ -7,21 +7,23 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
+using Onix.WebSites.Domain.Categories.Entities;
+using Onix.WebSites.Domain.Categories.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Products.Add;
 
-public class AddProductHandle
+public class AddProductHandler
 {
     private readonly IValidator<AddProductCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<AddProductHandle> _logger;
+    private readonly ILogger<AddProductHandler> _logger;
 
-    public AddProductHandle(
+    public AddProductHandler(
         IValidator<AddProductCommand> validator,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        ILogger<AddProductHandle> logger)
+        ILogger<AddProductHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
@@ -44,21 +46,28 @@ public class AddProductHandle
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var blockId = BlockId.Create(command.BlockId);
+        var categoryId = CategoryId.Create(command.CategoryId);
+
+        var categoryResult = webSiteResult.Value.Categories
+            .FirstOrDefault(c => c.Id == categoryId);
+        if (categoryResult is null)
+            return Errors.General.NotFound(categoryId.Value).ToErrorList();
+
+        var productId = ProductId.NewId();
         var name = Name.Create(command.Name).Value;
         var description = Description.Create(command.Description).Value;
+        var price = Price.Create(command.Price).Value;
+        var link = Link.Create(command.Link).Value;
         
-        /*var product = Product.Create(
-            blockId,
+        var product = Product.Create(
+            productId,
             name,
             description,
-            null,
-            null).Value;
+            price,
+            link).Value;
 
-        webSiteResult.Value.Blocks.add;
-
-        await _unitOfWork.SaveChangesAsync(cancellationToken);*/
-
+        categoryResult.AddProduct(product);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return Guid.NewGuid();
     }
 }

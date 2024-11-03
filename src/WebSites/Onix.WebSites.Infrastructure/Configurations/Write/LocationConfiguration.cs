@@ -25,7 +25,7 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.NAME_MAX_LENGHT)
+                .HasMaxLength(Constants.NAME_MAX_LENGTH)
                 .HasColumnName("name");
         });
         
@@ -33,7 +33,7 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
         {
             tb.Property(p => p.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.PHONE_MAX_LENGHT)
+                .HasMaxLength(Constants.PHONE_MAX_LENGTH)
                 .HasColumnName("phone");
         });
         
@@ -41,17 +41,17 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
         {
             tb.Property(p => p.City)
                 .IsRequired()
-                .HasMaxLength(Constants.ADDRESS_MAX_LENGHT)
+                .HasMaxLength(Constants.ADDRESS_MAX_LENGTH)
                 .HasColumnName("city");
             
             tb.Property(p => p.Street)
                 .IsRequired()
-                .HasMaxLength(Constants.ADDRESS_MAX_LENGHT)
+                .HasMaxLength(Constants.ADDRESS_MAX_LENGTH)
                 .HasColumnName("street");
             
             tb.Property(p => p.Build)
                 .IsRequired()
-                .HasMaxLength(Constants.ADDRESS_MAX_LENGHT)
+                .HasMaxLength(Constants.ADDRESS_MAX_LENGTH)
                 .HasColumnName("build");
             
             tb.Property(p => p.Index)

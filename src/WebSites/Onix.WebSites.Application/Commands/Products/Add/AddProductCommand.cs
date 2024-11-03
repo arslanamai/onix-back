@@ -4,6 +4,8 @@ namespace Onix.WebSites.Application.Commands.Products.Add;
 
 public record AddProductCommand(
     Guid WebSiteId,
-    Guid BlockId,
+    Guid CategoryId,
     string Name,
-    string Description) : ICommand;
+    string Description,
+    string Price,
+    string Link) : ICommand;

@@ -23,7 +23,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.NAME_MAX_LENGHT)
+                .HasMaxLength(Constants.NAME_MAX_LENGTH)
                 .HasColumnName("name");
         });
         
@@ -31,7 +31,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.DESCRIPTION_MAX_LENGHT)
+                .HasMaxLength(Constants.DESCRIPTION_MAX_LENGTH)
                 .HasColumnName("description");
         });
         
@@ -46,7 +46,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         {
             tb.Property(l => l.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.LINK_MAX_LENGHT)
+                .HasMaxLength(Constants.LINK_MAX_LENGTH)
                 .HasColumnName("link");
         });
 

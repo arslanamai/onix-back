@@ -49,6 +49,20 @@ public class Product : SharedKernel.Entity<ProductId>
             price,
             link); 
     }
+
+    public UnitResult<Error> Update(
+        Name name,
+        Description description,
+        Price price,
+        Link link)
+    {
+        this.Name = name;
+        this.Description = description;
+        this.Price = price;
+        this.Link = link;
+
+        return UnitResult.Success<Error>();
+    }
     
     //photo
     public UnitResult<Error> AddPhoto(

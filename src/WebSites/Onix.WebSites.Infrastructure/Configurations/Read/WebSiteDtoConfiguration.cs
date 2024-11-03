@@ -32,7 +32,7 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .HasConversion(
                 faqs => JsonSerializer.Serialize(faqs, JsonSerializerOptions.Default),
                 json => JsonSerializer.Deserialize<List<FaqDto>>(json, JsonSerializerOptions.Default)!);
-        
+         
         builder.HasMany(w => w.Blocks)
             .WithOne()
             .IsRequired(false)

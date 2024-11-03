@@ -7,6 +7,7 @@ public class ConstType
     public const string BlockId = "block id";
     public const string CategoryId = "category id";
     public const string LocationId = "location id";
+    public const string ProductId = "product id";
 
     //Social
     public const string SocialMedia = "social media";
@@ -38,4 +39,6 @@ public class ConstType
     //shared
     public const string Url = "url";
     public const string Name = "name";
+    public const string Price = "price";
+    public const string Description = "description";
 }

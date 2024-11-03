@@ -24,7 +24,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         {
             tb.Property(n => n.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.NAME_MAX_LENGHT)
+                .HasMaxLength(Constants.NAME_MAX_LENGTH)
                 .HasColumnName("name");
         });
 

@@ -17,11 +17,11 @@ public class AddSocialValidator : AbstractValidator<AddSocialCommand>
             .WithError(Errors.Domain.Empty(ConstType.Link));
         
         RuleFor(s => s.Social)
-            .MaximumLength(Constants.SOCIAL_MAX_LENGHT)
+            .MaximumLength(Constants.SOCIAL_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Social));
         
         RuleFor(s => s.Link)
-            .MaximumLength(Constants.LINK_MAX_LENGHT)
+            .MaximumLength(Constants.LINK_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Link));
     }
 }

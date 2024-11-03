@@ -14,14 +14,14 @@ public class AddCategoryValidator : AbstractValidator<AddCategoryCommand>
 
         RuleFor(c => c.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(c => c.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.Name));
+            .WithError(Errors.Domain.Required(ConstType.Name));
 
         RuleFor(c => c.Name)
-            .MaximumLength(Constants.NAME_MAX_LENGHT)
+            .MaximumLength(Constants.NAME_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Name));
     }
 }

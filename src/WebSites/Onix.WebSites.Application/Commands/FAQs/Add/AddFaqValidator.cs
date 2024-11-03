@@ -14,7 +14,7 @@ public class AddFaqValidator : AbstractValidator<AddFaqCommand>
 
         RuleFor(c => c.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(f => f.Question)
             .Empty()
@@ -25,11 +25,11 @@ public class AddFaqValidator : AbstractValidator<AddFaqCommand>
             .WithError(Errors.Domain.Empty(ConstType.Answer));
         
         RuleFor(f => f.Question)
-            .MaximumLength(Constants.QUESTION_MAX_LENGHT)
+            .MaximumLength(Constants.QUESTION_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Question));
         
         RuleFor(f => f.Answer)
-            .MaximumLength(Constants.ANSWER_MAX_LENGHT)
+            .MaximumLength(Constants.ANSWER_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Answer));
     }
 }

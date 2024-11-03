@@ -23,7 +23,7 @@ public class BlockConfiguration : IEntityTypeConfiguration<Block>
         {
             tb.Property(c => c.Value)
                 .IsRequired(false)
-                .HasMaxLength(Constants.CODE_MAX_LENGHT)
+                .HasMaxLength(Constants.CODE_MAX_LENGTH)
                 .HasColumnName("code");
         });
     }

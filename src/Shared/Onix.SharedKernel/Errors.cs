@@ -23,12 +23,12 @@ public static class Errors
     
     public static class Domain
     {
-        public static Error ValueIsRequired(string? value = "value")
+        public static Error Required(string? value = "value")
         {
             return Error.Validation("value.is.required", $"{value} is required");
         }
         
-        public static Error ValueIsInvalid(string? value = "value")
+        public static Error Invalid(string? value = "value")
         {
             return Error.Validation("value.is.invalid", $"{value} is invalid");
         }

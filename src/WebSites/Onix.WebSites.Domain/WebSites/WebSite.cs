@@ -68,10 +68,10 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
         bool showStatus = true)
     {
         if (string.IsNullOrWhiteSpace(url.Value))
-            return Errors.Domain.ValueIsRequired(nameof(url)).ToErrorList();
+            return Errors.Domain.Required(nameof(url)).ToErrorList();
 
         if (string.IsNullOrWhiteSpace(name.Value))
-            return Errors.Domain.ValueIsRequired(nameof(name)).ToErrorList();
+            return Errors.Domain.Required(nameof(name)).ToErrorList();
 
         return new WebSite(
             id,

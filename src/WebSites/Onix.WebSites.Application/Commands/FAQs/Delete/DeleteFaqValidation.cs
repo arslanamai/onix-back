@@ -10,18 +10,18 @@ public class DeleteFaqValidation : AbstractValidator<DeleteFaqCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(f => f.Question)
             .Empty()
             .WithError(Errors.Domain.Empty(ConstType.Question));
         
         RuleFor(f => f.Question)
-            .MaximumLength(Constants.QUESTION_MAX_LENGHT)
+            .MaximumLength(Constants.QUESTION_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Question));
     }
 }

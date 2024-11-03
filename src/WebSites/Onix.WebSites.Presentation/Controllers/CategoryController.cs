@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Onix.Framework;
 using Onix.WebSites.Application.Commands.Categories.Add;
 using Onix.WebSites.Presentation.Controllers.Requests;
+using Onix.WebSites.Presentation.Controllers.Requests.Categories;
 
 namespace Onix.WebSites.Presentation.Controllers;
 

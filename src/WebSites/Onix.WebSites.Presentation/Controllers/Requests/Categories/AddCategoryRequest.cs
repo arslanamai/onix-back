@@ -1,6 +1,6 @@
 using Onix.WebSites.Application.Commands.Categories.Add;
 
-namespace Onix.WebSites.Presentation.Controllers.Requests;
+namespace Onix.WebSites.Presentation.Controllers.Requests.Categories;
 
 public record AddCategoryRequest(
     string Name)

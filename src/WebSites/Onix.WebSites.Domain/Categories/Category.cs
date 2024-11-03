@@ -58,7 +58,7 @@ public class Category : SharedKernel.Entity<CategoryId>
     {
         if (_services.Count is not Constants.MIN_COUNT
             && _products.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.ValueIsInvalid());
+            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
 
         if (_subCategories.Count >= Constants.MAX_CATEGORY_COUNT)
             return UnitResult.Failure<Error>(Errors.Domain.MaxCount());
@@ -84,7 +84,7 @@ public class Category : SharedKernel.Entity<CategoryId>
         Product product)
     {
         if (_services.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.ValueIsInvalid());
+            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
 
         if (_products.Count >= Constants.MAX_PRODUCT_COUNT)
             return UnitResult.Failure(Errors.Domain.MaxCount(nameof(product)));
@@ -109,7 +109,7 @@ public class Category : SharedKernel.Entity<CategoryId>
         Service service)
     {
         if (_products.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(Errors.Domain.ValueIsInvalid());
+            return UnitResult.Failure<Error>(Errors.Domain.Invalid());
         
         if (_services.Count >= Constants.MAX_SERVICE_COUNT)
             return UnitResult.Failure(Errors.Domain.MaxCount(nameof(service)));

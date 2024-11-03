@@ -9,7 +9,7 @@ public class BlockId
     
     public Guid Value { get; }
 
-    public static BlockId NewUserId() => new(Guid.NewGuid());
+    public static BlockId NewId() => new(Guid.NewGuid());
     public static BlockId Empty() => new(Guid.Empty);
     public static BlockId Create(Guid id) => new(id);
 }

@@ -10,14 +10,14 @@ public class AddBlockValidator : AbstractValidator<AddBlockCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.ValueIsRequired(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.ValueIsInvalid(ConstType.WebSiteId));
+            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.Code)
-            .MaximumLength(Constants.CODE_MAX_LENGHT)
+            .MaximumLength(Constants.CODE_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Code));
     }
 }
