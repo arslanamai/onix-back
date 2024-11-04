@@ -1,10 +1,8 @@
 using CSharpFunctionalExtensions;
-using Onix.SharedKernel;
-using Onix.SharedKernel.ValueObjects;
 
 namespace Onix.WebSites.Domain.WebSites.ValueObjects;
 
-public class SocialMedia
+public class SocialMedia : ValueObject
 {
     private SocialMedia(
         string social,
@@ -17,9 +15,15 @@ public class SocialMedia
     public string Social { get; }
     public string Link { get;}
 
-    public static Result<List<SocialMedia>> Create(
-        List<SocialMedia> socialMedias)
+    public static Result<SocialMedia> Create(
+        string social, string link)
     {
-        return new List<SocialMedia>(socialMedias);
+        return new SocialMedia(social, link);
+    }
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Social;
+        yield return Link;
     }
 }

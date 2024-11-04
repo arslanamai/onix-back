@@ -42,9 +42,7 @@ public class AddSocialHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var socialMedia = SocialMedia.Create(command.SocialMedia).Value;
-        
-        var result = webSiteResult.Value.AddSocial(socialMedia);
+        var result = webSiteResult.Value.AddSocial(command.SocialMedia);
         if (result.IsFailure)
             return result.Error.ToErrorList();
 

@@ -29,7 +29,7 @@ public class UpdateContactHandler
         _validator = validator;
     }
 
-    public async Task<Result<Guid, ErrorList>> Handle(
+    public async Task<UnitResult<ErrorList>> Handle(
         UpdateContactCommand command, CancellationToken cancellationToken = default)
     {
         var validator = await _validator.ValidateAsync(command, cancellationToken);
@@ -51,6 +51,6 @@ public class UpdateContactHandler
             return result.Error.ToErrorList();
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return webSiteResult.Value.Id.Value;
+        return UnitResult.Success<ErrorList>();
     }
 }

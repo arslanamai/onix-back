@@ -40,7 +40,7 @@ public class CategoryController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result);
+        return Ok(result.ToString());
     }
     
     [HttpDelete("/website/{id:guid}/category/{categoryId:guid}")]
@@ -57,6 +57,6 @@ public class CategoryController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result);
+        return Ok(result.ToString());
     }
 }

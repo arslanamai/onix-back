@@ -39,7 +39,7 @@ public class LocationController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result);
+        return Ok(result.ToString());
     }
     
     [HttpDelete("/website/{id:guid}/location/{locationId:guid}")]
@@ -56,6 +56,6 @@ public class LocationController : ApplicationController
         if (result.IsFailure)
             return result.Error.ToResponse();
 
-        return Ok(result);
+        return Ok(result.ToString());
     }
 }
