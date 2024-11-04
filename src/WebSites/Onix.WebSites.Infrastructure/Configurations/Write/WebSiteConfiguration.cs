@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
@@ -74,14 +75,19 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
                 .HasMaxLength(Constants.EMAIL_MAX_LENGTH)
                 .HasColumnName("email");
         });
-
+        
         builder.Property(w => w.SocialMedias)
             .HasColumnName("social_medias")
             .HasMaxLength(Constants.JSON_MAX_LENGTH)
             .IsRequired(false)
             .HasConversion(
                 sm => JsonSerializer.Serialize(sm, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<SocialMedia>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<IReadOnlyList<SocialMedia>>(
+                    json, JsonSerializerOptions.Default)!,
+                new ValueComparer<IReadOnlyList<SocialMedia>>(
+                    (c1, c2) => c1!.SequenceEqual(c2!),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()));
 
         builder.Property(w => w.Faqs)
             .HasColumnName("faqs")
@@ -89,7 +95,12 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
             .IsRequired(false)
             .HasConversion(
                 faqs => JsonSerializer.Serialize(faqs, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<Faq>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<IReadOnlyList<Faq>>(
+                    json, JsonSerializerOptions.Default)!,
+                new ValueComparer<IReadOnlyList<Faq>>(
+                    (c1, c2) => c1!.SequenceEqual(c2!),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()));
 
         builder.HasMany(w => w.Categories)
             .WithOne()

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
@@ -66,6 +67,10 @@ public class LocationConfiguration : IEntityTypeConfiguration<Location>
             .IsRequired(false)
             .HasConversion(
                 sc => JsonSerializer.Serialize(sc, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<Schedule>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<IReadOnlyList<Schedule>>(json, JsonSerializerOptions.Default)!,
+                new ValueComparer<IReadOnlyList<Schedule>>(
+                    (c1, c2) => c1!.SequenceEqual(c2!),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()));;
     }
 }

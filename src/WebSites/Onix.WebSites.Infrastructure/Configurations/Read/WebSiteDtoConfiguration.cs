@@ -24,7 +24,8 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .IsRequired(false)
             .HasConversion(
                 sm => JsonSerializer.Serialize(sm, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<SocialMediaDto>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<List<SocialMediaDto>>(
+                    json, JsonSerializerOptions.Default)!);
 
         builder.Property(w => w.Faqs)
             .HasColumnName("faqs")
