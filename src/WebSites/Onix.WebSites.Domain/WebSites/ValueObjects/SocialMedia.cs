@@ -5,7 +5,7 @@ namespace Onix.WebSites.Domain.WebSites.ValueObjects;
 public class SocialMedia : ValueObject
 {
     //ef core
-    private SocialMedia()
+    public SocialMedia()
     {
     }
     
@@ -17,9 +17,9 @@ public class SocialMedia : ValueObject
         Link = link;
     }
     
-    public string Social { get; }
-    public string Link { get; }
-
+    public string Social { get; init; }
+    public string Link { get; init; }
+    
     public static Result<SocialMedia> Create(
         string social, string link)
     {
