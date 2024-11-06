@@ -43,9 +43,7 @@ public class AddFaqHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var faq = Faq.Create(command.Faqs).Value;
-
-        var result = webSiteResult.Value.UpdateFAQs(faq);
+        var result = webSiteResult.Value.UpdateFAQs(command.Faqs);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         

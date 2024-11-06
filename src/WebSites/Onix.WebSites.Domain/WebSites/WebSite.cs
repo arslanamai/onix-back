@@ -89,7 +89,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     public UnitResult<Error> AddSocial(
         List<SocialMedia> socialMedias)
     {
-        if (socialMedias.Count >= Constants.MAX_SOCIAL_COUNT)
+        if (socialMedias.Count > Constants.MAX_SOCIAL_COUNT)
             return UnitResult.Failure<Error>(
                 Errors.Domain.MaxCount(ConstType.SocialMedia));
 

@@ -51,9 +51,7 @@ public class AddScheduleHandler
         if (locationResult is null)
             return Errors.General.NotFound(locationId.Value).ToErrorList();
         
-        var schedules = Schedule.Create(command.Schedules).Value;
-
-        var result = locationResult.AddSchedule(schedules);
+        var result = locationResult.AddSchedule(command.Schedules);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         

@@ -4,6 +4,10 @@ namespace Onix.WebSites.Domain.Locations.ValueObjects;
 
 public record Schedule
 {
+    public Schedule()
+    {
+    }
+    
     private Schedule(
         string weekDay,
         string startTime,
@@ -14,13 +18,15 @@ public record Schedule
         EndTime = endTime;
     }
     
-    public string WeekDay { get; }
-    public string StartTime { get; }
-    public string EndTime { get; }
+    public string WeekDay { get; init; }
+    public string StartTime { get; init; }
+    public string EndTime { get; init; }
 
-    public static Result<List<Schedule>> Create(
-        List<Schedule> schedules)
+    public static Result<Schedule> Create(
+        string weekDay,
+        string startDay,
+        string endTime)
     {
-        return new List<Schedule>(schedules);
+        return new Schedule(weekDay,startDay,endTime);
     }
 }

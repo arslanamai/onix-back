@@ -5,17 +5,23 @@ namespace Onix.WebSites.Domain.WebSites.ValueObjects;
 
 public class Faq
 {
+    //ef core 
+    public Faq()
+    {
+        
+    }
+    
     private Faq(string question, string answer)
     {
         Question = question;
         Answer = answer;
     }
 
-    public string Question { get; }
-    public string Answer { get; }
+    public string Question { get; init; }
+    public string Answer { get; init; }
 
-    public static Result<List<Faq>> Create(List<Faq> faqs)
+    public static Result<Faq> Create(string question, string answer)
     {
-        return new List<Faq>(faqs);
+        return new Faq(question, answer);
     }
 }

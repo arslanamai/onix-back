@@ -59,14 +59,14 @@ public class Location : SharedKernel.Entity<LocationId>
     
     //исправить это
     public UnitResult<Error> AddSchedule(
-        List<Schedule> schedule)
+        List<Schedule> schedules)
     {
-        if (_schedules.Count >= Constants.SHARE_MAX_LENGTH)
+        if (schedules.Count > Constants.SHARE_MAX_LENGTH)
             return UnitResult.Failure<Error>(
                 Errors.Domain.MaxCount(ConstType.Schedule));
         
         _schedules.Clear();
-        _schedules.AddRange(schedule);
+        _schedules.AddRange(schedules);
         return UnitResult.Success<Error>();
     }
 }

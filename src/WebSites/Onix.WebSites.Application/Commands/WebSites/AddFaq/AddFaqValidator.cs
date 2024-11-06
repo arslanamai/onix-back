@@ -9,7 +9,7 @@ public class AddFaqValidator : AbstractValidator<AddFaqCommand>
     public AddFaqValidator()
     {
         RuleFor(c => c.WebSiteId)
-            .Empty()
+            .NotEmpty()
             .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
 
         RuleFor(c => c.WebSiteId.ToString())

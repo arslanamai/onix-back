@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Onix.Framework;
+using Onix.WebSites.Application.Commands.WebSites.AddFaq;
 using Onix.WebSites.Application.Commands.WebSites.AddSocial;
 using Onix.WebSites.Application.Commands.WebSites.Create;
 using Onix.WebSites.Application.Commands.WebSites.Delete;
@@ -92,6 +93,22 @@ public class WebSiteController : ApplicationController
         [FromRoute] Guid id,
         [FromServices] AddSocialHandler handler,
         [FromBody] AddSocialRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await handler.Handle(
+            request.ToCommand(id), cancellationToken);
+
+        if (result.IsFailure)
+            return result.Error.ToResponse();
+        
+        return Ok(result.ToString());
+    }
+    
+    [HttpPost("/website/{id:guid}/faqs")]
+    public async Task<IActionResult> AddSocial(
+        [FromRoute] Guid id,
+        [FromServices] AddFaqHandler handler,
+        [FromBody] AddFaqRequest request,
         CancellationToken cancellationToken = default)
     {
         var result = await handler.Handle(
