@@ -10,5 +10,5 @@ public class ProductDto
     public string? Price { get; init; } = string.Empty;
     public string? Link { get; init; } = string.Empty;
 
-    public List<PhotoDto> Photos { get; init; } = [];
+    public IReadOnlyList<PhotoDto> Photos { get; init; } = [];
 }

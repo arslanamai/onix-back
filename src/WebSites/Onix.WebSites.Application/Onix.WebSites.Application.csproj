@@ -13,9 +13,7 @@
 
     <ItemGroup>
         <Folder Include="Commands\WebSites\AddFavicon\"/>
-        <Folder Include="Queries\Categories\GetById\" />
         <Folder Include="Queries\Products\GetById\" />
-        <Folder Include="Queries\Services\GetById\" />
     </ItemGroup>
 
 </Project>

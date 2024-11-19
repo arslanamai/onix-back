@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Path = Onix.SharedKernel.ValueObjects.Path;
 
-namespace Onix.WebSites.Domain.Photos;
+namespace Onix.WebSites.Domain.Media;
 
 public class Photo : SharedKernel.Entity<PhotoId>
 {

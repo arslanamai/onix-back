@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
+using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.WebSites;
 using Onix.WebSites.Domain.WebSites.ValueObjects;
 
@@ -101,6 +102,19 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
                     (c1, c2) => c1!.SequenceEqual(c2!),
                     c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                     c => c.ToList()));
+        
+        builder.Property(w => w.Favicon)
+            .HasColumnName("favicon")
+            .HasMaxLength(Constants.PATH_MAX_LENGTH)
+            .IsRequired(false)
+            .HasConversion(
+                favicon => JsonSerializer.Serialize(favicon, JsonSerializerOptions.Default),
+                json => JsonSerializer.Deserialize<IReadOnlyList<Favicon>>(
+                    json, JsonSerializerOptions.Default)!,
+                new ValueComparer<IReadOnlyList<Favicon>>(
+                    (c1, c2) => c1!.SequenceEqual(c2!),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()));
 
         builder.HasMany(w => w.Categories)
             .WithOne()
@@ -112,12 +126,6 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("website_id")
-            .OnDelete(DeleteBehavior.Cascade);
-    
-        builder.HasMany(f => f.Favicon)
-            .WithOne()
-            .HasForeignKey("website_id")
-            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(w => w.Blocks)

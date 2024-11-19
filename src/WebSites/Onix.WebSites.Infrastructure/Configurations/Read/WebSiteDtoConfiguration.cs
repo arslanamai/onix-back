@@ -2,6 +2,7 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.Core.Dtos;
+using Onix.WebSites.Domain.Media;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Read;
 
@@ -24,7 +25,7 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .IsRequired(false)
             .HasConversion(
                 sm => JsonSerializer.Serialize(sm, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<SocialMediaDto>>(
+                json => JsonSerializer.Deserialize<IReadOnlyList<SocialMediaDto>>(
                     json, JsonSerializerOptions.Default)!);
 
         builder.Property(w => w.Faqs)
@@ -32,7 +33,15 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .IsRequired(false)
             .HasConversion(
                 faqs => JsonSerializer.Serialize(faqs, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<FaqDto>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<IReadOnlyList<FaqDto>>(json, JsonSerializerOptions.Default)!);
+
+        builder.Property(w => w.Favicon)
+            .HasColumnName("favicon")
+            .IsRequired(false)
+            .HasConversion(
+                favicon => JsonSerializer.Serialize(favicon, JsonSerializerOptions.Default),
+                json => JsonSerializer.Deserialize<IReadOnlyList<FaviconDto>>(
+                    json, JsonSerializerOptions.Default)!);
          
         builder.HasMany(w => w.Blocks)
             .WithOne()

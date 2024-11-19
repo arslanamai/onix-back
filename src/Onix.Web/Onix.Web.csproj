@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,6 +34,12 @@
         <ProjectReference Include="..\WebSites\Onix.WebSites.Domain\Onix.WebSites.Domain.csproj"/>
         <ProjectReference Include="..\WebSites\Onix.WebSites.Infrastructure\Onix.WebSites.Infrastructure.csproj"/>
         <ProjectReference Include="..\WebSites\Onix.WebSites.Presentation\Onix.WebSites.Presentation.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

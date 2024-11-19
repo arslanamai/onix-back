@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Photos;
+using Onix.WebSites.Domain.Media;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Write;
 

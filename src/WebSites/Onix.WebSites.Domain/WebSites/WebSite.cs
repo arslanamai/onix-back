@@ -7,7 +7,7 @@ using Onix.WebSites.Domain.Appearances;
 using Onix.WebSites.Domain.Blocks;
 using Onix.WebSites.Domain.Categories;
 using Onix.WebSites.Domain.Locations;
-using Onix.WebSites.Domain.Photos;
+using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Domain.WebSites;
@@ -41,8 +41,8 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     public Phone? Phone { get; private set; }
     public Email? Email { get; private set; }
     
-    public IReadOnlyList<Photo> Favicon => _favicon;
-    private readonly List<Photo> _favicon = [];
+    public IReadOnlyList<Favicon> Favicon => _favicon;
+    private readonly List<Favicon> _favicon = [];
 
     public IReadOnlyList<SocialMedia> SocialMedias => _socialMedias;
     private readonly List<SocialMedia> _socialMedias = [];
@@ -150,7 +150,20 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
             return UnitResult.Failure<Error>(
                 Errors.Domain.MaxCount(ConstType.Block));
 
+        block.UpdateIndex(_blocks.Count);
         _blocks.Add(block);
+        return UnitResult.Success<Error>();
+    }
+
+    public UnitResult<Error> UpdateOrder( List<Block> blocks)
+    {
+        var blocksById = blocks.ToDictionary(b => b.Id, b => b.Index);
+
+        _blocks
+            .Where(existingBlock => blocksById.ContainsKey(existingBlock.Id))
+            .ToList()
+            .ForEach(existingBlock => existingBlock.UpdateIndex(blocksById[existingBlock.Id]));
+
         return UnitResult.Success<Error>();
     }
     
@@ -167,7 +180,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
 
     //favicon
     public UnitResult<Error> AddFavicon(
-        Photo favicon)
+        Favicon favicon)
     {
         if (_favicon.Count is not Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
@@ -178,7 +191,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     }
     
     public UnitResult<Error> RemoveFavicon(
-        Photo favicon)
+        Favicon favicon)
     {
         if (_favicon.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(

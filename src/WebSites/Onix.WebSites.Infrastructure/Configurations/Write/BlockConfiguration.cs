@@ -26,5 +26,9 @@ public class BlockConfiguration : IEntityTypeConfiguration<Block>
                 .HasMaxLength(Constants.CODE_MAX_LENGTH)
                 .HasColumnName("code");
         });
+
+        builder.Property(b => b.Index)
+            .IsRequired()
+            .HasColumnName("index");
     }
 }

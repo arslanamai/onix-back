@@ -17,20 +17,20 @@ public class UpdateWebSiteHandler
     private readonly IValidator<UpdateWebSiteCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly GetWebSiteByUrlHandle _getWebSiteByUrlHandle;
+    private readonly GetWebSiteByUrlHandler _getWebSiteByUrlHandler;
     private readonly ILogger<UpdateWebSiteHandler> _logger;
 
     public UpdateWebSiteHandler(
         IValidator<UpdateWebSiteCommand> validator,
         IWebSiteRepository webSiteRepository,
         IUnitOfWork unitOfWork,
-        GetWebSiteByUrlHandle getWebSiteByUrlHandle,
+        GetWebSiteByUrlHandler getWebSiteByUrlHandler,
         ILogger<UpdateWebSiteHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
         _unitOfWork = unitOfWork;
-        _getWebSiteByUrlHandle = getWebSiteByUrlHandle;
+        _getWebSiteByUrlHandler = getWebSiteByUrlHandler;
         _logger = logger;
     }
     
@@ -44,7 +44,7 @@ public class UpdateWebSiteHandler
         var url = Url.Create(command.Url).Value;
         var query = new GetWebSiteByUrlQuery(url.Value);
         
-        var existingWebsite = await _getWebSiteByUrlHandle.Handle(query, cancellationToken);
+        var existingWebsite = await _getWebSiteByUrlHandler.Handle(query, cancellationToken);
         if (existingWebsite.IsSuccess)
             return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
 

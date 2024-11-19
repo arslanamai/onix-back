@@ -16,7 +16,7 @@ public class WebSiteController : ApplicationController
     [HttpGet("/website/{id:guid}")]
     public async Task<IActionResult> Get(
         [FromRoute] Guid id,
-        [FromServices] GetWebSiteByIdHandle handler,
+        [FromServices] GetWebSiteByIdHandler handler,
         CancellationToken cancellationToken = default)
     {
         var query = new GetWebSiteRequest();

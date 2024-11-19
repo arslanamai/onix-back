@@ -6,4 +6,5 @@ public class BlockDto
      public Guid WebSiteId { get; init; }
      
      public string? Code { get; init; } = string.Empty;
+     public int Index { get; init; }
 }

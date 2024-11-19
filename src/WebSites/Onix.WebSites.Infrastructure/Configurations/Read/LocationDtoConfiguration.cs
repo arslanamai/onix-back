@@ -21,6 +21,6 @@ public class LocationDtoConfiguration : IEntityTypeConfiguration<LocationDto>
             .IsRequired(false)
             .HasConversion(
                 sc => JsonSerializer.Serialize(sc, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<List<ScheduleDto>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<IReadOnlyList<ScheduleDto>>(json, JsonSerializerOptions.Default)!);
     }
 }

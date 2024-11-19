@@ -3,15 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Onix.Core.Dtos;
 using Onix.SharedKernel;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Application.Queries.WebSites.GetById;
 
-namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithCategories;
+namespace Onix.WebSites.Application.Queries.WebSites.GetById;
 
-public class GetWebSiteByIdWithCategoryHandle
+public class GetWebSiteByIdHandler
 {
     private readonly IReadDbContext _readDbContext;
 
-    public GetWebSiteByIdWithCategoryHandle(IReadDbContext readDbContext)
+    public GetWebSiteByIdHandler(IReadDbContext readDbContext)
     {
         _readDbContext = readDbContext;
     }
@@ -21,7 +20,6 @@ public class GetWebSiteByIdWithCategoryHandle
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
-            .Include(w => w.Categories)
             .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
 
         if (webSiteDto is null)

@@ -4,26 +4,26 @@ using Onix.Core.Dtos;
 using Onix.SharedKernel;
 using Onix.WebSites.Application.Database;
 
-namespace Onix.WebSites.Application.Queries.WebSites.GetById;
+namespace Onix.WebSites.Application.Queries.WebSites.GetByUrl;
 
-public class GetWebSiteByIdHandle
+public class GetWebSiteByUrlHandler
 {
     private readonly IReadDbContext _readDbContext;
 
-    public GetWebSiteByIdHandle(IReadDbContext readDbContext)
+    public GetWebSiteByUrlHandler(IReadDbContext readDbContext)
     {
         _readDbContext = readDbContext;
     }
-
-    public async Task<Result<WebSiteDto, ErrorList>> Handle(
-        GetWebSiteByIdQuery query,
+    
+    public async Task<Result<WebSiteDto, Error>> Handle(
+        GetWebSiteByUrlQuery query,
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
-            .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
-
+            .FirstOrDefaultAsync(w => w.Url == query.Url, cancellationToken);
+        
         if (webSiteDto is null)
-            return Errors.General.NotFound(query.Id).ToErrorList();
+            return Errors.General.NotFound(query.Url);
 
         return webSiteDto;
     }

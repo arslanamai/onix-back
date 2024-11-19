@@ -5,13 +5,13 @@ using Onix.SharedKernel;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Application.Queries.WebSites.GetById;
 
-namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
+namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithFavicon;
 
-public class GetWebSiteByIdWithBLocksHandle
+public class GetWebSiteByIdWithFaviconHandler
 {
     private readonly IReadDbContext _readDbContext;
 
-    public GetWebSiteByIdWithBLocksHandle(IReadDbContext readDbContext)
+    public GetWebSiteByIdWithFaviconHandler(IReadDbContext readDbContext)
     {
         _readDbContext = readDbContext;
     }
@@ -21,7 +21,7 @@ public class GetWebSiteByIdWithBLocksHandle
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
-            .Include(w => w.Blocks)
+            .Include(w => w.Favicon)
             .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
 
         if (webSiteDto is null)

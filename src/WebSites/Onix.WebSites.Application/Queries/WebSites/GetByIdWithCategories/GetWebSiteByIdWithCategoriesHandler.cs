@@ -5,13 +5,13 @@ using Onix.SharedKernel;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Application.Queries.WebSites.GetById;
 
-namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithLocations;
+namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithCategories;
 
-public class GetWebSiteByIdWithLocationsHandle
+public class GetWebSiteByIdWithCategoriesHandler
 {
     private readonly IReadDbContext _readDbContext;
 
-    public GetWebSiteByIdWithLocationsHandle(IReadDbContext readDbContext)
+    public GetWebSiteByIdWithCategoriesHandler(IReadDbContext readDbContext)
     {
         _readDbContext = readDbContext;
     }
@@ -21,7 +21,7 @@ public class GetWebSiteByIdWithLocationsHandle
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
-            .Include(w => w.Location)
+            .Include(w => w.Categories)
             .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
 
         if (webSiteDto is null)

@@ -51,7 +51,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
                 .HasColumnName("link");
         });
 
-        builder.HasMany(p => p.ProductPhotos)
+        builder.HasMany(p => p.Photos)
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("product_id")

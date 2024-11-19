@@ -120,12 +120,12 @@ public static class Inject
     private static IServiceCollection AddQuery(
         this IServiceCollection service)
     {
-        service.AddScoped<GetWebSiteByIdHandle>();
-        service.AddScoped<GetWebSiteByUrlHandle>();
-        service.AddScoped<GetWebSiteByIdWithBLocksHandle>();
-        service.AddScoped<GetWebSiteByIdWithCategoryHandle>();
-        service.AddScoped<GetWebSiteByIdWithFaviconHandle>();
-        service.AddScoped<GetWebSiteByIdWithLocationsHandle>();
+        service.AddScoped<GetWebSiteByIdHandler>();
+        service.AddScoped<GetWebSiteByUrlHandler>();
+        service.AddScoped<GetWebSiteByIdWithBLocksHandler>();
+        service.AddScoped<GetWebSiteByIdWithCategoriesHandler>();
+        service.AddScoped<GetWebSiteByIdWithFaviconHandler>();
+        service.AddScoped<GetWebSiteByIdWithLocationsHandler>();
 
         return service;
     }

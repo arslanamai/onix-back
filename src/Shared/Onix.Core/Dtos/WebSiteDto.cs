@@ -16,10 +16,10 @@ public class WebSiteDto
     public string? Phone { get; init; } = string.Empty;
     public string? Email { get; init; } = string.Empty;
 
-    public List<PhotoDto> Favicon { get; init; } = [];
-    public List<SocialMediaDto> SocialMedias { get; init; } = [];
-    public List<FaqDto> Faqs { get; init; } = [];
-    public List<BlockDto> Blocks { get; init; } = [];
-    public List<CategoryDto> Categories { get; init; } = [];
-    public List<LocationDto> Location { get; init; } = [];
+    public IReadOnlyList<FaviconDto> Favicon { get; init; } = [];
+    public IReadOnlyList<SocialMediaDto> SocialMedias { get; init; } = [];
+    public IReadOnlyList<FaqDto> Faqs { get; init; } = [];
+    public IReadOnlyList<BlockDto> Blocks { get; init; } = [];
+    public IReadOnlyList<CategoryDto> Categories { get; init; } = [];
+    public IReadOnlyList<LocationDto> Location { get; init; } = [];
 }

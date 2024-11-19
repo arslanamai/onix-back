@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Photos;
+using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.Products.ValueObjects;
 
 namespace Onix.WebSites.Domain.Products;
@@ -32,8 +32,8 @@ public class Product : SharedKernel.Entity<ProductId>
     public Price Price { get; private set; }
     public Link Link { get; private set; }
     
-    public IReadOnlyList<Photo> ProductPhotos => _productPhotos ;
-    private readonly List<Photo> _productPhotos = [];
+    public IReadOnlyList<Photo> Photos => _photos ;
+    private readonly List<Photo> _photos = [];
 
     public static Result<Product> Create(
         ProductId id,
@@ -68,22 +68,30 @@ public class Product : SharedKernel.Entity<ProductId>
     public UnitResult<Error> AddPhoto(
         Photo photo)
     {
-        if (_productPhotos.Count >= Constants.MAX_PHOTO_COUNT)
+        if (_photos.Count > Constants.MAX_PHOTO_COUNT)
             return UnitResult.Failure<Error>(
                 Errors.Domain.MaxCount(ConstType.Photo));
 
-        _productPhotos.Add(photo);
+        _photos.Add(photo);
+        return UnitResult.Success<Error>();
+    }
+    
+    public UnitResult<Error> SetMainPhoto (
+        Photo photo)
+    {
+        _photos.Remove(photo);
+        _photos.Insert(0, photo);
         return UnitResult.Success<Error>();
     }
     
     public UnitResult<Error> RemovePhoto(
         Photo photo)
     {
-        if (_productPhotos.Count is Constants.MIN_COUNT)
+        if (_photos.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
                 Errors.Domain.Empty(ConstType.Photo));
 
-        _productPhotos.Remove(photo);
+        _photos.Remove(photo);
         return UnitResult.Success<Error>();
     }
 }
