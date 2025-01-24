@@ -4,6 +4,5 @@ namespace Onix.WebSites.Presentation.Controllers.Requests.WebSites;
 
 public record GetWebSiteRequest()
 {
-    public GetWebSiteByIdQuery ToQuery(Guid id)
-        => new GetWebSiteByIdQuery(id);
+    public GetWebSiteByIdQuery ToQuery(Guid id) => new(id);
 }

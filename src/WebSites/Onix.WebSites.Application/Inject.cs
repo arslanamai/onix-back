@@ -122,7 +122,7 @@ public static class Inject
     {
         service.AddScoped<GetWebSiteByIdHandler>();
         service.AddScoped<GetWebSiteByUrlHandler>();
-        service.AddScoped<GetWebSiteByIdWithBLocksHandler>();
+        service.AddScoped<GetBlocksHandler>();
         service.AddScoped<GetWebSiteByIdWithCategoriesHandler>();
         service.AddScoped<GetWebSiteByIdWithFaviconHandler>();
         service.AddScoped<GetWebSiteByIdWithLocationsHandler>();

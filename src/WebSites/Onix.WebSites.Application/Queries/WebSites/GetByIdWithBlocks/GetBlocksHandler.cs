@@ -7,17 +7,17 @@ using Onix.WebSites.Application.Queries.WebSites.GetById;
 
 namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
 
-public class GetWebSiteByIdWithBLocksHandler
+public class GetBlocksHandler
 {
     private readonly IReadDbContext _readDbContext;
 
-    public GetWebSiteByIdWithBLocksHandler(IReadDbContext readDbContext)
+    public GetBlocksHandler(IReadDbContext readDbContext)
     {
         _readDbContext = readDbContext;
-    }
+    } 
 
-    public async Task<Result<WebSiteDto, ErrorList>> Handle(
-        GetWebSiteByIdQuery query,
+    public async Task<Result<IReadOnlyList<BlockDto>, ErrorList>> Handle(
+        GetBlocksQuery query,
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
@@ -27,6 +27,6 @@ public class GetWebSiteByIdWithBLocksHandler
         if (webSiteDto is null)
             return Errors.General.NotFound(query.Id).ToErrorList();
 
-        return webSiteDto;
+        return webSiteDto.Blocks.ToList();
     }
 }

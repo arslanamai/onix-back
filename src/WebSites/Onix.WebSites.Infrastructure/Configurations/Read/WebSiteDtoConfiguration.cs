@@ -25,7 +25,7 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .IsRequired(false)
             .HasConversion(
                 sm => JsonSerializer.Serialize(sm, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<SocialMediaDto>>(
+                json => JsonSerializer.Deserialize<List<SocialMediaDto>>(
                     json, JsonSerializerOptions.Default)!);
 
         builder.Property(w => w.Faqs)
@@ -33,34 +33,29 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .IsRequired(false)
             .HasConversion(
                 faqs => JsonSerializer.Serialize(faqs, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<FaqDto>>(json, JsonSerializerOptions.Default)!);
+                json => JsonSerializer.Deserialize<List<FaqDto>>(json, JsonSerializerOptions.Default)!);
 
         builder.Property(w => w.Favicon)
             .HasColumnName("favicon")
             .IsRequired(false)
             .HasConversion(
                 favicon => JsonSerializer.Serialize(favicon, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<FaviconDto>>(
+                json => JsonSerializer.Deserialize<List<FaviconDto>>(
                     json, JsonSerializerOptions.Default)!);
          
         builder.HasMany(w => w.Blocks)
             .WithOne()
             .IsRequired(false)
-            .HasForeignKey(b => b.WebSiteId);
+            .HasForeignKey("website_id");
         
         builder.HasMany(w => w.Categories)
             .WithOne()
             .IsRequired(false)
-            .HasForeignKey(b => b.WebSiteId);
-
-        builder.HasMany(w => w.Favicon)
-            .WithOne()
-            .IsRequired(false)
-            .HasForeignKey(f => f.WebSiteId);
+            .HasForeignKey("website_id");
         
         builder.HasMany(c => c.Location)
             .WithOne()
             .IsRequired(false)
-            .HasForeignKey(p => p.WebSiteId);
+            .HasForeignKey("website_id");
     }
 }
