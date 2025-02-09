@@ -1,22 +1,18 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Onix.Account.Domain.Accounts;
-using Onix.Account.Domain.Claims;
 
-namespace Onix.Account.Infrastructure.DbContext;
+namespace Onix.Account.Infrastructure.DbContexts;
 
-public class AccountDbContext(IConfiguration configuration)
-    : IdentityDbContext<User, Role, Guid>
+public class AccountDbContext(IConfiguration configuration) : DbContext
 {
-    public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
-    public DbSet<Permission> Permissions => Set<Permission>();
+    private const string DATABASE = "Database";
+    
     public DbSet<User> Accounts => Set<User>();
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(configuration.GetConnectionString("Database"));
+        optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
         optionsBuilder.UseSnakeCaseNamingConvention();
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.UseLoggerFactory(CreateLoggerFactory());

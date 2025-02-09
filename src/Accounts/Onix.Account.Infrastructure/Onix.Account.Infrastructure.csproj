@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Onix.Core\Onix.Core.csproj" />
       <ProjectReference Include="..\Onix.Account.Domain\Onix.Account.Domain.csproj" />
     </ItemGroup>
 

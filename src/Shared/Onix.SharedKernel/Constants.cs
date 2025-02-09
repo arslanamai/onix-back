@@ -22,6 +22,7 @@ public static class Constants
     public const int SHARE_MAX_LENGTH = 50;
     public const int JSON_MAX_LENGTH = 500;
     public const int PRICE_MAX_LENGTH = 50;
+    public const int SUB_MAX_LENGTH = 50;
     
     //min length
     public const int NAME_MIN_LENGTH = 2;

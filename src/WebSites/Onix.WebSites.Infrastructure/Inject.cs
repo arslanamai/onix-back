@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Onix.Core.Abstraction;
+using Onix.Core.SqlConnect;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Infrastructure.DbContexts;
 using Onix.WebSites.Infrastructure.Repositories;

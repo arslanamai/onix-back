@@ -1,42 +1,42 @@
 using CSharpFunctionalExtensions;
-using Microsoft.AspNetCore.Identity;
 using Onix.Account.Domain.Accounts.ValueObjects;
-using Onix.Account.Domain.Claims;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
+using Onix.SharedKernel.ValueObjects.Ids;
 
 namespace Onix.Account.Domain.Accounts;
 
-public class User : IdentityUser<Guid>
+public class User : SharedKernel.Entity<UserId>
 {
     //ef core
-    private User()
+    private User(UserId id) : base(id)
     {
     }
-    
-    public IReadOnlyList<Role> Roles => _roles;
-    private List<Role> _roles = [];
-    
-    public static Result<User, Error> Create(
-        Name userName, 
-        Phone phone,
+    private User(
+        UserId id,
         Email email,
-        PasswordHash passwordHash,
-        Role role)
+        DateTime registrationDate,
+        Auth0Sub auth0Sub) : base(id)
     {
-        return new User
-        {
-            UserName = userName.Value,
-            PhoneNumber = phone.Value,
-            Email = email.Value,
-            PasswordHash = passwordHash.Value,
-            _roles = [role]
-        };
+        Email = email;
+        RegistrationDate = registrationDate;
+        Auth0Sub = auth0Sub;
     }
+    
+    public Email Email { get; private set; }
+    public DateTime RegistrationDate { get; private set; }
+    public Auth0Sub Auth0Sub { get; private set; }
 
-    public UnitResult<Error> PhoneConfirm()
+    public static Result<User, Error> Create(
+        UserId id,
+        Email email,
+        DateTime registrationDate,
+        Auth0Sub auth0Sub)
     {
-        this.PhoneNumberConfirmed = true;
-        return UnitResult.Success<Error>();
+        return new User(
+            id,
+            email,
+            registrationDate,
+            auth0Sub);
     }
 }
