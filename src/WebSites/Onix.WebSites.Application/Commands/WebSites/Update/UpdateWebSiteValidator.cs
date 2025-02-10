@@ -10,38 +10,38 @@ public class UpdateWebSiteValidator : AbstractValidator<UpdateWebSiteCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Required(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Required(ConstType.WebSiteId));
 
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
         
         RuleFor(c => c.Url)
             .NotEmpty()
-            .WithError(Errors.Domain.Required(ConstType.Url));
+            .WithError(Errors.Domains.Required(ConstType.SubDamain));
         
         RuleFor(c => c.Url)
-            .MaximumLength(Constants.URL_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Url));
+            .MaximumLength(Constants.SUBDOMAIN_MAX_LENGTH)
+            .WithError(Errors.Domains.MaxLength(ConstType.SubDamain));
         
         RuleFor(c => c.Url)
             .MinimumLength(Constants.URL_MIN_LENGTH)
-            .WithError(Errors.Domain.MinLength(ConstType.Url));
+            .WithError(Errors.Domains.MinLength(ConstType.SubDamain));
 
         RuleFor(c => c.Url)
             .Matches(Constants.URL_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.Url));
+            .WithError(Errors.Domains.Invalid(ConstType.SubDamain));
 
         RuleFor(c => c.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.Required(ConstType.Name));
+            .WithError(Errors.Domains.Required(ConstType.Name));
 
         RuleFor(c => c.Name)
             .MaximumLength(Constants.NAME_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Name));
+            .WithError(Errors.Domains.MaxLength(ConstType.Name));
         
         RuleFor(c => c.Name)
             .MinimumLength(Constants.NAME_MIN_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Name));
+            .WithError(Errors.Domains.MaxLength(ConstType.Name));
     }
 }

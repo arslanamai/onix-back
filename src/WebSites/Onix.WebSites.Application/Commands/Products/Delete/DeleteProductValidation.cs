@@ -10,26 +10,18 @@ public class DeleteProductValidation : AbstractValidator<DeleteProductCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Empty(ConstType.WebSiteId));
         
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
-        
-        RuleFor(a => a.CategoryId)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.CategoryId));
-        
-        RuleFor(a => a.CategoryId.ToString())
-            .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.CategoryId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.ProductId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.ProductId));
+            .WithError(Errors.Domains.Empty(ConstType.ProductId));
         
         RuleFor(a => a.ProductId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.ProductId));
+            .WithError(Errors.Domains.Invalid(ConstType.ProductId));
     }
 }

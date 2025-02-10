@@ -9,7 +9,6 @@ using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
 using Onix.WebSites.Domain.WebSites;
-using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.WebSites.Create;
 
@@ -42,12 +41,12 @@ public class CreateWebSiteHandler
         if (validationResult.IsValid == false)
             return validationResult.ToList();
 
-        var url = Url.Create(command.Url).Value;
+        var url = Domain.WebSites.ValueObjects.Domain.Create(command.Url).Value;
         var query = new GetWebSiteByUrlQuery(url.Value);
         
         var website = await _getWebSiteByUrlHandler.Handle(query,cancellationToken);
         if (website.IsSuccess)
-            return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
+            return Errors.Domains.AlreadyExist(nameof(url)).ToErrorList();
 
         var webSiteId = WebSiteId.NewId();
         var name = Name.Create(command.Name).Value;

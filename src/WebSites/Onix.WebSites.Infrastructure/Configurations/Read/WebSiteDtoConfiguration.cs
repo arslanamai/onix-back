@@ -15,15 +15,15 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
         builder.Property(w => w.Id)
             .HasColumnName("Id");
         
-        builder.Property(w => w.Url)
-            .HasColumnName("url");
+        builder.Property(w => w.SubDamain)
+            .HasColumnName("subdomain");
          
         builder.HasMany(w => w.Blocks)
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("website_id");
 
-        builder.HasMany(w => w.Blocks)
+        builder.HasMany(w => w.Products)
             .WithOne()
             .HasForeignKey("website_id")
             .IsRequired(false);

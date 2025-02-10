@@ -23,7 +23,7 @@ public class GetWebSiteByIdHandler
             .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
 
         if (webSiteDto is null)
-            return Errors.General.NotFound(query.Id).ToErrorList();
+            return Errors.General.NotFound(ConstType.WebSite).ToErrorList();
 
         return webSiteDto;
     }

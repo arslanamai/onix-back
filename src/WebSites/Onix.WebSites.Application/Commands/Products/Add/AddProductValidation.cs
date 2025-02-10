@@ -11,34 +11,34 @@ public class AddProductValidation : AbstractValidator<AddProductCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Empty(ConstType.WebSiteId));
         
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.CategoryId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.CategoryId));
+            .WithError(Errors.Domains.Empty(ConstType.CategoryId));
         
         RuleFor(a => a.CategoryId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.CategoryId));
+            .WithError(Errors.Domains.Invalid(ConstType.CategoryId));
         
         RuleFor(a => a.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Name));
+            .WithError(Errors.Domains.Empty(ConstType.Name));
         
         RuleFor(a => a.Name)
             .MaximumLength(Constants.NAME_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Name));
+            .WithError(Errors.Domains.MaxLength(ConstType.Name));
 
         RuleFor(a => a.Code)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Code));
+            .WithError(Errors.Domains.Empty(ConstType.Code));
         
         RuleFor(a => a.Code)
             .MaximumLength(Constants.CODE_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Code));
+            .WithError(Errors.Domains.MaxLength(ConstType.Code));
     }
 }

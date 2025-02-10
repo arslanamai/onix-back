@@ -38,7 +38,7 @@ public class DeleteLocationHandler
         var webSiteId = WebSiteId.Create(command.WebSiteId);
         
         var webSiteResult = await _webSiteRepository
-            .GetByIdWithCategories(webSiteId, cancellationToken);
+            .GetByIdWithLocation(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 

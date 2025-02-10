@@ -44,21 +44,14 @@ public class DeleteProductHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var categoryId = CategoryId.Create(command.CategoryId);
-        
-        var categoryResult = webSiteResult.Value.Categories
-            .FirstOrDefault(c => c.Id == categoryId);
-        if (categoryResult is null)
-            return Errors.General.NotFound(categoryId.Value).ToErrorList();
-
         var productId = ProductId.NewId();
 
-        var productResult = categoryResult.Products
+        var productResult = webSiteResult.Value.Products
             .FirstOrDefault(p => p.Id == productId);
         if (productResult is null)
             return Errors.General.NotFound(productId.Value).ToErrorList();
 
-        var result = categoryResult.RemoveProduct(productResult);
+        var result = webSiteResult.Value.RemoveProduct(productResult);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         

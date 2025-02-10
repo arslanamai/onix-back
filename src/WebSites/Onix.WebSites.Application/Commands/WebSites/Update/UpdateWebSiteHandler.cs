@@ -8,7 +8,6 @@ using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
-using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.WebSites.Update;
 
@@ -41,7 +40,7 @@ public class UpdateWebSiteHandler
         if (!validationResult.IsValid)
             return validationResult.ToList();
 
-        var url = Url.Create(command.Url).Value;
+        var url = Domain.WebSites.ValueObjects.Domain.Create(command.Url).Value;
         var query = new GetWebSiteByUrlQuery(url.Value);
         var webSiteId = WebSiteId.Create(command.WebSiteId);
         
@@ -49,12 +48,12 @@ public class UpdateWebSiteHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        if (url != webSiteResult.Value.Url)
+        if (url != webSiteResult.Value.SubDomain)
         {
             var existingWebsite = await _getWebSiteByUrlHandler.Handle(query, cancellationToken);
             if(existingWebsite.IsSuccess)
                 if (existingWebsite.Value.Id != webSiteResult.Value.Id.Value)
-                    return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
+                    return Errors.Domains.AlreadyExist(nameof(url)).ToErrorList();
         }
 
         var name = Name.Create(command.Name).Value;

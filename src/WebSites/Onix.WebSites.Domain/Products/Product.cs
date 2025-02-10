@@ -54,7 +54,7 @@ public class Product : SharedKernel.Entity<ProductId>
     {
         if (_photos.Count > Constants.MAX_PHOTO_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.Photo));
+                Errors.Domains.MaxCount(ConstType.Photo));
 
         _photos.Add(photo);
         return UnitResult.Success<Error>();
@@ -73,7 +73,7 @@ public class Product : SharedKernel.Entity<ProductId>
     {
         if (_photos.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Photo));
+                Errors.Domains.Empty(ConstType.Photo));
 
         _photos.Remove(photo);
         return UnitResult.Success<Error>();

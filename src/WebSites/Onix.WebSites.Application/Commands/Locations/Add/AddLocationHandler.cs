@@ -46,18 +46,12 @@ public class AddLocationHandler
 
         var locationId = LocationId.NewId();
         var name = Name.Create(command.Name).Value;
+        var code = Code.Create(command.Code).Value;
         
-        var address = Address.Create(
-            command.City,
-            command.Street,
-            command.Build,
-            command.Index).Value;
-
         var location = Location.Create(
             locationId,
             name,
-            phone,
-            address).Value;
+            code).Value;
 
         var result = webSiteResult.Value.AddLocation(location);
         if (result.IsFailure)

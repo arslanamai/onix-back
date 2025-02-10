@@ -7,7 +7,6 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Domain.Products.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Products.Update;
 
@@ -44,31 +43,20 @@ public class UpdateProductHandler
 
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
-
-        var categoryId = CategoryId.Create(command.CategoryId);
         
-        var categoryResult = webSiteResult.Value.Categories
-            .FirstOrDefault(c => c.Id == categoryId);
-        if (categoryResult is null)
-            return Errors.General.NotFound(categoryId.Value).ToErrorList();
-
         var productId = ProductId.Create(command.ProductId);
 
-        var productResult = categoryResult.Products
+        var productResult = webSiteResult.Value.Products
             .FirstOrDefault(p => p.Id == productId);
         if (productResult is null)
             return Errors.General.NotFound(productId.Value).ToErrorList();
             
         var name = Name.Create(command.Name).Value;
-        var description = Description.Create(command.Description).Value;
-        var price = Price.Create(command.Price).Value;
-        var link = Link.Create(command.Link).Value;
+        var code = Code.Create(command.Code).Value;
 
         var result = productResult.Update(
             name,
-            description,
-            price,
-            link);
+            code);
 
         if (result.IsFailure)
             return result.Error.ToErrorList();

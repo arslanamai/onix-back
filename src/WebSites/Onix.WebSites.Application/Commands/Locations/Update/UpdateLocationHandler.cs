@@ -7,7 +7,6 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Domain.Locations.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Locations.Update;
 
@@ -40,7 +39,7 @@ public class UpdateLocationHandler
         var webSiteId = WebSiteId.Create(command.WebSiteId);
         
         var webSiteResult = await _webSiteRepository
-            .GetByIdWithCategories(webSiteId, cancellationToken);
+            .GetByIdWithLocation(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
@@ -52,14 +51,9 @@ public class UpdateLocationHandler
             return Errors.General.NotFound(locationId.Value).ToErrorList();
 
         var name = Name.Create(command.Name).Value;
-        var phone = Phone.Create(command.Phone).Value;
-        var address = Address.Create(
-            command.City,
-            command.Street,
-            command.Build,
-            command.Index).Value;
+        var code = Code.Create(command.Code).Value;
         
-        var result = locationResult.Update(name, phone, address);
+        var result = locationResult.Update(name, code);
         if (result.IsFailure)
             return result.Error.ToErrorList();
         

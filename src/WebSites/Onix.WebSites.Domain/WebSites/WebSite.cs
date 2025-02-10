@@ -6,7 +6,6 @@ using Onix.WebSites.Domain.Blocks;
 using Onix.WebSites.Domain.Locations;
 using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.Products;
-using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Domain.WebSites;
 
@@ -19,26 +18,25 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
 
     private WebSite(
         WebSiteId id,
-        Url url,
+        SubDomain subDomain,
         Name name,
         DateTime createdDate,
         bool isPublish = true) : base(id)
     {
-        Url = url;
+        SubDomain = subDomain;
         Name = name;
         CreatedDate = createdDate;
         IsPublish = isPublish;
     }
 
-    public Url Url { get; private set; }
+    public SubDomain SubDomain { get; private set; }
     public Name Name { get; private set; }
     public Favicon Favicon { get; private set; }
-    public DateTime CreatedDate { get; private set; }
+    public DateTimeOffset CreatedDate { get; private set; }
     public bool IsPublish { get; private set; }
 
     public IReadOnlyList<Block> Blocks => _blocks;
     private readonly List<Block> _blocks = [];
-    
     public IReadOnlyList<Product> Products => _products;
     private readonly List<Product> _products = [];
     public IReadOnlyList<Location> Locations => _locations;
@@ -47,24 +45,24 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     //website
     public static Result<WebSite, ErrorList> Create(
         WebSiteId id,
-        Url url,
+        SubDomain subDomain,
         Name name,
         DateTime createdDate,
         bool isPublish = true)
     {
         return new WebSite(
             id,
-            url,
+            subDomain,
             name,
             createdDate, 
             isPublish);
     }
 
     public UnitResult<Error> Update(
-        Url newUrl,
+        SubDomain newSubDomain,
         Name newName)
     {
-        this.Url = newUrl;
+        this.SubDomain = newSubDomain;
         this.Name = newName;
         
         return UnitResult.Success<Error>();
@@ -76,7 +74,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_blocks.Count >= Constants.MAX_BLOCK_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.Block));
+                Errors.Domains.MaxCount(ConstType.Block));
 
         block.UpdateIndex(_blocks.Count);
         _blocks.Add(block);
@@ -100,7 +98,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_blocks.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Block));
+                Errors.Domains.Empty(ConstType.Block));
 
         _blocks.Remove(block);
         return UnitResult.Success<Error>();
@@ -135,7 +133,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_products.Count >= Constants.MAX_PRODUCT_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.Product));
+                Errors.Domains.MaxCount(ConstType.Product));
 
         _products.Add(product);
         return UnitResult.Success<Error>();
@@ -145,7 +143,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_products.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Product));
+                Errors.Domains.Empty(ConstType.Product));
 
         _products.Remove(product);
         return UnitResult.Success<Error>();
@@ -156,7 +154,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_locations.Count >= Constants.MAX_LOCATION_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.Location));
+                Errors.Domains.MaxCount(ConstType.Location));
 
         _locations.Add(location);
         return UnitResult.Success<Error>();
@@ -167,7 +165,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     {
         if (_locations.Count is Constants.MIN_COUNT)
             return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Location));
+                Errors.Domains.Empty(ConstType.Location));
 
         _locations.Remove(location);
         return UnitResult.Success<Error>();

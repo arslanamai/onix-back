@@ -27,12 +27,12 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
                 .HasColumnName("name");
         });
         
-        builder.ComplexProperty(w => w.Url, tb =>
+        builder.ComplexProperty(w => w.SubDomain, tb =>
         {
             tb.Property(u => u.Value)
                 .IsRequired()
-                .HasMaxLength(Constants.URL_MAX_LENGTH)
-                .HasColumnName("url");
+                .HasMaxLength(Constants.SUBDOMAIN_MAX_LENGTH)
+                .HasColumnName("subdomain");
         });
         
         builder.ComplexProperty(w => w.Favicon, tb =>

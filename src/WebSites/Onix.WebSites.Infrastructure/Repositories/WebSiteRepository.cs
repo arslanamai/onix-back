@@ -1,10 +1,10 @@
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Onix.SharedKernel;
+using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Domain.WebSites;
-using Onix.WebSites.Domain.WebSites.ValueObjects;
 using Onix.WebSites.Infrastructure.DbContexts;
 
 namespace Onix.WebSites.Infrastructure.Repositories;
@@ -26,7 +26,7 @@ public class WebSiteRepository : IWebSiteRepository
             .FirstOrDefaultAsync(w => w.Id == webSiteId, cancellationToken );
 
         if (webSite is null)
-            return Errors.General.NotFound(webSiteId.Value);
+            return Errors.General.NotFound(ConstType.WebSite);
         
         return webSite;
     }
@@ -54,13 +54,13 @@ public class WebSiteRepository : IWebSiteRepository
     }
 
     public async Task<Result<WebSite, Error>> GetByUrl(
-        Url url, CancellationToken cancellationToken = default)
+        SubDomain domain, CancellationToken cancellationToken = default)
     {
         var webSite = await _dbContext.WebSites
-            .FirstOrDefaultAsync(w => w.Url == url, cancellationToken );
+            .FirstOrDefaultAsync(w => w.SubDomain == domain, cancellationToken );
 
         if (webSite is null)
-            return Errors.General.NotFound(url.Value);
+            return Errors.General.NotFound(ConstType.WebSite);
 
         return webSite;
     }
@@ -73,7 +73,7 @@ public class WebSiteRepository : IWebSiteRepository
             .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
         
         if (webSite is null)
-            return Errors.General.NotFound(id.Value);
+            return Errors.General.NotFound(ConstType.WebSite);
 
         return webSite;
     }
@@ -86,7 +86,7 @@ public class WebSiteRepository : IWebSiteRepository
             .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
         
         if (webSite is null)
-            return Errors.General.NotFound(id.Value);
+            return Errors.General.NotFound(ConstType.WebSite);
 
         return webSite;
     }

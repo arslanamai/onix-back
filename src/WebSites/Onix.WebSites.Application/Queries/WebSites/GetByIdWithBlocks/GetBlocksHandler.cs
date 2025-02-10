@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Onix.Core.Dtos;
 using Onix.SharedKernel;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Application.Queries.WebSites.GetById;
 
 namespace Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
 
@@ -25,7 +24,7 @@ public class GetBlocksHandler
             .FirstOrDefaultAsync(w => w.Id == query.Id, cancellationToken);
 
         if (webSiteDto is null)
-            return Errors.General.NotFound(query.Id).ToErrorList();
+            return Errors.General.NotFound(ConstType.WebSite).ToErrorList();
 
         return webSiteDto.Blocks.ToList();
     }

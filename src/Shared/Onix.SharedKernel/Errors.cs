@@ -2,60 +2,51 @@ namespace Onix.SharedKernel;
 
 public static class Errors
 {
+    private const string DefaultValue = "value";
+    
     public static class General
     {
-        public static Error NotFound(Guid? id = null)
+        public static Error NotFound(string name)
         {
-            var forId = id == null ? "" : $" for Id '{id}'";
-            return Error.NotFound("value.not.found", $"value not found {forId}");
-        }
-        
-        public static Error NotFound(string? value = "value")
-        {
-            return Error.NotFound("value.not.found", $"{value} not vound");
-        }
-
-        public static Error WrongType(string? value = "value")
-        {
-            return Error.Validation("value.is.wrong.type", $"{value} is wrong type");
+            return Error.NotFound($"{name}.not.found", $"{name} not found");
         }
     }
     
-    public static class Domain
+    public static class Domains
     {
-        public static Error Required(string? value = "value")
+        public static Error Required(string? name = DefaultValue)
         {
-            return Error.Validation("value.is.required", $"{value} is required");
+            return Error.Validation($"{name}.is.required", $"{name} is required");
         }
         
-        public static Error Invalid(string? value = "value")
+        public static Error Invalid(string? name = DefaultValue)
         {
-            return Error.Validation("value.is.invalid", $"{value} is invalid");
+            return Error.Validation($"{name}.is.invalid", $"{name} is invalid");
         }
         
-        public static Error AlreadyExist(string? value = "value")
+        public static Error AlreadyExist(string? name = DefaultValue)
         {
-            return Error.Validation("value.already.exist", $"{value} already exist");
-        }
-
-        public static Error MaxCount(string? value = "value")
-        {
-            return Error.Failure("value.max.count", $"{value} exceeds maximum allowed count");
+            return Error.Validation($"{name}.already.exists", $"{name} already exists");
         }
         
-        public static Error Empty(string? value = "value")
+        public static Error MaxCount(string? name = DefaultValue)
         {
-            return Error.Failure("value.empty", $"{value} cannot be empty");
-        }
-
-        public static Error MaxLength(string? value = "value")
-        {
-            return Error.Validation("value.max.length", $"{value} exceeds maximum allowed length");
+            return Error.Validation($"{name}.max.count", $"{name} exceeds the maximum allowed count");
         }
         
-        public static Error MinLength(string? value = "value")
+        public static Error Empty(string? name = DefaultValue)
         {
-            return Error.Validation("value.min.length", $"{value} exceeds min allowed length");
+            return Error.Validation($"{name}.is.empty", $"{name} cannot be empty");
+        }
+        
+        public static Error MaxLength(string? name = DefaultValue)
+        {
+            return Error.Validation($"{name}.max.length", $"{name} exceeds the maximum allowed length");
+        }
+        
+        public static Error MinLength(string? name = DefaultValue)
+        {
+            return Error.Validation($"{name}.min.length", $"{name} is shorter than the minimum allowed length");
         }
     }
 }

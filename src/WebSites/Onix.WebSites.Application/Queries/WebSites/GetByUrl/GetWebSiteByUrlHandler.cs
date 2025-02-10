@@ -20,10 +20,10 @@ public class GetWebSiteByUrlHandler
         CancellationToken cancellationToken = default)
     {
         var webSiteDto = await _readDbContext.WebSites
-            .FirstOrDefaultAsync(w => w.Url == query.Url, cancellationToken);
+            .FirstOrDefaultAsync(w => w.SubDamain == query.SubDomain, cancellationToken);
         
         if (webSiteDto is null)
-            return Errors.General.NotFound(query.Url);
+            return Errors.General.NotFound(ConstType.WebSite);
 
         return webSiteDto;
     }

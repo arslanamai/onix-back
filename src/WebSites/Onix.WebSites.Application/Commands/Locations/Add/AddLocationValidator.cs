@@ -10,54 +10,26 @@ public class AddLocationValidator : AbstractValidator<AddLocationCommand>
     {
         RuleFor(l => l.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Empty(ConstType.WebSiteId));
         
         RuleFor(c => c.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
 
         RuleFor(l => l.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Name));
+            .WithError(Errors.Domains.Empty(ConstType.Name));
         
         RuleFor(l => l.Name)
             .MaximumLength(Constants.NAME_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Name));
+            .WithError(Errors.Domains.MaxLength(ConstType.Name));
         
-        RuleFor(l => l.Phone)
+        RuleFor(l => l.Code)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Phone));
+            .WithError(Errors.Domains.Empty(ConstType.Code));
         
-        RuleFor(l => l.Phone)
-            .MaximumLength(Constants.PHONE_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Phone));
-        
-        RuleFor(l => l.City)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.City));
-        
-        RuleFor(l => l.City)
-            .MaximumLength(Constants.ADDRESS_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.City));
-        
-        RuleFor(l => l.Street)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Street));
-        
-        RuleFor(l => l.Street)
-            .MaximumLength(Constants.ADDRESS_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Street));
-        
-        RuleFor(l => l.Build)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Build));
-        
-        RuleFor(l => l.Build)
-            .MaximumLength(Constants.ADDRESS_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Build));
-
-        RuleFor(l => l.Index)
-            .MaximumLength(Constants.INDEX_MAX_LENGHT)
-            .WithError(Errors.Domain.MaxLength(ConstType.Index));
+        RuleFor(l => l.Code)
+            .MaximumLength(Constants.CODE_MAX_LENGTH)
+            .WithError(Errors.Domains.MaxLength(ConstType.Code));
     }
 }

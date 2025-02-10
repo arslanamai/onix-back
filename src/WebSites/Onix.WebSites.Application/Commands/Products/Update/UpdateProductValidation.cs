@@ -10,50 +10,26 @@ public class UpdateProductValidation : AbstractValidator<UpdateProductCommand>
     {
         RuleFor(a => a.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Empty(ConstType.WebSiteId));
         
         RuleFor(a => a.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
-        
-        RuleFor(a => a.CategoryId)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.CategoryId));
-        
-        RuleFor(a => a.CategoryId.ToString())
-            .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.CategoryId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
         
         RuleFor(a => a.Name)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Name));
+            .WithError(Errors.Domains.Empty(ConstType.Name));
         
         RuleFor(a => a.Name)
             .MaximumLength(Constants.NAME_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Name));
+            .WithError(Errors.Domains.MaxLength(ConstType.Name));
 
-        RuleFor(a => a.Description)
+        RuleFor(a => a.Code)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Description));
+            .WithError(Errors.Domains.Empty(ConstType.Code));
         
-        RuleFor(a => a.Description)
-            .MaximumLength(Constants.DESCRIPTION_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Description));
-        
-        RuleFor(a => a.Price)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Price));
-        
-        RuleFor(a => a.Price)
-            .MaximumLength(Constants.PRICE_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Description));
-        
-        RuleFor(a => a.Link)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Link));
-        
-        RuleFor(a => a.Link)
-            .MaximumLength(Constants.LINK_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Link));
+        RuleFor(a => a.Code)
+            .MaximumLength(Constants.CODE_MAX_LENGTH)
+            .WithError(Errors.Domains.MaxLength(ConstType.Code));
     }
 }

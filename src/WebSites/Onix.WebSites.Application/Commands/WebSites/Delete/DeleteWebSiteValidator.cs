@@ -10,10 +10,10 @@ public class DeleteWebSiteValidator : AbstractValidator<DeleteWebSiteCommand>
     {
         RuleFor(w => w.WebSiteId)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Empty(ConstType.WebSiteId));
 
         RuleFor(w => w.WebSiteId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domain.Invalid(ConstType.WebSiteId));
+            .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
     }
 }
