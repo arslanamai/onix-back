@@ -9,21 +9,21 @@ public class CreateWebSiteValidator : AbstractValidator<CreateWebSiteCommand>
 {
     public CreateWebSiteValidator()
     {
-        RuleFor(c => c.Url)
+        RuleFor(c => c.SubDomain)
             .NotEmpty()
-            .WithError(Errors.Domains.Required(ConstType.SubDamain));
+            .WithError(Errors.Domains.Required(ConstType.SubDomain));
         
-        RuleFor(c => c.Url)
+        RuleFor(c => c.SubDomain)
             .MaximumLength(Constants.SUBDOMAIN_MAX_LENGTH)
-            .WithError(Errors.Domains.MaxLength(ConstType.SubDamain));
+            .WithError(Errors.Domains.MaxLength(ConstType.SubDomain));
         
-        RuleFor(c => c.Url)
-            .MinimumLength(Constants.URL_MIN_LENGTH)
-            .WithError(Errors.Domains.MinLength(ConstType.SubDamain));
+        RuleFor(c => c.SubDomain)
+            .MinimumLength(Constants.SUBDOMAIN_MIN_LENGTH)
+            .WithError(Errors.Domains.MinLength(ConstType.SubDomain));
 
-        RuleFor(c => c.Url)
-            .Matches(Constants.URL_REGEX)
-            .WithError(Errors.Domains.Invalid(ConstType.SubDamain));
+        RuleFor(c => c.SubDomain)
+            .Matches(Constants.SUBDOMAIN_REGEX)
+            .WithError(Errors.Domains.Invalid(ConstType.SubDomain));
 
         RuleFor(c => c.Name)
             .NotEmpty()

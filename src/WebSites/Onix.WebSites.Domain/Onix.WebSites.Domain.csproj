@@ -9,8 +9,4 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Shared\Onix.SharedKernel\Onix.SharedKernel.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="WebSites\ValueObjects\" />
-    </ItemGroup>
 </Project>

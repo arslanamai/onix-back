@@ -17,14 +17,6 @@ public class AddProductValidation : AbstractValidator<AddProductCommand>
             .Matches(Constants.ID_REGEX)
             .WithError(Errors.Domains.Invalid(ConstType.WebSiteId));
         
-        RuleFor(a => a.CategoryId)
-            .NotEmpty()
-            .WithError(Errors.Domains.Empty(ConstType.CategoryId));
-        
-        RuleFor(a => a.CategoryId.ToString())
-            .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domains.Invalid(ConstType.CategoryId));
-        
         RuleFor(a => a.Name)
             .NotEmpty()
             .WithError(Errors.Domains.Empty(ConstType.Name));

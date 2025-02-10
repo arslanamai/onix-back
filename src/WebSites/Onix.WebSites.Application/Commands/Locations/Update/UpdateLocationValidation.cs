@@ -18,11 +18,11 @@ public class UpdateLocationValidation : AbstractValidator<UpdateLocationCommand>
         
         RuleFor(a => a.LocationId)
             .NotEmpty()
-            .WithError(Errors.Domains.Required(ConstType.CategoryId));
+            .WithError(Errors.Domains.Required(ConstType.LocationId));
 
         RuleFor(a => a.LocationId.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domains.Invalid(ConstType.CategoryId));
+            .WithError(Errors.Domains.Invalid(ConstType.LocationId));
         
         RuleFor(l => l.Name)
             .NotEmpty()

@@ -12,10 +12,10 @@ public static class Constants
     
     //min length
     public const int NAME_MIN_LENGTH = 2;
-    public const int URL_MIN_LENGTH = 2;
+    public const int SUBDOMAIN_MIN_LENGTH = 2;
     
     //regax
-    public const string URL_REGEX = "^[a-z]+(-[a-z]+)?$";
+    public const string SUBDOMAIN_REGEX = "^[a-z]+(-[a-z]+)?$";
     public const string ID_REGEX = "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$";
 
     //max count

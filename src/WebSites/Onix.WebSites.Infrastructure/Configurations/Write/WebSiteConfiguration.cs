@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
+using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.WebSites;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Write;
@@ -35,14 +36,6 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
                 .HasColumnName("subdomain");
         });
         
-        builder.ComplexProperty(w => w.Favicon, tb =>
-        {
-            tb.Property(f => f.Path)
-                .IsRequired()
-                .HasMaxLength(Constants.PATH_MAX_LENGTH)
-                .HasColumnName("favicon");
-        });
-        
         builder.Property(w => w.CreatedDate)
             .IsRequired()
             .HasColumnName("created_date");
@@ -51,7 +44,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
             .IsRequired()
             .HasColumnName("is_publish");
         
-        builder.HasMany(c => c.Locations)
+        builder.HasMany(w => w.Locations)
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("website_id")

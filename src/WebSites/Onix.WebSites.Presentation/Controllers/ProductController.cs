@@ -9,7 +9,7 @@ namespace Onix.WebSites.Presentation.Controllers;
 
 public class ProductController : ApplicationController
 {
-    [HttpPost("website/{id:guid}/category/{categoryId:guid}/product")]
+    [HttpPost("website/{id:guid}/product")]
     public async Task<IActionResult> Add(
         [FromRoute] Guid id,
         [FromRoute] Guid categoryId,
@@ -18,7 +18,7 @@ public class ProductController : ApplicationController
         CancellationToken cancellationToken = default)
     {
         var result = await handler.Handle(
-            request.ToCommand(id, categoryId), cancellationToken);
+            request.ToCommand(id), cancellationToken);
 
         if (result.IsFailure)
             return result.Error.ToResponse();
@@ -26,7 +26,7 @@ public class ProductController : ApplicationController
         return Ok(result.Value);
     }
     
-    [HttpPut("website/{id:guid}/category/{categoryId:guid}/product/{productId:guid}")]
+    [HttpPut("website/{id:guid}/product/{productId:guid}")]
     public async Task<IActionResult> Update(
         [FromRoute] Guid id,
         [FromRoute] Guid categoryId,
@@ -44,7 +44,7 @@ public class ProductController : ApplicationController
         return Ok(result.ToString());
     }
     
-    [HttpDelete("website/{id:guid}/category/{categoryId:guid}/product/{productId:guid}")]
+    [HttpDelete("website/{id:guid}/product/{productId:guid}")]
     public async Task<IActionResult> Delete(
         [FromRoute] Guid id,
         [FromRoute] Guid categoryId,
@@ -54,7 +54,7 @@ public class ProductController : ApplicationController
     {
         var request = new DeleteProductRequest();
         var result = await handler.Handle(
-            request.ToCommand(id, categoryId, productId), cancellationToken);
+            request.ToCommand(id, productId), cancellationToken);
 
         if (result.IsFailure)
             return result.Error.ToResponse();

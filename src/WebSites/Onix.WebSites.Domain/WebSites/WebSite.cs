@@ -31,7 +31,6 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
 
     public SubDomain SubDomain { get; private set; }
     public Name Name { get; private set; }
-    public Favicon Favicon { get; private set; }
     public DateTimeOffset CreatedDate { get; private set; }
     public bool IsPublish { get; private set; }
 
@@ -105,8 +104,8 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     }
 
     //favicon
-    public UnitResult<Error> AddFavicon(
-        Favicon favicon)
+    /*public UnitResult<Error> AddFavicon(
+        Photo favicon)
     {
         this.Favicon = favicon;
         return UnitResult.Success<Error>();
@@ -119,7 +118,7 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
 
         this.Favicon = null;
         return UnitResult.Success<Error>();
-    }
+    }*/
 
     //status
     public UnitResult<Error> UpdateStatus(bool isPublish)

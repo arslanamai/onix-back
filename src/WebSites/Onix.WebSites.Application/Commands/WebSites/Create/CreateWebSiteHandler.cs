@@ -41,19 +41,19 @@ public class CreateWebSiteHandler
         if (validationResult.IsValid == false)
             return validationResult.ToList();
 
-        var url = Domain.WebSites.ValueObjects.Domain.Create(command.Url).Value;
-        var query = new GetWebSiteByUrlQuery(url.Value);
+        var subDomain = SubDomain.Create(command.SubDomain).Value;
+        var query = new GetWebSiteByUrlQuery(subDomain.Value);
         
         var website = await _getWebSiteByUrlHandler.Handle(query,cancellationToken);
         if (website.IsSuccess)
-            return Errors.Domains.AlreadyExist(nameof(url)).ToErrorList();
+            return Errors.Domains.AlreadyExist(ConstType.SubDomain).ToErrorList();
 
         var webSiteId = WebSiteId.NewId();
         var name = Name.Create(command.Name).Value;
         
         var webSiteToCreate = WebSite.Create(
             webSiteId,
-            url,
+            subDomain,
             name,
             DateTime.UtcNow).Value;
 

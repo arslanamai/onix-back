@@ -16,8 +16,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerThemes(Theme.UniversalDark);
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(Theme.UniversalDark);
 }
 
 app.UseCors(config =>

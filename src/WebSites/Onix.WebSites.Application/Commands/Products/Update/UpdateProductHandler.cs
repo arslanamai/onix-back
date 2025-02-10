@@ -49,7 +49,7 @@ public class UpdateProductHandler
         var productResult = webSiteResult.Value.Products
             .FirstOrDefault(p => p.Id == productId);
         if (productResult is null)
-            return Errors.General.NotFound(productId.Value).ToErrorList();
+            return Errors.General.NotFound(ConstType.Product).ToErrorList();
             
         var name = Name.Create(command.Name).Value;
         var code = Code.Create(command.Code).Value;

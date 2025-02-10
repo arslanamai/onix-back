@@ -48,7 +48,7 @@ public class UpdateLocationHandler
         var locationResult = webSiteResult.Value.Locations
             .FirstOrDefault(b => b.Id == locationId);
         if (locationResult is null)
-            return Errors.General.NotFound(locationId.Value).ToErrorList();
+            return Errors.General.NotFound(ConstType.Location).ToErrorList();
 
         var name = Name.Create(command.Name).Value;
         var code = Code.Create(command.Code).Value;

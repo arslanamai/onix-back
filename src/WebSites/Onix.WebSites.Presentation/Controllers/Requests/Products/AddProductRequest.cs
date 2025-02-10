@@ -4,10 +4,8 @@ namespace Onix.WebSites.Presentation.Controllers.Requests.Products;
 
 public record AddProductRequest(
     string Name,
-    string Description,
-    string Price,
-    string Link)
+    string Code)
 {
-    public AddProductCommand ToCommand(Guid webSiteId, Guid categoryId) =>
-        new(webSiteId, categoryId, Name, Description, Price, Link);
+    public AddProductCommand ToCommand(Guid webSiteId) =>
+        new(webSiteId, Name, Code);
 }

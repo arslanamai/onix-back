@@ -5,5 +5,5 @@ namespace Onix.WebSites.Application.Commands.WebSites.Update;
 
 public record UpdateWebSiteCommand(
     Guid WebSiteId, 
-    string Url,
+    string SubDomain,
     string Name) : ICommand;

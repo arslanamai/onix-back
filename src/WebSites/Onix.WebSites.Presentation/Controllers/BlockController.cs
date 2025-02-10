@@ -10,7 +10,7 @@ namespace Onix.WebSites.Presentation.Controllers;
 
 public class BlockController : ApplicationController
 {
-    [HttpGet("website/{id:guid}/block")]
+    /*[HttpGet("website/{id:guid}/block")]
     public async Task<IActionResult> Get(
         [FromRoute] Guid id,
         [FromServices] GetBlocksHandler handler,
@@ -23,7 +23,7 @@ public class BlockController : ApplicationController
             return result.Error.ToResponse();
 
         return Ok(result.Value);
-    }
+    }*/
     
     [HttpPost("/website/{id:guid}/block")]
     public async Task<IActionResult> Add(

@@ -13,14 +13,13 @@ public class AccountDbContext(IConfiguration configuration) : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
-        optionsBuilder.UseSnakeCaseNamingConvention();
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.UseLoggerFactory(CreateLoggerFactory());
     }
  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(
+        modelBuilder.ApplyConfigurationsFromAssembly( 
             typeof(AccountDbContext).Assembly,
             type => type.FullName?.Contains("Configurations") ?? false); 
         modelBuilder.HasDefaultSchema("account");

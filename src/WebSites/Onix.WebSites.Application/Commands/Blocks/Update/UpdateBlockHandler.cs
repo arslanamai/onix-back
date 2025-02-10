@@ -49,7 +49,7 @@ public class UpdateBlockHandler
         var blockResult = webSiteResult.Value.Blocks
             .FirstOrDefault(b => b.Id == blockId);
         if (blockResult is null)
-            return Errors.General.NotFound(blockId.Value).ToErrorList();
+            return Errors.General.NotFound(ConstType.Block).ToErrorList();
 
         var result = blockResult.Update(code);
         if (result.IsFailure)

@@ -49,7 +49,7 @@ public class DeleteProductHandler
         var productResult = webSiteResult.Value.Products
             .FirstOrDefault(p => p.Id == productId);
         if (productResult is null)
-            return Errors.General.NotFound(productId.Value).ToErrorList();
+            return Errors.General.NotFound(ConstType.Product).ToErrorList();
 
         var result = webSiteResult.Value.RemoveProduct(productResult);
         if (result.IsFailure)

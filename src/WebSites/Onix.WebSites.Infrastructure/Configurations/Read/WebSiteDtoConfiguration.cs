@@ -27,7 +27,7 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
             .WithOne()
             .HasForeignKey("website_id")
             .IsRequired(false);
-        
+
         builder.HasMany(c => c.Location)
             .WithOne()
             .IsRequired(false)

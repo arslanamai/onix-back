@@ -15,7 +15,6 @@ using Onix.WebSites.Application.Commands.WebSites.Delete;
 using Onix.WebSites.Application.Commands.WebSites.Update;
 using Onix.WebSites.Application.Queries.WebSites.GetById;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
-using Onix.WebSites.Application.Queries.WebSites.GetByIdWithFavicon;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithLocations;
 using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
 
@@ -97,7 +96,6 @@ public static class Inject
         service.AddScoped<GetWebSiteByIdHandler>();
         service.AddScoped<GetWebSiteByUrlHandler>();
         service.AddScoped<GetBlocksHandler>();
-        service.AddScoped<GetWebSiteByIdWithFaviconHandler>();
         service.AddScoped<GetWebSiteByIdWithLocationsHandler>();
 
         return service;

@@ -5,6 +5,6 @@ namespace Onix.WebSites.Presentation.Controllers.Requests.Products;
 public record DeleteProductRequest
 {
     public DeleteProductCommand ToCommand(
-        Guid webSiteId, Guid categoryId, Guid productId)
-        => new DeleteProductCommand(webSiteId, categoryId, productId);
+        Guid webSiteId, Guid productId)
+        => new DeleteProductCommand(webSiteId, productId);
 }

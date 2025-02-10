@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Onix.Framework;
 using Onix.WebSites.Application.Commands.Locations.Add;
-using Onix.WebSites.Application.Commands.Locations.AddSchedules;
 using Onix.WebSites.Application.Commands.Locations.Delete;
 using Onix.WebSites.Application.Commands.Locations.Update;
 using Onix.WebSites.Presentation.Controllers.Requests.Locations;
@@ -60,20 +59,4 @@ public class LocationController : ApplicationController
         return Ok(result.ToString());
     }
     
-    [HttpPut("/website/{id:guid}/location/{locationId:guid}/schedules")]
-    public async Task<IActionResult> AddSchedule(
-        [FromRoute] Guid id,
-        [FromRoute] Guid locationId,
-        [FromServices] AddScheduleHandler handler,
-        [FromBody] AddScheduleRequest request,
-        CancellationToken cancellationToken = default)
-    {
-        var result = await handler.Handle(
-            request.ToCommand(id, locationId), cancellationToken);
-
-        if (result.IsFailure)
-            return result.Error.ToResponse();
-
-        return Ok(result.ToString());
-    }
 }

@@ -40,7 +40,7 @@ public class UpdateWebSiteHandler
         if (!validationResult.IsValid)
             return validationResult.ToList();
 
-        var url = Domain.WebSites.ValueObjects.Domain.Create(command.Url).Value;
+        var url = SubDomain.Create(command.SubDomain).Value;
         var query = new GetWebSiteByUrlQuery(url.Value);
         var webSiteId = WebSiteId.Create(command.WebSiteId);
         
