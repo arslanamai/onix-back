@@ -3,7 +3,6 @@ using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Domain.Media;
-using Onix.WebSites.Domain.Products.ValueObjects;
 
 namespace Onix.WebSites.Domain.Products;
 
@@ -17,20 +16,14 @@ public class Product : SharedKernel.Entity<ProductId>
     private Product(
         ProductId id,
         Name name,
-        Description description,
-        Price price,
-        Link link) : base(id)
+        Code code) : base(id)
     {
         Name = name;
-        Description = description;
-        Price = price;
-        Link = link;
+        Code = code;
     }
     
     public Name Name {get; private set; }
-    public Description Description { get; private set; }
-    public Price Price { get; private set; }
-    public Link Link { get; private set; }
+    public Code Code { get; private set; }
     
     public IReadOnlyList<Photo> Photos => _photos ;
     private readonly List<Photo> _photos = [];
@@ -38,29 +31,20 @@ public class Product : SharedKernel.Entity<ProductId>
     public static Result<Product> Create(
         ProductId id,
         Name name,
-        Description description,
-        Price price,
-        Link link)
+        Code code)
     {
         return new Product(
             id,
             name,
-            description,
-            price,
-            link); 
+            code); 
     }
 
     public UnitResult<Error> Update(
         Name name,
-        Description description,
-        Price price,
-        Link link)
+        Code code)
     {
         this.Name = name;
-        this.Description = description;
-        this.Price = price;
-        this.Link = link;
-
+        this.Code = code;
         return UnitResult.Success<Error>();
     }
     

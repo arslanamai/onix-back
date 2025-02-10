@@ -43,16 +43,19 @@ public class UpdateWebSiteHandler
 
         var url = Url.Create(command.Url).Value;
         var query = new GetWebSiteByUrlQuery(url.Value);
-        
-        var existingWebsite = await _getWebSiteByUrlHandler.Handle(query, cancellationToken);
-        if (existingWebsite.IsSuccess)
-            return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
-
         var webSiteId = WebSiteId.Create(command.WebSiteId);
         
         var webSiteResult = await _webSiteRepository.GetById(webSiteId, cancellationToken);
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
+
+        if (url != webSiteResult.Value.Url)
+        {
+            var existingWebsite = await _getWebSiteByUrlHandler.Handle(query, cancellationToken);
+            if(existingWebsite.IsSuccess)
+                if (existingWebsite.Value.Id != webSiteResult.Value.Id.Value)
+                    return Errors.Domain.AlreadyExist(nameof(url)).ToErrorList();
+        }
 
         var name = Name.Create(command.Name).Value;
         

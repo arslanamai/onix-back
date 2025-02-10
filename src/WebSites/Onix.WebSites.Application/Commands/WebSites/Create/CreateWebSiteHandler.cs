@@ -8,7 +8,6 @@ using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
-using Onix.WebSites.Domain.Appearances;
 using Onix.WebSites.Domain.WebSites;
 using Onix.WebSites.Domain.WebSites.ValueObjects;
 
@@ -52,13 +51,12 @@ public class CreateWebSiteHandler
 
         var webSiteId = WebSiteId.NewId();
         var name = Name.Create(command.Name).Value;
-        var appearance = Appearance.Bases;
         
         var webSiteToCreate = WebSite.Create(
             webSiteId,
             url,
             name,
-            appearance).Value;
+            DateTime.UtcNow).Value;
 
         await _webSiteRepository.Add(webSiteToCreate, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

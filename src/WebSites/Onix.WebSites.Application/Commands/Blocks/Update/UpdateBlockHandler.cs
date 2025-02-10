@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using Onix.Core.Abstraction;
 using Onix.Core.Extensions;
 using Onix.SharedKernel;
+using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
-using Onix.WebSites.Domain.Blocks.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Blocks.Update;
 

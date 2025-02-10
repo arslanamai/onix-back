@@ -14,13 +14,5 @@ public class LocationDtoConfiguration : IEntityTypeConfiguration<LocationDto>
 
         builder.Property(l => l.Id)
             .HasColumnName("Id");
-
-        builder.Property(w => w.Schedules)
-            .HasColumnName("schedules")
-            .HasMaxLength(Constants.JSON_MAX_LENGTH)
-            .IsRequired(false)
-            .HasConversion(
-                sc => JsonSerializer.Serialize(sc, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<ScheduleDto>>(json, JsonSerializerOptions.Default)!);
     }
 }

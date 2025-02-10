@@ -6,6 +6,4 @@ public record AddProductCommand(
     Guid WebSiteId,
     Guid CategoryId,
     string Name,
-    string Description,
-    string Price,
-    string Link) : ICommand;
+    string Code) : ICommand;

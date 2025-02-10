@@ -78,37 +78,11 @@ public class WebSiteRepository : IWebSiteRepository
         return webSite;
     }
 
-    public async Task<Result<WebSite, Error>> GetByIdWithCategories(
-        WebSiteId id, CancellationToken cancellationToken = default)
-    {
-        var webSite = await _dbContext.WebSites
-            .Include(w => w.Categories)
-            .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
-        
-        if (webSite is null)
-            return Errors.General.NotFound(id.Value);
-
-        return webSite;
-    }
-    
     public async Task<Result<WebSite, Error>> GetByIdWithLocation(
         WebSiteId id, CancellationToken cancellationToken = default)
     {
         var webSite = await _dbContext.WebSites
             .Include(w => w.Locations)
-            .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
-        
-        if (webSite is null)
-            return Errors.General.NotFound(id.Value);
-
-        return webSite;
-    }
-    
-    public async Task<Result<WebSite, Error>> GetByIdWithFavicon(
-        WebSiteId id, CancellationToken cancellationToken = default)
-    {
-        var webSite = await _dbContext.WebSites
-            .Include(w => w.Favicon)
             .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
         
         if (webSite is null)

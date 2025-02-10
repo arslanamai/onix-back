@@ -15,7 +15,6 @@ public class ReadDbContext(IConfiguration configuration) : DbContext, IReadDbCon
     public IQueryable<BlockDto> Blocks => Set<BlockDto>();
     public IQueryable<ProductDto> Product => Set<ProductDto>();
     public IQueryable<PhotoDto> Photo => Set<PhotoDto>();
-    public IQueryable<CategoryDto> Category => Set<CategoryDto>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

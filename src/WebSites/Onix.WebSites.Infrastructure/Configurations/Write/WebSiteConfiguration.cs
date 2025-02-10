@@ -1,12 +1,8 @@
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.WebSites;
-using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Write;
 
@@ -38,94 +34,33 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
                 .HasMaxLength(Constants.URL_MAX_LENGTH)
                 .HasColumnName("url");
         });
-
-        builder.Property(w => w.ShowStatus)
+        
+        builder.ComplexProperty(w => w.Favicon, tb =>
+        {
+            tb.Property(f => f.Path)
+                .IsRequired()
+                .HasMaxLength(Constants.PATH_MAX_LENGTH)
+                .HasColumnName("favicon");
+        });
+        
+        builder.Property(w => w.CreatedDate)
             .IsRequired()
-            .HasColumnName("show_status");
+            .HasColumnName("created_date");
 
-        builder.OwnsOne(w => w.Appearance, tb =>
-        {
-            tb.Property(c => c.ColorScheme)
-                .IsRequired()
-                .HasMaxLength(Constants.SHARE_MAX_LENGTH)
-                .HasColumnName("color_scheme");
-
-            tb.Property(b => b.ButtonStyle)
-                .IsRequired()
-                .HasMaxLength(Constants.SHARE_MAX_LENGTH)
-                .HasColumnName("button_style");
-
-            tb.Property(f => f.Font)
-                .IsRequired()
-                .HasMaxLength(Constants.SHARE_MAX_LENGTH)
-                .HasColumnName("font");
-        });
-
-        builder.OwnsOne(w => w.Phone, tb =>
-        {
-            tb.Property(p => p.Value)
-                .IsRequired(false)
-                .HasMaxLength(Constants.PHONE_MAX_LENGTH)
-                .HasColumnName("phone");
-        });
-        
-        builder.OwnsOne(w => w.Email, tb =>
-        {
-            tb.Property(e => e.Value)
-                .IsRequired(false)
-                .HasMaxLength(Constants.EMAIL_MAX_LENGTH)
-                .HasColumnName("email");
-        });
-        
-        builder.Property(w => w.SocialMedias)
-            .HasColumnName("social_medias")
-            .HasMaxLength(Constants.JSON_MAX_LENGTH)
-            .IsRequired(false)
-            .HasConversion(
-                sm => JsonSerializer.Serialize(sm, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<SocialMedia>>(
-                    json, JsonSerializerOptions.Default)!,
-                new ValueComparer<IReadOnlyList<SocialMedia>>(
-                    (c1, c2) => c1!.SequenceEqual(c2!),
-                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-                    c => c.ToList()));
-
-        builder.Property(w => w.Faqs)
-            .HasColumnName("faqs")
-            .HasMaxLength(Constants.JSON_MAX_LENGTH)
-            .IsRequired(false)
-            .HasConversion(
-                faqs => JsonSerializer.Serialize(faqs, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<Faq>>(
-                    json, JsonSerializerOptions.Default)!,
-                new ValueComparer<IReadOnlyList<Faq>>(
-                    (c1, c2) => c1!.SequenceEqual(c2!),
-                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-                    c => c.ToList()));
-        
-        builder.Property(w => w.Favicon)
-            .HasColumnName("favicon")
-            .HasMaxLength(Constants.PATH_MAX_LENGTH)
-            .IsRequired(false)
-            .HasConversion(
-                favicon => JsonSerializer.Serialize(favicon, JsonSerializerOptions.Default),
-                json => JsonSerializer.Deserialize<IReadOnlyList<Favicon>>(
-                    json, JsonSerializerOptions.Default)!,
-                new ValueComparer<IReadOnlyList<Favicon>>(
-                    (c1, c2) => c1!.SequenceEqual(c2!),
-                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-                    c => c.ToList()));
-
-        builder.HasMany(w => w.Categories)
-            .WithOne()
-            .HasForeignKey("website_id")
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(w => w.IsPublish)
+            .IsRequired()
+            .HasColumnName("is_publish");
         
         builder.HasMany(c => c.Locations)
             .WithOne()
             .IsRequired(false)
             .HasForeignKey("website_id")
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(w => w.Products)
+            .WithOne()
+            .HasForeignKey("website_id")
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(w => w.Blocks)

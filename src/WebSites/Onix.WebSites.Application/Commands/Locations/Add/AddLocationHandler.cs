@@ -8,7 +8,6 @@ using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Domain.Locations;
-using Onix.WebSites.Domain.Locations.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Locations.Add;
 
@@ -47,7 +46,6 @@ public class AddLocationHandler
 
         var locationId = LocationId.NewId();
         var name = Name.Create(command.Name).Value;
-        var phone = Phone.Create(command.Phone).Value;
         
         var address = Address.Create(
             command.City,

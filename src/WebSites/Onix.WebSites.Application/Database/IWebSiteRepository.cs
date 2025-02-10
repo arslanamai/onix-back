@@ -26,9 +26,6 @@ public interface IWebSiteRepository
     Task<Result<WebSite, Error>> GetByIdWithBlocks(
         WebSiteId id, CancellationToken cancellationToken = default);
 
-    Task<Result<WebSite, Error>> GetByIdWithCategories(
-        WebSiteId id, CancellationToken cancellationToken = default);
-
     Task<Result<WebSite, Error>> GetByIdWithLocation(
         WebSiteId id, CancellationToken cancellationToken = default);
 }

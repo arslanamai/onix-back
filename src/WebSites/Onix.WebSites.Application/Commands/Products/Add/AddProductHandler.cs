@@ -8,7 +8,6 @@ using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Domain.Products;
-using Onix.WebSites.Domain.Products.ValueObjects;
 
 namespace Onix.WebSites.Application.Commands.Products.Add;
 
@@ -46,27 +45,15 @@ public class AddProductHandler
         if (webSiteResult.IsFailure)
             return webSiteResult.Error.ToErrorList();
 
-        var categoryId = CategoryId.Create(command.CategoryId);
-
-        var categoryResult = webSiteResult.Value.Categories
-            .FirstOrDefault(c => c.Id == categoryId);
-        if (categoryResult is null)
-            return Errors.General.NotFound(categoryId.Value).ToErrorList();
-
         var productId = ProductId.NewId();
         var name = Name.Create(command.Name).Value;
-        var description = Description.Create(command.Description).Value;
-        var price = Price.Create(command.Price).Value;
-        var link = Link.Create(command.Link).Value;
-        
+        var code = Code.Create(command.Code).Value;
         var product = Product.Create(
             productId,
             name,
-            description,
-            price,
-            link).Value;
+            code).Value;
 
-        categoryResult.AddProduct(product);
+        webSiteResult.Value.AddProduct(product);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return product.Id.Value;
     }

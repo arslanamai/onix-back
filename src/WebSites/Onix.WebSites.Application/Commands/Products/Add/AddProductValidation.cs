@@ -33,28 +33,12 @@ public class AddProductValidation : AbstractValidator<AddProductCommand>
             .MaximumLength(Constants.NAME_MAX_LENGTH)
             .WithError(Errors.Domain.MaxLength(ConstType.Name));
 
-        RuleFor(a => a.Description)
+        RuleFor(a => a.Code)
             .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Description));
+            .WithError(Errors.Domain.Empty(ConstType.Code));
         
-        RuleFor(a => a.Description)
-            .MaximumLength(Constants.DESCRIPTION_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Description));
-        
-        RuleFor(a => a.Price)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Price));
-        
-        RuleFor(a => a.Price)
-            .MaximumLength(Constants.PRICE_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Description));
-        
-        RuleFor(a => a.Link)
-            .NotEmpty()
-            .WithError(Errors.Domain.Empty(ConstType.Link));
-        
-        RuleFor(a => a.Link)
-            .MaximumLength(Constants.LINK_MAX_LENGTH)
-            .WithError(Errors.Domain.MaxLength(ConstType.Link));
+        RuleFor(a => a.Code)
+            .MaximumLength(Constants.CODE_MAX_LENGTH)
+            .WithError(Errors.Domain.MaxLength(ConstType.Code));
     }
 }

@@ -1,13 +1,11 @@
- using System.Runtime.Intrinsics.X86;
- using CSharpFunctionalExtensions;
+using CSharpFunctionalExtensions;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Appearances;
 using Onix.WebSites.Domain.Blocks;
-using Onix.WebSites.Domain.Categories;
 using Onix.WebSites.Domain.Locations;
 using Onix.WebSites.Domain.Media;
+using Onix.WebSites.Domain.Products;
 using Onix.WebSites.Domain.WebSites.ValueObjects;
 
 namespace Onix.WebSites.Domain.WebSites;
@@ -23,39 +21,26 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
         WebSiteId id,
         Url url,
         Name name,
-        Appearance appearance,
-        bool showStatus = true) : base(id)
+        DateTime createdDate,
+        bool isPublish = true) : base(id)
     {
         Url = url;
         Name = name;
-        ShowStatus = showStatus;
-        Appearance = appearance;
+        CreatedDate = createdDate;
+        IsPublish = isPublish;
     }
 
     public Url Url { get; private set; }
     public Name Name { get; private set; }
-    public bool ShowStatus { get; private set; }
-
-    public Appearance Appearance { get; private set; }
-    
-    public Phone? Phone { get; private set; }
-    public Email? Email { get; private set; }
-    
-    public IReadOnlyList<Favicon> Favicon => _favicon;
-    private readonly List<Favicon> _favicon = [];
-
-    public IReadOnlyList<SocialMedia> SocialMedias => _socialMedias;
-    private readonly List<SocialMedia> _socialMedias = [];
-
-    public IReadOnlyList<Faq> Faqs => _faqs;
-    private readonly List<Faq> _faqs = [];
+    public Favicon Favicon { get; private set; }
+    public DateTime CreatedDate { get; private set; }
+    public bool IsPublish { get; private set; }
 
     public IReadOnlyList<Block> Blocks => _blocks;
     private readonly List<Block> _blocks = [];
-
-    public IReadOnlyList<Category> Categories => _categories;
-    private readonly List<Category> _categories = [];
     
+    public IReadOnlyList<Product> Products => _products;
+    private readonly List<Product> _products = [];
     public IReadOnlyList<Location> Locations => _locations;
     private readonly List<Location> _locations = [];
 
@@ -64,15 +49,15 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
         WebSiteId id,
         Url url,
         Name name,
-        Appearance appearance,
-        bool showStatus = true)
+        DateTime createdDate,
+        bool isPublish = true)
     {
         return new WebSite(
             id,
             url,
             name,
-            appearance,
-            showStatus);
+            createdDate, 
+            isPublish);
     }
 
     public UnitResult<Error> Update(
@@ -82,63 +67,6 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
         this.Url = newUrl;
         this.Name = newName;
         
-        return UnitResult.Success<Error>();
-    }
-
-    //contact
-    public UnitResult<Error> AddSocial(
-        List<SocialMedia> socialMedias)
-    {
-        if (socialMedias.Count > Constants.MAX_SOCIAL_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.SocialMedia));
-
-        _socialMedias.Clear();
-        _socialMedias.AddRange(socialMedias);
-        return UnitResult.Success<Error>();
-    }
-    
-    public UnitResult<Error> UpdateContact(
-        Phone phone, Email email)
-    {
-        this.Phone = phone;
-        this.Email = email;
-        return UnitResult.Success<Error>();
-    }
-    
-    //faq
-    public UnitResult<Error> UpdateFAQs(List<Faq> faqs)
-    {
-        if (faqs.Count > Constants.MAX_FAQ_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.FAQs));
-
-        _faqs.Clear();
-        _faqs.AddRange(faqs);
-
-        return UnitResult.Success<Error>();
-    }
-
-    //category
-    public UnitResult<Error> AddCategory(
-        Category category)
-    {
-        if (_categories.Count >= Constants.MAX_CATEGORY_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.MaxCount(ConstType.Category));
-        
-        _categories.Add(category);
-        return UnitResult.Success<Error>();
-    }
-    
-    public UnitResult<Error> RemoveCategory(
-        Category category)
-    {
-        if (_categories.Count is Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Category));
-
-        _categories.Remove(category);
         return UnitResult.Success<Error>();
     }
     
@@ -182,32 +110,47 @@ public class WebSite : SharedKernel.Entity<WebSiteId>
     public UnitResult<Error> AddFavicon(
         Favicon favicon)
     {
-        if (_favicon.Count is not Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.AlreadyExist(ConstType.Favicon));
-
-        _favicon.Add(favicon);
+        this.Favicon = favicon;
         return UnitResult.Success<Error>();
     }
     
-    public UnitResult<Error> RemoveFavicon(
-        Favicon favicon)
+    public UnitResult<Error> RemoveFavicon()
     {
-        if (_favicon.Count is Constants.MIN_COUNT)
-            return UnitResult.Failure<Error>(
-                Errors.Domain.Empty(ConstType.Favicon));
+        if (this.Favicon == null)
+            return UnitResult.Success<Error>();
 
-        _favicon.Remove(favicon);
+        this.Favicon = null;
         return UnitResult.Success<Error>();
     }
 
     //status
-    public UnitResult<Error> UpdateStatus(bool status)
+    public UnitResult<Error> UpdateStatus(bool isPublish)
     {
-        ShowStatus = status;
+        IsPublish = isPublish;
         return UnitResult.Success<Error>();
     }
+    
+    //product
+    public UnitResult<Error> AddProduct(Product product)
+    {
+        if (_products.Count >= Constants.MAX_PRODUCT_COUNT)
+            return UnitResult.Failure<Error>(
+                Errors.Domain.MaxCount(ConstType.Product));
 
+        _products.Add(product);
+        return UnitResult.Success<Error>();
+    }
+    
+    public UnitResult<Error> RemoveProduct(Product product)
+    {
+        if (_products.Count is Constants.MIN_COUNT)
+            return UnitResult.Failure<Error>(
+                Errors.Domain.Empty(ConstType.Product));
+
+        _products.Remove(product);
+        return UnitResult.Success<Error>();
+    }
+    
     //location
     public UnitResult<Error> AddLocation(Location location)
     {

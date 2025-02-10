@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using Onix.SharedKernel;
+using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Blocks.ValueObjects;
 
 namespace Onix.WebSites.Domain.Blocks;
 

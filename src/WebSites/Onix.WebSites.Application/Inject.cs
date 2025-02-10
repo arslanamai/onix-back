@@ -4,26 +4,17 @@ using Onix.Core.Abstraction;
 using Onix.WebSites.Application.Commands.Blocks.Add;
 using Onix.WebSites.Application.Commands.Blocks.Delete;
 using Onix.WebSites.Application.Commands.Blocks.Update;
-using Onix.WebSites.Application.Commands.Categories.Add;
-using Onix.WebSites.Application.Commands.Categories.Delete;
-using Onix.WebSites.Application.Commands.Categories.Update;
 using Onix.WebSites.Application.Commands.Locations.Add;
-using Onix.WebSites.Application.Commands.Locations.AddSchedules;
 using Onix.WebSites.Application.Commands.Locations.Delete;
 using Onix.WebSites.Application.Commands.Locations.Update;
 using Onix.WebSites.Application.Commands.Products.Add;
 using Onix.WebSites.Application.Commands.Products.Delete;
 using Onix.WebSites.Application.Commands.Products.Update;
-using Onix.WebSites.Application.Commands.WebSites.AddFaq;
-using Onix.WebSites.Application.Commands.WebSites.AddSocial;
 using Onix.WebSites.Application.Commands.WebSites.Create;
 using Onix.WebSites.Application.Commands.WebSites.Delete;
 using Onix.WebSites.Application.Commands.WebSites.Update;
-using Onix.WebSites.Application.Commands.WebSites.UpdateAppearance;
-using Onix.WebSites.Application.Commands.WebSites.UpdateContact;
 using Onix.WebSites.Application.Queries.WebSites.GetById;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithBlocks;
-using Onix.WebSites.Application.Queries.WebSites.GetByIdWithCategories;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithFavicon;
 using Onix.WebSites.Application.Queries.WebSites.GetByIdWithLocations;
 using Onix.WebSites.Application.Queries.WebSites.GetByUrl;
@@ -52,7 +43,6 @@ public static class Inject
         services
             .AddValidatorsFromAssembly(assembly)
             .WebSiteCommand()
-            .CategoryCommand()
             .BlockCommand()
             .LocationCommand()
             .ProductCommand()
@@ -67,21 +57,6 @@ public static class Inject
         service.AddScoped<CreateWebSiteHandler>();
         service.AddScoped<UpdateWebSiteHandler>();
         service.AddScoped<DeleteWebSiteHandler>();
-        
-        service.AddScoped<UpdateAppearanceHandler>();
-        service.AddScoped<UpdateContactHandler>();
-        service.AddScoped<AddFaqHandler>();
-        service.AddScoped<AddSocialHandler>();
-        
-        return service;
-    }
-
-    private static IServiceCollection CategoryCommand(
-        this IServiceCollection service)
-    {
-        service.AddScoped<AddCategoryHandler>();
-        service.AddScoped<UpdateCategoryHandler>();
-        service.AddScoped<DeleteCategoryHandler>();
         
         return service;
     }
@@ -102,7 +77,6 @@ public static class Inject
         service.AddScoped<AddLocationHandler>();
         service.AddScoped<UpdateLocationHandler>();
         service.AddScoped<DeleteLocationHandler>();
-        service.AddScoped<AddScheduleHandler >();
 
         return service;
     }
@@ -123,7 +97,6 @@ public static class Inject
         service.AddScoped<GetWebSiteByIdHandler>();
         service.AddScoped<GetWebSiteByUrlHandler>();
         service.AddScoped<GetBlocksHandler>();
-        service.AddScoped<GetWebSiteByIdWithCategoriesHandler>();
         service.AddScoped<GetWebSiteByIdWithFaviconHandler>();
         service.AddScoped<GetWebSiteByIdWithLocationsHandler>();
 

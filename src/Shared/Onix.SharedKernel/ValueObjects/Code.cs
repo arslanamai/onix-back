@@ -1,7 +1,6 @@
 using CSharpFunctionalExtensions;
-using Onix.SharedKernel;
 
-namespace Onix.WebSites.Domain.Blocks.ValueObjects;
+namespace Onix.SharedKernel.ValueObjects;
 
 public class Code
 {

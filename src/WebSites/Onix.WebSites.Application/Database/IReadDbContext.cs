@@ -9,6 +9,5 @@ public interface IReadDbContext
     IQueryable<LocationDto> Location { get; }
     IQueryable<ProductDto> Product { get; }
     IQueryable<PhotoDto> Photo { get; }
-    IQueryable<CategoryDto> Category { get; }
 
 }

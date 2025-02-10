@@ -9,9 +9,10 @@ public class Path
         Value = value;
     }
     
-    public string Value { get; }
+    public string Value { get; private set; }
 
-    public static Result<Path> Create(string value)
+    public static Result<Path, Error> Create(
+        string value)
     {
         return new Path(value);
     }
