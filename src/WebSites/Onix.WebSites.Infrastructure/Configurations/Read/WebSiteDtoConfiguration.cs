@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.Core.Dtos;
+using Onix.SharedKernel.ValueObjects.Ids;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Read;
 
@@ -11,12 +12,12 @@ public class WebSiteDtoConfiguration : IEntityTypeConfiguration<WebSiteDto>
         builder.ToTable("website");
 
         builder.HasKey(w => w.Id);
-        
+
         builder.Property(w => w.Id)
             .HasColumnName("Id");
         
         builder.Property(w => w.SubDamain)
-            .HasColumnName("subdomain");
+            .HasColumnName("sub_domain");
          
         builder.HasMany(w => w.Blocks)
             .WithOne()

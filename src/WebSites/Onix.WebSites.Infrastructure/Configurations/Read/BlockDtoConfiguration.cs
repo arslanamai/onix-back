@@ -14,5 +14,5 @@ public class BlockDtoConfiguration : IEntityTypeConfiguration<BlockDto>
 
         builder.Property(b => b.Id)
             .HasColumnName("Id");
-    }
+    } 
 }

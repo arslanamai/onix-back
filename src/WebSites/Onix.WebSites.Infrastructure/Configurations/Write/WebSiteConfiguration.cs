@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
-using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.WebSites;
 
 namespace Onix.WebSites.Infrastructure.Configurations.Write;
@@ -33,7 +32,7 @@ public class WebSiteConfiguration : IEntityTypeConfiguration<WebSite>
             tb.Property(u => u.Value)
                 .IsRequired()
                 .HasMaxLength(Constants.SUBDOMAIN_MAX_LENGTH)
-                .HasColumnName("subdomain");
+                .HasColumnName("sub_domain");
         });
         
         builder.Property(w => w.CreatedDate)

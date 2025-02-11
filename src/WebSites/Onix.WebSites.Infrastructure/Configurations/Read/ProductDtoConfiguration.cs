@@ -17,7 +17,7 @@ public class ProductDtoConfiguration : IEntityTypeConfiguration<ProductDto>
         
         builder.HasMany(p => p.Photos)
             .WithOne()
-            .HasForeignKey(p => p.ProductId)
+            .HasForeignKey("photo_id")
             .IsRequired(false);
     }
 }
