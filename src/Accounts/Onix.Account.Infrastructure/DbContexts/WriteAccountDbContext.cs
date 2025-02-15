@@ -5,11 +5,11 @@ using Onix.Account.Domain.Accounts;
 
 namespace Onix.Account.Infrastructure.DbContexts;
 
-public class AccountDbContext(IConfiguration configuration) : DbContext
+public class WriteAccountDbContext(IConfiguration configuration) : DbContext
 {
     private const string DATABASE = "Database";
     
-    public DbSet<User> Accounts => Set<User>();
+    public DbSet<User> Users => Set<User>();
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
@@ -20,8 +20,8 @@ public class AccountDbContext(IConfiguration configuration) : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly( 
-            typeof(AccountDbContext).Assembly,
-            type => type.FullName?.Contains("Configurations") ?? false); 
+            typeof(WriteAccountDbContext).Assembly,
+            type => type.FullName?.Contains("Configurations.Write") ?? false); 
         modelBuilder.HasDefaultSchema("account");
     }
 

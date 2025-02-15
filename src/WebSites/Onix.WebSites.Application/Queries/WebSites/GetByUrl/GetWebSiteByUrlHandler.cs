@@ -8,18 +8,18 @@ namespace Onix.WebSites.Application.Queries.WebSites.GetByUrl;
 
 public class GetWebSiteByUrlHandler
 {
-    private readonly IReadDbContext _readDbContext;
+    private readonly IWebSiteReadDbContext _webSiteReadDbContext;
 
-    public GetWebSiteByUrlHandler(IReadDbContext readDbContext)
+    public GetWebSiteByUrlHandler(IWebSiteReadDbContext webSiteReadDbContext)
     {
-        _readDbContext = readDbContext;
+        _webSiteReadDbContext = webSiteReadDbContext;
     }
     
     public async Task<Result<WebSiteDto, Error>> Handle(
         GetWebSiteByUrlQuery query,
         CancellationToken cancellationToken = default)
     {
-        var webSiteDto = await _readDbContext.WebSites
+        var webSiteDto = await _webSiteReadDbContext.WebSites
             .FirstOrDefaultAsync(w => w.SubDamain == query.SubDomain, cancellationToken);
         
         if (webSiteDto is null)

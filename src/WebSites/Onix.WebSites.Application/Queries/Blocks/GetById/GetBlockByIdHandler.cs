@@ -8,18 +8,18 @@ namespace Onix.WebSites.Application.Queries.Blocks.GetById;
 
 public class GetBlockByIdHandler
 {
-    private readonly IReadDbContext _readDbContext;
+    private readonly IWebSiteReadDbContext _webSiteReadDbContext;
 
-    public GetBlockByIdHandler(IReadDbContext readDbContext)
+    public GetBlockByIdHandler(IWebSiteReadDbContext webSiteReadDbContext)
     {
-        _readDbContext = readDbContext;
+        _webSiteReadDbContext = webSiteReadDbContext;
     }
 
     public async Task<Result<BlockDto, ErrorList>> Handle(
         GetBlockByIdQuery query,
         CancellationToken cancellationToken = default)
     {
-        var webSiteDto = await _readDbContext.WebSites
+        var webSiteDto = await _webSiteReadDbContext.WebSites
             .FirstOrDefaultAsync(w => w.Id == query.WebSiteId, cancellationToken);
 
         if (webSiteDto is null)

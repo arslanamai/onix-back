@@ -16,6 +16,7 @@ public static class Constants
     
     //regax
     public const string SUBDOMAIN_REGEX = "^[a-z]+(-[a-z]+)?$";
+    public const string EMAIL_REGEX = @"^(?!\.)[a-zA-Z0-9._%+-]{1,64}@(?!-)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
     public const string ID_REGEX = "^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$";
 
     //max count

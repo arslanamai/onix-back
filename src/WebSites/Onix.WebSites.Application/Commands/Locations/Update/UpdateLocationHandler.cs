@@ -14,18 +14,18 @@ public class UpdateLocationHandler
 {
     private readonly IValidator<UpdateLocationCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly ILogger<UpdateLocationHandler> _logger;
 
     public UpdateLocationHandler(
         IValidator<UpdateLocationCommand> validator,
         IWebSiteRepository webSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<UpdateLocationHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _logger = logger;
     }
 
@@ -57,7 +57,7 @@ public class UpdateLocationHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
         
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

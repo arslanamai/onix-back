@@ -13,18 +13,18 @@ public class DeleteBlockHandle
 {
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly ILogger<DeleteBlockHandle> _logger;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly IValidator<DeleteBlockCommand> _validator;
 
     public DeleteBlockHandle(
         IWebSiteRepository webSiteRepository,
         ILogger<DeleteBlockHandle> logger,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         IValidator<DeleteBlockCommand> validator)
     {
         _webSiteRepository = webSiteRepository;
         _logger = logger;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _validator = validator;
     }
     
@@ -53,7 +53,7 @@ public class DeleteBlockHandle
         if (result.IsFailure)
             return result.Error.ToErrorList();
         
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

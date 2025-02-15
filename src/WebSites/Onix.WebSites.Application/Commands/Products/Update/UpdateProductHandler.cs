@@ -13,18 +13,18 @@ namespace Onix.WebSites.Application.Commands.Products.Update;
 public class UpdateProductHandler
 {
     private readonly ILogger<UpdateProductHandler> _logger;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IValidator<UpdateProductCommand> _validator;
 
     public UpdateProductHandler(
         ILogger<UpdateProductHandler> logger,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         IWebSiteRepository webSiteRepository,
         IValidator<UpdateProductCommand> validator)
     {
         _logger = logger;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _webSiteRepository = webSiteRepository;
         _validator = validator;
     }
@@ -61,7 +61,7 @@ public class UpdateProductHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

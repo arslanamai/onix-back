@@ -18,12 +18,12 @@ public class CreateWebSiteHandler
     private readonly GetWebSiteByUrlHandler _getWebSiteByUrlHandler;
     private readonly IValidator<CreateWebSiteCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
 
     public CreateWebSiteHandler(
         IValidator<CreateWebSiteCommand> validator,
         IWebSiteRepository webSiteWebSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<CreateWebSiteHandler> logger,
         GetWebSiteByUrlHandler getWebSiteByUrlHandler)
     {
@@ -31,7 +31,7 @@ public class CreateWebSiteHandler
         _getWebSiteByUrlHandler = getWebSiteByUrlHandler;
         _validator = validator;
         _webSiteRepository = webSiteWebSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
     }
 
     public async Task<Result<Guid, ErrorList>> Handle(
@@ -58,7 +58,7 @@ public class CreateWebSiteHandler
             DateTime.UtcNow).Value;
 
         await _webSiteRepository.Add(webSiteToCreate, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return webSiteToCreate.Id.Value;
     }
 }

@@ -11,9 +11,9 @@ namespace Onix.WebSites.Infrastructure.Repositories;
 
 public class WebSiteRepository : IWebSiteRepository
 {
-    private readonly WriteDbContext _dbContext;
+    private readonly WebSiteWriteDbContext _dbContext;
 
-    public WebSiteRepository( WriteDbContext dbContext)
+    public WebSiteRepository( WebSiteWriteDbContext dbContext)
     {
         _dbContext = dbContext;
     }

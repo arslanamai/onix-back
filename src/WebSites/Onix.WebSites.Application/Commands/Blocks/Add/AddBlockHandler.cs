@@ -15,18 +15,18 @@ public class AddBlockHandler
 {
     private readonly IValidator<AddBlockCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly ILogger<AddBlockHandler> _logger;
 
     public AddBlockHandler(
         IValidator<AddBlockCommand> validator,
         IWebSiteRepository webSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<AddBlockHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _logger = logger;
     }
 
@@ -52,7 +52,7 @@ public class AddBlockHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return block.Id.Value;
     }
 }

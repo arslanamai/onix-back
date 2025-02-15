@@ -27,7 +27,6 @@ public class User : SharedKernel.Entity<UserId>
     public DateTime RegistrationDate { get; private set; }
     public Auth0Sub Auth0Sub { get; private set; }
     
-
     public static Result<User, Error> Create(
         UserId id,
         Email email,

@@ -13,18 +13,18 @@ namespace Onix.WebSites.Application.Commands.Products.Delete;
 public class DeleteProductHandler
 {
     private readonly ILogger<DeleteBlockHandle> _logger;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IValidator<DeleteProductCommand> _validator;
 
     public DeleteProductHandler(
         ILogger<DeleteBlockHandle> logger,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         IWebSiteRepository webSiteRepository,
         IValidator<DeleteProductCommand> validator)
     {
         _logger = logger;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _webSiteRepository = webSiteRepository;
         _validator = validator;
     }
@@ -55,7 +55,7 @@ public class DeleteProductHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
         
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

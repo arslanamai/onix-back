@@ -15,18 +15,18 @@ public class AddLocationHandler
 {
     private readonly ILogger<AddLocationHandler> _logger;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly IValidator<AddLocationCommand> _validator;
 
     public AddLocationHandler(
         ILogger<AddLocationHandler> logger,
         IWebSiteRepository webSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         IValidator<AddLocationCommand> validator)
     {
         _logger = logger;
         _webSiteRepository = webSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _validator = validator;
     }
 
@@ -57,7 +57,7 @@ public class AddLocationHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
         
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return location.Id.Value;
     }
 }

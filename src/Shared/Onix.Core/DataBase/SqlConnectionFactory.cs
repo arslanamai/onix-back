@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Npgsql;
 using Onix.Core.Abstraction;
 
-namespace Onix.Core.SqlConnect;
+namespace Onix.Core.DataBase;
 
 public class SqlConnectionFactory : ISqlConnectionFactory
 {

@@ -13,19 +13,19 @@ namespace Onix.WebSites.Application.Commands.Blocks.Update;
 public class UpdateBlockHandler
 {
     private readonly ILogger<UpdateBlockHandler> _logger;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly IValidator<UpdateBlockCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
 
     public UpdateBlockHandler(
         IValidator<UpdateBlockCommand> validator,
         IWebSiteRepository webSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<UpdateBlockHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _logger = logger;
     }
 
@@ -55,7 +55,7 @@ public class UpdateBlockHandler
         if (result.IsFailure)
             return result.Error.ToErrorList();
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

@@ -6,7 +6,7 @@ using Onix.WebSites.Application.Database;
 
 namespace Onix.WebSites.Infrastructure.DbContexts;
 
-public class ReadDbContext(IConfiguration configuration) : DbContext, IReadDbContext
+public class WebSiteReadDbContext(IConfiguration configuration) : DbContext, IWebSiteReadDbContext
 {
     private const string DATABASE = "Database";
     
@@ -29,7 +29,7 @@ public class ReadDbContext(IConfiguration configuration) : DbContext, IReadDbCon
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(ReadDbContext).Assembly,
+            typeof(WebSiteReadDbContext).Assembly,
             type => type.FullName?.Contains("Configurations.Read") ?? false);
         modelBuilder.HasDefaultSchema("website");
     }

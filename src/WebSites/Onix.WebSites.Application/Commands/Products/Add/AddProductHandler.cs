@@ -15,18 +15,18 @@ public class AddProductHandler
 {
     private readonly IValidator<AddProductCommand> _validator;
     private readonly IWebSiteRepository _webSiteRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly ILogger<AddProductHandler> _logger;
 
     public AddProductHandler(
         IValidator<AddProductCommand> validator,
         IWebSiteRepository webSiteRepository,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<AddProductHandler> logger)
     {
         _validator = validator;
         _webSiteRepository = webSiteRepository;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _logger = logger;
     }
 
@@ -54,7 +54,7 @@ public class AddProductHandler
             code).Value;
 
         webSiteResult.Value.AddProduct(product);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return product.Id.Value;
     }
 }

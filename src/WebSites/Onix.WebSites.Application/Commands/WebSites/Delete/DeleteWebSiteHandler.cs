@@ -13,18 +13,18 @@ public class DeleteWebSiteHandler
 {
     private readonly IWebSiteRepository _webSiteRepository;
     private readonly IValidator<DeleteWebSiteCommand> _validator;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebSiteUnitOfWork _webSiteUnitOfWork;
     private readonly ILogger<DeleteWebSiteCommand> _logger;
 
     public DeleteWebSiteHandler(
         IWebSiteRepository webSiteRepository,
         IValidator<DeleteWebSiteCommand> validator,
-        IUnitOfWork unitOfWork,
+        IWebSiteUnitOfWork webSiteUnitOfWork,
         ILogger<DeleteWebSiteCommand> logger)
     {
         _webSiteRepository = webSiteRepository;
         _validator = validator;
-        _unitOfWork = unitOfWork;
+        _webSiteUnitOfWork = webSiteUnitOfWork;
         _logger = logger;
     }
 
@@ -43,7 +43,7 @@ public class DeleteWebSiteHandler
         
         _webSiteRepository.Delete(webSite.Value, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _webSiteUnitOfWork.SaveChangesAsync(cancellationToken);
         return UnitResult.Success<ErrorList>();
     }
 }

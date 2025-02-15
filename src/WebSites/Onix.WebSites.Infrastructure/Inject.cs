@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Onix.Core.Abstraction;
-using Onix.Core.SqlConnect;
+using Onix.Core.DataBase;
 using Onix.WebSites.Application.Database;
 using Onix.WebSites.Infrastructure.DbContexts;
 using Onix.WebSites.Infrastructure.Repositories;
@@ -23,8 +23,7 @@ public static class Inject
     private static IServiceCollection AddDatabase(this IServiceCollection service)
     {
         service.AddSingleton<ISqlConnectionFactory, SqlConnectionFactory>();
-        service.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+        service.AddScoped<IWebSiteUnitOfWork, WebSiteUnitOfWork>();
         return service;
     }
 
@@ -39,8 +38,8 @@ public static class Inject
     private static IServiceCollection AddDbContext(
         this IServiceCollection service)
     {
-        service.AddScoped<WriteDbContext>();
-        service.AddScoped<IReadDbContext, ReadDbContext>();
+        service.AddScoped<WebSiteWriteDbContext>();
+        service.AddScoped<IWebSiteReadDbContext, WebSiteReadDbContext>();
 
         return service;
     }

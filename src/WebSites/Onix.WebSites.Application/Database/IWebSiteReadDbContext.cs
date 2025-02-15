@@ -2,7 +2,7 @@ using Onix.Core.Dtos;
 
 namespace Onix.WebSites.Application.Database;
 
-public interface IReadDbContext
+public interface IWebSiteReadDbContext
 {
     IQueryable<WebSiteDto> WebSites { get; }
     IQueryable<BlockDto> Blocks { get; }

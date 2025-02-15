@@ -9,18 +9,18 @@ namespace Onix.WebSites.Application.Queries.Products.GetById;
 
 public class GetProductByIdHandler
 {
-    private readonly IReadDbContext _readDbContext;
+    private readonly IWebSiteReadDbContext _webSiteReadDbContext;
 
-    public GetProductByIdHandler(IReadDbContext readDbContext)
+    public GetProductByIdHandler(IWebSiteReadDbContext webSiteReadDbContext)
     {
-        _readDbContext = readDbContext;
+        _webSiteReadDbContext = webSiteReadDbContext;
     }
 
     public async Task<Result<ProductDto, ErrorList>> Handle(
         GetProductByIdQuery query,
         CancellationToken cancellationToken = default)
     {
-        var webSiteDto = await _readDbContext.WebSites
+        var webSiteDto = await _webSiteReadDbContext.WebSites
             .FirstOrDefaultAsync(w => w.Id == query.WebSiteId, cancellationToken);
 
         if (webSiteDto is null)

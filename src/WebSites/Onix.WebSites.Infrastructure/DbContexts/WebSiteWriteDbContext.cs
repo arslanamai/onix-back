@@ -5,7 +5,7 @@ using Onix.WebSites.Domain.WebSites;
 
 namespace Onix.WebSites.Infrastructure.DbContexts;
 
-public class WriteDbContext(IConfiguration configuration) : DbContext
+public class WebSiteWriteDbContext(IConfiguration configuration) : DbContext
 {
     private const string DATABASE = "Database";
 
@@ -20,7 +20,7 @@ public class WriteDbContext(IConfiguration configuration) : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(WriteDbContext).Assembly,
+            typeof(WebSiteWriteDbContext).Assembly,
             type => type.FullName?.Contains("Configurations.Write") ?? false); 
         modelBuilder.HasDefaultSchema("website");
     }

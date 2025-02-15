@@ -1,20 +1,19 @@
 using System.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Onix.Account.Infrastructure.DbContexts;
 using Onix.Core.Abstraction;
-using Onix.WebSites.Infrastructure.DbContexts;
 
-namespace Onix.WebSites.Infrastructure;
+namespace Onix.Account.Infrastructure;
 
-public class UnitOfWork : IUnitOfWork
+public class AccountUnitOfWork : IAccountUnitOfWork
 {
-    private readonly WriteDbContext _dbContexts;
+    private readonly WriteAccountDbContext _dbContexts;
 
-    public UnitOfWork(WriteDbContext dbContexts)
+    public AccountUnitOfWork(WriteAccountDbContext dbContexts)
     {
         _dbContexts = dbContexts;
     }
-
+    
     public async Task<IDbTransaction> BeginTransaction(
         CancellationToken cancellationToken = default)
     {
@@ -29,4 +28,3 @@ public class UnitOfWork : IUnitOfWork
         await _dbContexts.SaveChangesAsync(cancellationToken);
     }
 }
-    

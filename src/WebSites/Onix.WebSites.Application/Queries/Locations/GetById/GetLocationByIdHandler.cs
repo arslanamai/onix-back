@@ -9,18 +9,18 @@ namespace Onix.WebSites.Application.Queries.Locations.GetById;
 
 public class GetLocationByIdHandler
 {
-    private readonly IReadDbContext _readDbContext;
+    private readonly IWebSiteReadDbContext _webSiteReadDbContext;
 
-    public GetLocationByIdHandler(IReadDbContext readDbContext)
+    public GetLocationByIdHandler(IWebSiteReadDbContext webSiteReadDbContext)
     {
-        _readDbContext = readDbContext;
+        _webSiteReadDbContext = webSiteReadDbContext;
     }
 
     public async Task<Result<LocationDto, ErrorList>> Handle(
         GetLocationByIdQuery query,
         CancellationToken cancellationToken = default)
     {
-        var webSiteDto = await _readDbContext.WebSites
+        var webSiteDto = await _webSiteReadDbContext.WebSites
             .FirstOrDefaultAsync(w => w.Id == query.WebSiteId, cancellationToken);
 
         if (webSiteDto is null)

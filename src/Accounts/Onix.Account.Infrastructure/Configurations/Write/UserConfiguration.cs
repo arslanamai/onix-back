@@ -4,7 +4,7 @@ using Onix.Account.Domain.Accounts;
 using Onix.SharedKernel;
 using Onix.SharedKernel.ValueObjects.Ids;
 
-namespace Onix.Account.Infrastructure.Configurations;
+namespace Onix.Account.Infrastructure.Configurations.Write;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

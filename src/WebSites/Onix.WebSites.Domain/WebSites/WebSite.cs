@@ -4,7 +4,6 @@ using Onix.SharedKernel.ValueObjects;
 using Onix.SharedKernel.ValueObjects.Ids;
 using Onix.WebSites.Domain.Blocks;
 using Onix.WebSites.Domain.Locations;
-using Onix.WebSites.Domain.Media;
 using Onix.WebSites.Domain.Products;
 
 namespace Onix.WebSites.Domain.WebSites;
