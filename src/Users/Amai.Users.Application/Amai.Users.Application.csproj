@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Shared\Amai.Core\Amai.Core.csproj" />
+        <ProjectReference Include="..\..\Shared\Amai.SharedKernel\Amai.SharedKernel.csproj" />
+        <ProjectReference Include="..\..\Stores\Amai.Store.Domain\Amai.Store.Domain.csproj" />
+        <ProjectReference Include="..\Amai.Users.Domain\Amai.Users.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
