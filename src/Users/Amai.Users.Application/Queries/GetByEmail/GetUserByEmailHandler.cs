@@ -1,9 +1,9 @@
+using Amai.Core.Abstraction;
+using Amai.Core.Dtos;
+using Amai.SharedKernel;
 using Amai.Users.Application.DateBase;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
-using Onix.Core.Abstraction;
-using Onix.Core.Dtos;
-using Onix.SharedKernel;
 
 namespace Amai.Users.Application.Queries.GetByEmail;
 

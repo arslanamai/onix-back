@@ -1,6 +1,6 @@
+using Amai.Core.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Onix.Core.Dtos;
 
 namespace Amai.Users.Infrastructure.Configurations.Read;
 
@@ -16,6 +16,6 @@ public class UserDtoConfiguration : IEntityTypeConfiguration<UserDto>
             .HasColumnName("Id");
         
         builder.Property(u => u.Email)
-            .HasColumnName("Email");
+            .HasColumnName("email");
     }
 }

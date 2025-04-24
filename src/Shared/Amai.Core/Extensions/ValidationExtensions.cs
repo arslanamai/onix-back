@@ -1,7 +1,7 @@
+using Amai.SharedKernel;
 using FluentValidation.Results;
-using Onix.SharedKernel;
 
-namespace Onix.Core.Extensions;
+namespace Amai.Core.Extensions;
 
 public static class ValidationExtensions
 {

@@ -1,4 +1,4 @@
-namespace Onix.SharedKernel.ValueObjects.Ids;
+namespace Amai.SharedKernel.ValueObjects.Ids;
 
 public record WebSiteId
 {

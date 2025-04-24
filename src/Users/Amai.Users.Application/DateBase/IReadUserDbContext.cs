@@ -1,4 +1,4 @@
-using Onix.Core.Dtos;
+using Amai.Core.Dtos;
 
 namespace Amai.Users.Application.DateBase;
 

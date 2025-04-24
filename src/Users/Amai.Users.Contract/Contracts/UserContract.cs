@@ -1,11 +1,11 @@
+using Amai.Core.Abstraction;
+using Amai.Core.Contracts.Users;
+using Amai.Core.Dtos;
+using Amai.SharedKernel;
 using Amai.Users.Application.Queries.GetByEmail;
 using Amai.Users.Application.Queries.GetById;
 using Amai.Users.Application.Queries.GetBySub;
 using CSharpFunctionalExtensions;
-using Onix.Core.Abstraction;
-using Onix.Core.Contracts.Users;
-using Onix.Core.Dtos;
-using Onix.SharedKernel;
 
 namespace Amai.Users.Contract.Contracts;
 

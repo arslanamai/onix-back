@@ -1,6 +1,6 @@
 using CSharpFunctionalExtensions;
 
-namespace Onix.SharedKernel.ValueObjects;
+namespace Amai.SharedKernel.ValueObjects;
 
 public class Email
 {

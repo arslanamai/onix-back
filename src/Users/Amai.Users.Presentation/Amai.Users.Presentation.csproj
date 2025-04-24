@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Amai.Framework\Amai.Framework.csproj" />
+      <ProjectReference Include="..\Amai.Users.Application\Amai.Users.Application.csproj" />
+    </ItemGroup>
+
 </Project>

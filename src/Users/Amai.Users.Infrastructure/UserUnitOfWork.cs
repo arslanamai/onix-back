@@ -1,8 +1,7 @@
 using System.Data;
+using Amai.Core.Abstraction;
 using Amai.Users.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore.Storage;
-using Onix.Core.Abstraction;
-
 namespace Amai.Users.Infrastructure;
 
 public class UserUnitOfWork : IUserUnitOfWork
@@ -14,12 +13,11 @@ public class UserUnitOfWork : IUserUnitOfWork
         _dbContexts = dbContexts;
     }
     
-    public async Task<IDbTransaction> BeginTransaction(
-        CancellationToken cancellationToken = default)
+    public async Task<IDbContextTransaction> BeginTransaction(CancellationToken cancellationToken = default)
     {
         var transaction = await _dbContexts.Database.BeginTransactionAsync(cancellationToken);
-        
-        return transaction.GetDbTransaction();
+    
+        return transaction;
     }
 
     public async Task SaveChangesAsync(

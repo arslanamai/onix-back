@@ -1,8 +1,8 @@
+using Amai.SharedKernel;
 using CSharpFunctionalExtensions;
 using FluentValidation;
-using Onix.SharedKernel;
 
-namespace Onix.Core.Validation;
+namespace Amai.Core.Validation;
 
 public static class CustomValidators
 {

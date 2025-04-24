@@ -1,4 +1,4 @@
-namespace Onix.SharedKernel;
+namespace Amai.SharedKernel;
 
 public class ConstType
 {
@@ -23,4 +23,7 @@ public class ConstType
     public const string Name = "name";
     public const string Sub = "Sub";
     public const string Email = "Email";
+    
+    //identity
+    public const string Bearer = "Bearer";
 }

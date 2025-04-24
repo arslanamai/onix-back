@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Onix.Core.Dtos;
+namespace Amai.Core.Dtos;
 
 public class BlockDto
 {

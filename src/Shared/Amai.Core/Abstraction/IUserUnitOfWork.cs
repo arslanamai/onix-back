@@ -1,10 +1,10 @@
-using System.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Onix.Core.Abstraction;
+namespace Amai.Core.Abstraction;
 
 public interface IUserUnitOfWork
 {
-    Task<IDbTransaction> BeginTransaction(
+    Task<IDbContextTransaction> BeginTransaction(
         CancellationToken cancellationToken = default);
 
     Task SaveChangesAsync(

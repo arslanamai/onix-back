@@ -1,4 +1,4 @@
-using Onix.Core.Abstraction;
+using Amai.Core.Abstraction;
 
 namespace Amai.Users.Application.Queries.GetByEmail;
 

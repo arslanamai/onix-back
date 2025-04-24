@@ -1,8 +1,8 @@
+using Amai.SharedKernel;
+using Amai.SharedKernel.ValueObjects.Ids;
 using Amai.Users.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Onix.SharedKernel;
-using Onix.SharedKernel.ValueObjects.Ids;
 
 namespace Amai.Users.Infrastructure.Configurations.Write;
 

@@ -1,13 +1,13 @@
+using Amai.SharedKernel;
+using Amai.SharedKernel.ValueObjects.Ids;
 using Amai.Users.Domain.Users;
 using CSharpFunctionalExtensions;
-using Onix.SharedKernel;
-using Onix.SharedKernel.ValueObjects.Ids;
 
 namespace Amai.Users.Application.DateBase;
 
 public interface IUserRepository
 {
-    Task<Result<User,Error>> GetById(
+    Task<Result<User, Error>> GetById(
         UserId userId, CancellationToken cancellationToken = default);
 
     Task<Guid> Add(

@@ -1,6 +1,6 @@
+using Amai.Core.Contracts.Users;
 using Amai.Users.Contract.Contracts;
 using Microsoft.Extensions.DependencyInjection;
-using Onix.Core.Contracts.Users;
 
 namespace Amai.Users.Contract;
 

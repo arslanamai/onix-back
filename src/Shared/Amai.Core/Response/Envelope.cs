@@ -1,14 +1,14 @@
+using Amai.SharedKernel;
 using CSharpFunctionalExtensions;
-using Onix.SharedKernel;
 
-namespace Onix.Core.Response
+namespace Amai.Core.Response
 {
     public record Envelope
     {
         public object? Result { get; }
 
         public ErrorList? Errors { get; }
-
+        
         public DateTime TimeGenerated { get; }
 
         private Envelope(object? result, ErrorList? errors)

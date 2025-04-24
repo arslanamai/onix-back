@@ -1,6 +1,6 @@
+using Amai.Core.Validation;
+using Amai.SharedKernel;
 using FluentValidation;
-using Onix.Core.Validation;
-using Onix.SharedKernel;
 
 namespace Amai.Users.Application.Commands.Users.Add;
 
@@ -9,7 +9,7 @@ public class AddUserValidator : AbstractValidator<AddUserCommand>
     public AddUserValidator()
     {
         RuleFor(u => u.Email.ToString())
-            .Matches(Constants.ID_REGEX)
+            .Matches(Constants.EMAIL_REGEX)
             .WithError(Errors.Domains.Invalid(ConstType.Email));
         
         RuleFor(u => u.Email)

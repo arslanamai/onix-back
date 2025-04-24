@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Onix.SharedKernel;
+namespace Amai.SharedKernel;
 
 public class ErrorList : IEnumerable<Error>
 {

@@ -1,4 +1,4 @@
-namespace Onix.SharedKernel;
+namespace Amai.SharedKernel;
 
 public abstract class Entity<TId> where TId : notnull
 {

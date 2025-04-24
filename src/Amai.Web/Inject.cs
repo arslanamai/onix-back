@@ -1,19 +1,17 @@
-
 using Amai.Users.Application;
 using Amai.Users.Contract;
 using Amai.Users.Infrastructure;
+using Amai.Users.Presentation;
 
-namespace Onix.Web;
+namespace Amai.Web;
 
 public static class Inject
 {
     public static IServiceCollection AddAllService(
         this IServiceCollection services, IConfiguration configuration)
     {
-        /*services.AddWebSiteApplication()
-            .AddWebSiteInfrastructure(configuration)
-            .AddWebSitePresentation();*/
-
+        services.AddHttpClient();
+        
         services.AddUserService(configuration);
         
         return services;
@@ -26,6 +24,7 @@ public static class Inject
         service
             .AddUserApplication()
             .AddUserContract()
+            .AddUserPresentation()
             .AddUserInfrastructure(configuration);
         
         return service;

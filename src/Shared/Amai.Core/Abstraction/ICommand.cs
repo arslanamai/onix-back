@@ -1,3 +1,3 @@
-namespace Onix.Core.Abstraction;
+namespace Amai.Core.Abstraction;
 
 public interface ICommand;

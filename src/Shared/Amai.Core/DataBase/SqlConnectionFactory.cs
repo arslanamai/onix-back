@@ -1,9 +1,9 @@
 ﻿using System.Data;
+using Amai.Core.Abstraction;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using Onix.Core.Abstraction;
 
-namespace Onix.Core.DataBase;
+namespace Amai.Core.DataBase;
 
 public class SqlConnectionFactory : ISqlConnectionFactory
 {

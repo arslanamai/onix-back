@@ -1,8 +1,8 @@
+using Amai.Core.Dtos;
+using Amai.SharedKernel;
 using CSharpFunctionalExtensions;
-using Onix.Core.Dtos;
-using Onix.SharedKernel;
 
-namespace Onix.Core.Contracts.Users;
+namespace Amai.Core.Contracts.Users;
 
 public interface IUserContract
 {

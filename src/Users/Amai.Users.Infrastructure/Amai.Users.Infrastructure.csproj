@@ -7,14 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EFCore.NamingConventions" Version="9.0.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+        <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Amai.Core\Amai.Core.csproj" />
-      <ProjectReference Include="..\..\Shared\Amai.SharedKernel\Amai.SharedKernel.csproj" />
       <ProjectReference Include="..\Amai.Users.Application\Amai.Users.Application.csproj" />
       <ProjectReference Include="..\Amai.Users.Domain\Amai.Users.Domain.csproj" />
     </ItemGroup>

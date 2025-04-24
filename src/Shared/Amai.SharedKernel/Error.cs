@@ -1,4 +1,4 @@
-namespace Onix.SharedKernel;
+namespace Amai.SharedKernel;
 
 public record Error
 {

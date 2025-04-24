@@ -1,7 +1,7 @@
+using Amai.SharedKernel;
 using CSharpFunctionalExtensions;
-using Onix.SharedKernel;
 
-namespace Onix.Core.Abstraction;
+namespace Amai.Core.Abstraction;
 
 public interface ICommandHandler<TResponse, in TCommand> where TCommand : ICommand
 {

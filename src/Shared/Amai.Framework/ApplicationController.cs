@@ -1,7 +1,7 @@
+using Amai.Core.Response;
 using Microsoft.AspNetCore.Mvc;
-using Onix.Core.Response;
 
-namespace Onix.Framework;
+namespace Amai.Framework;
 
 [ApiController]
 public class ApplicationController : ControllerBase

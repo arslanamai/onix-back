@@ -1,9 +1,9 @@
+using Amai.Core.Response;
+using Amai.SharedKernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Onix.Core.Response;
-using Onix.SharedKernel;
 
-namespace Onix.Framework;
+namespace Amai.Framework;
 
 public static class ResponseExtensions
 {

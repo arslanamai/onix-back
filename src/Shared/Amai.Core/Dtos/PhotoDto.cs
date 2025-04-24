@@ -1,4 +1,4 @@
-namespace Onix.Core.Dtos;
+namespace Amai.Core.Dtos;
 
 public class PhotoDto
 {

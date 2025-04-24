@@ -1,6 +1,5 @@
+using Amai.Core.Abstraction;
+
 namespace Amai.Users.Application.Commands.Users.Delete;
 
-public class DeleteUserCommand
-{
-    
-}
+public record DeleteUserCommand(Guid Id) : ICommand;
