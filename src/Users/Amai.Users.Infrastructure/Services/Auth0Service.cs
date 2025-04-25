@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
 using Amai.Core.Response;
 using Amai.SharedKernel;
