@@ -8,12 +8,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace Amai.Users.Infrastructure.Services;
 
-public class Auth0Service : IAuth0Service
+public class AuthService : IAuthService
 {
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _config;
 
-    public Auth0Service(HttpClient httpClient, IConfiguration config)
+    public AuthService(HttpClient httpClient, IConfiguration config)
     {
         _httpClient = httpClient;
         _config = config;

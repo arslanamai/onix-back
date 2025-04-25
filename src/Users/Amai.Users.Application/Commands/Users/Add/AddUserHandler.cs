@@ -21,7 +21,7 @@ public class AddUserHandler: ICommandHandler<string,AddUserCommand>
     private readonly IUserRepository _userRepository;
     private readonly IUserUnitOfWork _userUnitOfWork;
     private readonly IUserContract _userContract;
-    private readonly IAuth0Service _auth0Service;
+    private readonly IAuthService _authService;
 
     public AddUserHandler(
         IValidator<AddUserCommand> validator,
@@ -29,14 +29,14 @@ public class AddUserHandler: ICommandHandler<string,AddUserCommand>
         IUserRepository userRepository,
         IUserUnitOfWork userUnitOfWork,
         IUserContract userContract,
-        IAuth0Service auth0Service  )
+        IAuthService authService  )
     {
         _validator = validator;
         _logger = logger;
         _userRepository = userRepository;
         _userUnitOfWork = userUnitOfWork;
         _userContract = userContract;
-        _auth0Service = auth0Service;
+        _authService = authService;
     }
 
     public async Task<Result<string, ErrorList>> Handle(
@@ -63,7 +63,7 @@ public class AddUserHandler: ICommandHandler<string,AddUserCommand>
             
             await _userRepository.Add(user, cancellationToken);
             
-            var registerResult = await _auth0Service.RegisterAsync(command.Email, command.Password);
+            var registerResult = await _authService.RegisterAsync(command.Email, command.Password);
             if (registerResult.IsFailure)
                 return registerResult.Error.ToErrorList();
 
