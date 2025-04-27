@@ -10,10 +10,10 @@ public class DeleteUserValidator : AbstractValidator<DeleteUserCommand>
     {
         RuleFor(u => u.Id)
             .NotEmpty()
-            .WithError(Errors.Domains.Required(ConstType.UserId));
+            .WithError(Errors.Validation.Required(ConstType.UserId));
 
         RuleFor(u => u.Id.ToString())
             .Matches(Constants.ID_REGEX)
-            .WithError(Errors.Domains.Invalid(ConstType.UserId));
+            .WithError(Errors.Validation.Invalid(ConstType.UserId));
     }
 }

@@ -10,14 +10,14 @@ public class AddUserValidator : AbstractValidator<AddUserCommand>
     {
         RuleFor(u => u.Email.ToString())
             .Matches(Constants.EMAIL_REGEX)
-            .WithError(Errors.Domains.Invalid(ConstType.Email));
+            .WithError(Errors.Validation.Invalid(ConstType.Email));
         
         RuleFor(u => u.Email)
             .NotEmpty()
-            .WithError(Errors.Domains.Required(ConstType.Email));
+            .WithError(Errors.Validation.Required(ConstType.Email));
         
         RuleFor(u => u.Email)
             .MaximumLength(Constants.EMAIL_MAX_LENGTH)
-            .WithError(Errors.Domains.MaxLength(ConstType.Email));
+            .WithError(Errors.Validation.MaxLength(ConstType.Email));
     }
 }

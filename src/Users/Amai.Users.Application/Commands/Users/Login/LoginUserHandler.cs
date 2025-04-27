@@ -23,7 +23,7 @@ public class LoginUserHandler: ICommandHandler<TokenResponse,AddUserCommand>
     private readonly IUserRepository _userRepository;
     private readonly IUserUnitOfWork _userUnitOfWork;
     private readonly IUserContract _userContract;
-    private readonly IAuth0Service _auth0Service;
+    private readonly IAuthService _authService;
 
     public LoginUserHandler(
         IValidator<AddUserCommand> validator,
@@ -31,14 +31,14 @@ public class LoginUserHandler: ICommandHandler<TokenResponse,AddUserCommand>
         IUserRepository userRepository,
         IUserUnitOfWork userUnitOfWork,
         IUserContract userContract,
-        IAuth0Service auth0Service  )
+        IAuthService authService  )
     {
         _validator = validator;
         _logger = logger;
         _userRepository = userRepository;
         _userUnitOfWork = userUnitOfWork;
         _userContract = userContract;
-        _auth0Service = auth0Service;
+        _authService = authService;
     }
 
     public async Task<Result<TokenResponse, ErrorList>> Handle(
@@ -48,10 +48,10 @@ public class LoginUserHandler: ICommandHandler<TokenResponse,AddUserCommand>
         if (!validationResult.IsValid)
             return validationResult.ToList();
 
-        var tokenResult = await _auth0Service.LoginAsync(command.Email, command.Password);
+        var tokenResult = await _authService.LoginAsync(command.Email, command.Password);
         if (tokenResult.IsFailure)
             return tokenResult.Error.ToErrorList();
-
+        
         return tokenResult.Value;
     }
 }
